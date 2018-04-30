@@ -1,0 +1,45 @@
+{
+    "development": {
+        "title": "",
+        "port": 3000,
+        "db": {
+            "host": "",
+            "user": "",
+            "username": "",
+            "password": "",
+            "database": "",
+            "dialect": "mysql",
+            "logging": true,
+            "multipleStatements": true,
+            "timezone": "+09:00",
+            "upload_path": "webdata/uploads",
+            "operatorsAliases": false
+        },
+        "path": {
+              "view": "/../.tmp/serve",
+              "index": "/../src"
+        }
+    },
+  "production": {
+    "title": "",
+    "port": 0,
+    "db": {
+            "host": "",
+            "user": "",
+            "username": "",
+            "password": "",
+            "database": "",
+            "dialect": "mysql",
+            "logging": true,
+            "multipleStatements": true,
+            "timezone": "+09:00",
+            "upload_path": "webdata/uploads",
+            "operatorsAliases": false
+    },
+        "path": { 
+      "view": "/../dist",
+      "index": "/../dist",
+      "src": "/../src"
+    }
+  }
+}
