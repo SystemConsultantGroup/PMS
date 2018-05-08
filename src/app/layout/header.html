@@ -1,0 +1,10 @@
+<md-toolbar>
+	<div class="md-toolbar-tools">
+		<div ng-controller="LayoutController as layout">
+			<ng-md-icon icon="menu" ng-click="layout.toggleLeft()" hide-gt-md style="margin-right:10px;cursor:pointer"></ng-md-icon>
+			<h2 style="font-size: 23pt;">{{layout.stateParams.title}}</h2>
+		</div>
+		<span flex></span>
+	<md-button ng-controller="LoginController as login" class="md-raised" ng-click="login.logout();"><a href=""></a>로그아웃</md-button>
+	</div>
+</md-toolbar>

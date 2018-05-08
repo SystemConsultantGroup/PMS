@@ -48,6 +48,7 @@ app.use(session({
     cookie: { maxAge: 3*60*60*1000 }
 }));
 
+
 app.set('view engine', 'html');
 app.use(logger('dev'));
 app.use(bodyParser.json());
