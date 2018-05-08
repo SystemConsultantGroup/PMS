@@ -8,7 +8,7 @@
     /** @ngInject */
   function LayoutController($rootScope, $state, $scope, $stateParams, $mdSidenav, $http) {
 
-    var vm = this;
+    const vm = this;
     /* 교수 정보 */
     vm.state = $state;
     vm.stateParams = $stateParams;

@@ -7,7 +7,7 @@ angular
 
 //로그인 컨트롤러
 function LoginController($log, $rootScope,$scope, $http, $state, $location, $sessionStorage, $document, $window, SHA256) {
-    var vm = this;
+    const vm = this;
     vm.log = $log.log;
 
     vm.log("Login controller loaded");

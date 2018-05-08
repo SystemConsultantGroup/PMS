@@ -9,5 +9,8 @@
     "angular": true,
     "module": true,
     "inject": true
-  }
+  },
+  "parserOptions": {
+   "ecmaVersion": 6
+ }
 }
