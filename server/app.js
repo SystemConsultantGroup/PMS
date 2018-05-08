@@ -40,8 +40,8 @@ if (process.env.NODE_ENV === "production") {
 
 // Session maintain time : 3 hours
 app.use(session({
-    key: '',
-    secret: '',
+    key: 'scg',
+    secret: 'scg',
     proxy: true,
     resave: true,
     saveUninitialized: true,
@@ -77,12 +77,14 @@ const _storage = multer.diskStorage({
 const upload = multer({ storage: _storage }, {limits: 1024 * 1024 * 20 });
 const routes = require('./routes/index');
 
+/* 개발을 위해 잠시 주석처리
 app.use('/*', function (req, res, next) {
     if(!req.baseUrl.includes('login') && req.session.user == null)
         res.redirect('/login');
     else
         next();
 })
+*/
 
 //라우팅
 app.use('/', routes);

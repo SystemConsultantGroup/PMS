@@ -1,6 +1,6 @@
 <body>
   <div class="demo">
-    <div class="login" ng-controller="LoginController">
+    <div class="login" ng-controller="LoginController as login">
       <!--
       <div class="login__check"></div>
       -->
@@ -21,7 +21,7 @@
           </svg>
           <input type="password" class="login__input pass" placeholder="Password"/>
         </div>
-        <button type="button" class="login__submit">Sign in</button>
+        <button type="button" class="login__submit" ng-click="login.login()">Sign in</button>
         <p class="login__signup">Don't have an account? <a>Sign up</a></p>
       </div>
 </body>
