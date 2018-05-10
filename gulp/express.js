@@ -1,53 +1,36 @@
-'use strict';
-
-var path = require('path');
-var gulp = require('gulp');
-var conf = require('./conf');
-
-var nodemon = require('gulp-nodemon');
-
-gulp.task('set-dev-node-env', function() {
-    return process.env.NODE_ENV = 'development';
-});
-
-gulp.task('set-prod-node-env', function() {
-    return process.env.NODE_ENV = 'production';
-});
 
 
-gulp.task('express', ['watch','set-dev-node-env'], function ()
-{
-    return nodemon({
-        script: path.join(conf.paths.server, 'app.js'),
-        watch: conf.paths.server
-    });
-});
+const path = require('path');
+const gulp = require('gulp');
+const conf = require('./conf');
 
-gulp.task('express:dist_fasterbuild', ['set-buildtype-faster', 'build', 'set-prod-node-env'], function ()
-{
-    return nodemon({
-        script: path.join(conf.paths.server, 'app.js'),
-        watch: conf.paths.server
-    });
-});
+const nodemon = require('gulp-nodemon');
 
-gulp.task('express:dist_wobuild', ['set-prod-node-env'], function ()
-{
-    return nodemon({
-        script: path.join(conf.paths.server, 'app.js'),
-        watch: conf.paths.server
-    });
-});
+gulp.task('set-dev-node-env', () => process.env.NODE_ENV = 'development');
+
+gulp.task('set-prod-node-env', () => process.env.NODE_ENV = 'production');
 
 
-gulp.task('express:dist', ['set-buildtype-normal', 'build', 'set-prod-node-env'], function ()
-{
-    return nodemon({
-        script: path.join(conf.paths.server, 'app.js'),
-        watch: conf.paths.server
-    });
-});
+gulp.task('express', ['watch', 'set-dev-node-env'], () => nodemon({
+  script: path.join(conf.paths.server, 'app.js'),
+  watch: conf.paths.server
+}));
 
+gulp.task('express:dist_fasterbuild', ['set-buildtype-faster', 'build', 'set-prod-node-env'], () => nodemon({
+  script: path.join(conf.paths.server, 'app.js'),
+  watch: conf.paths.server
+}));
+
+gulp.task('express:dist_wobuild', ['set-prod-node-env'], () => nodemon({
+  script: path.join(conf.paths.server, 'app.js'),
+  watch: conf.paths.server
+}));
+
+
+gulp.task('express:dist', ['set-buildtype-normal', 'build', 'set-prod-node-env'], () => nodemon({
+  script: path.join(conf.paths.server, 'app.js'),
+  watch: conf.paths.server
+}));
 
 
 // gulp.task('reload:browser', function (callback)

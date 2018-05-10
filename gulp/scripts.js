@@ -1,26 +1,22 @@
-'use strict';
-
-var path = require('path');
-var gulp = require('gulp');
-var conf = require('./conf');
-
-var browserSync = require('browser-sync');
-
-var $ = require('gulp-load-plugins')();
 
 
-gulp.task('scripts-reload', function() {
-  return buildScripts()
-    .pipe(browserSync.stream());
-});
+const path = require('path');
+const gulp = require('gulp');
+const conf = require('./conf');
 
-gulp.task('scripts', function() {
-  return buildScripts();
-});
+const browserSync = require('browser-sync');
+
+const $ = require('gulp-load-plugins')();
+
+
+gulp.task('scripts-reload', () => buildScripts()
+  .pipe(browserSync.stream()));
+
+gulp.task('scripts', () => buildScripts());
 
 function buildScripts() {
   return gulp.src(path.join(conf.paths.src, '/app/**/*.js'))
     .pipe($.eslint())
     .pipe($.eslint.format())
-    .pipe($.size())
-};
+    .pipe($.size());
+}

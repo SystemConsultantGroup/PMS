@@ -1,38 +1,38 @@
-'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
-var conf = require('./conf');
 
-var $ = require('gulp-load-plugins')();
+const path = require('path');
+const gulp = require('gulp');
+const conf = require('./conf');
 
-var wiredep = require('wiredep').stream;
-var _ = require('lodash');
+const $ = require('gulp-load-plugins')();
 
-var browserSync = require('browser-sync');
+const wiredep = require('wiredep').stream;
+const _ = require('lodash');
 
-gulp.task('inject-reload', ['inject'], function() {
+const browserSync = require('browser-sync');
+
+gulp.task('inject-reload', ['inject'], () => {
   browserSync.reload();
 });
 
-gulp.task('inject', ['scripts'], function () {
-  var injectStyles = gulp.src([
+gulp.task('inject', ['scripts'], () => {
+  const injectStyles = gulp.src([
     path.join(conf.paths.src, '/app/**/*.css'),
     path.join(conf.paths.src, '/app/css/fonts/**/css/*.css')
   ], { read: false });
 
-  var injectScripts = gulp.src([
+  const injectScripts = gulp.src([
     path.join(conf.paths.src, '/app/**/*.module.js'),
     path.join(conf.paths.src, '/app/**/*.js'),
     path.join(conf.paths.src, '/app/js/**/*.js'),
-    path.join('!' + conf.paths.src, '/app/**/*.spec.js'),
-    path.join('!' + conf.paths.src, '/app/**/*.mock.js'),
+    path.join(`!${conf.paths.src}`, '/app/**/*.spec.js'),
+    path.join(`!${conf.paths.src}`, '/app/**/*.mock.js'),
   ])
-  .pipe($.angularFilesort()).on('error', conf.errorHandler('AngularFilesort'));
+    .pipe($.angularFilesort()).on('error', conf.errorHandler('AngularFilesort'));
   console.log(path.join(conf.paths.src, '/app/**/*.module.js'));
   console.log(path.join(conf.paths.src, '/app/**/*.js'));
 
-  var injectOptions = {
+  const injectOptions = {
     ignorePath: [conf.paths.src, path.join(conf.paths.tmp, '/serve')],
     addRootSlash: true
   };

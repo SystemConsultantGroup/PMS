@@ -1,7 +1,4 @@
-(function() {
-  'use strict';
-
+(function () {
   angular
-    .module('pms', ['ngCookies', 'ngSanitize', 'ui.router', 'toastr', 'ngMaterial', 'ngMdIcons', 'md.data.table', 'ngFileUpload','ngSessionStorage', 'ckeditor']);
-
-})();
+    .module('pms', ['ngCookies', 'ngSanitize', 'ui.router', 'toastr', 'ngMaterial', 'ngMdIcons', 'md.data.table', 'ngFileUpload', 'ngSessionStorage', 'ckeditor']);
+}());

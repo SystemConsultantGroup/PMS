@@ -1,27 +1,23 @@
-'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
-var conf = require('./conf');
 
-var browserSync = require('browser-sync');
+const path = require('path');
+const gulp = require('gulp');
+const conf = require('./conf');
 
-var $ = require('gulp-load-plugins')();
+const browserSync = require('browser-sync');
 
-var wiredep = require('wiredep').stream;
-var _ = require('lodash');
+const $ = require('gulp-load-plugins')();
 
-gulp.task('styles-reload', ['styles'], function() {
-  return buildStyles()
-    .pipe(browserSync.stream());
-});
+const wiredep = require('wiredep').stream;
+const _ = require('lodash');
 
-gulp.task('styles', function() {
-  return buildStyles();
-});
+gulp.task('styles-reload', ['styles'], () => buildStyles()
+  .pipe(browserSync.stream()));
 
-var buildStyles = function() {
-  var lessOptions = {
+gulp.task('styles', () => buildStyles());
+
+var buildStyles = function () {
+  const lessOptions = {
     options: [
       'bower_components',
       path.join(conf.paths.src, '/app')
@@ -33,19 +29,18 @@ var buildStyles = function() {
   //   path.join('!' + conf.paths.src, '/app/index.less')
   // ], { read: false });
 
-  var injectFiles = gulp.src([
+  const injectFiles = gulp.src([
     path.join(conf.paths.src, '/app/**/*.css'),
-    path.join('!' + conf.paths.src, '/app/index.css')
+    path.join(`!${conf.paths.src}`, '/app/index.css')
   ], {
     read: false
   });
 
 
-
-  var injectOptions = {
-    transform: function(filePath) {
-      filePath = filePath.replace(conf.paths.src + '/app/', '');
-      return '@import "' + filePath + '";';
+  const injectOptions = {
+    transform(filePath) {
+      filePath = filePath.replace(`${conf.paths.src}/app/`, '');
+      return `@import "${filePath}";`;
     },
     starttag: '// injector',
     endtag: '// endinjector',
@@ -54,14 +49,16 @@ var buildStyles = function() {
 
 
   return gulp.src([
-      // path.join(conf.paths.src, '/app/index.less')
-      path.join(conf.paths.src, '/app/index.css')
-    ])
+    // path.join(conf.paths.src, '/app/index.less')
+    path.join(conf.paths.src, '/app/index.css')
+  ])
     .pipe($.inject(injectFiles, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))
     .pipe($.sourcemaps.init())
-    .pipe($.less(lessOptions)).on('error', conf.errorHandler('Less'))
-    .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
+    .pipe($.less(lessOptions))
+    .on('error', conf.errorHandler('Less'))
+    .pipe($.autoprefixer())
+    .on('error', conf.errorHandler('Autoprefixer'))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')));
 };

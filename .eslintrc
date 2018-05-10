@@ -1,16 +1,18 @@
 {
-  "extends": "eslint:recommended",
-  "plugins": ["angular"],
   "env": {
-    "browser": true,
-    "jasmine": true
+      "browser": true,
+      "es6": true
   },
-  "globals": {
-    "angular": true,
-    "module": true,
-    "inject": true
-  },
+  "extends": "airbnb",
   "parserOptions": {
-   "ecmaVersion": 6
- }
+      "sourceType": "module"
+  },
+  "rules": {
+      "array-callback-return": "off",
+      "arrow-parens": "off",
+      "camelcase": "off",
+      "comma-dangle": "off",
+      "linebreak-style": "off",
+      "no-param-reassign": "off"
+  }
 }

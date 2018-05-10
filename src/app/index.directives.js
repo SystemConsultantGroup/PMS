@@ -1,8 +1,4 @@
-(function() {
-    'use strict';
-
-    angular
-        .module('pms');
-
-
-})();
+(function () {
+  angular
+    .module('pms');
+}());

@@ -1,14 +1,10 @@
-(function() {
-    'use strict';
+(function () {
+  angular
+    .module('pms')
+    .run(runBlock);
 
-    angular
-        .module('pms')
-        .run(runBlock);
-
-    /** @ngInject */
-    function runBlock($log) {
-
-        $log.debug('runBlock end');
-    }
-
-})();
+  /** @ngInject */
+  function runBlock($log) {
+    $log.debug('runBlock end');
+  }
+}());
