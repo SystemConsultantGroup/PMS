@@ -38,6 +38,6 @@
   "devDependencies": {},
   "resolutions": {
     "angular-ui-router": "^1.0.5",
-    "angular": "1.6.10"
+    "angular": "1.7.0"
   }
 }
