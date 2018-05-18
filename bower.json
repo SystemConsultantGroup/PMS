@@ -1,5 +1,5 @@
 {
-	"name": "gradsys",
+	"name": "pms",
 	"version": "0.0.0",
 	"dependencies": {
 		"moment": "^2.18.1",
