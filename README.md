@@ -4,7 +4,12 @@ This is an open-source project management system for developers.
 
 # Installation
 
+Node Version > 8.11.x
+
+Run the following instruction in command prompt with administrative authorization
 > npm install && bower install
+
+Note: Gulp and bower must be globally installed
 
 # Usage
 
