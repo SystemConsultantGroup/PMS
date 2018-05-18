@@ -90,6 +90,7 @@ app.use('/*', function (req, res, next) {
 
 // 라우팅
 app.use('/', routes);
+app.use('/admin',admin);
 
 // angular route html5Mode support
 app.use('/*', (req, res) => {
