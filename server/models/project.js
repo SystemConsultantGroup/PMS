@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
   const project = sequelize.define('project', {
-    p_id: {
+    pid: {
       type: DataTypes.INTEGER,
       primarykey: true,
       allowNull: false,
@@ -24,8 +24,8 @@ module.exports = function (sequelize, DataTypes) {
       domain: '일시'
     },
     done: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
+      type: DataTypes.DATE,
+      allowNull: true,
       comment: '완료여부'
     }
 
@@ -33,5 +33,8 @@ module.exports = function (sequelize, DataTypes) {
     tableName: 'project',
     comment: '프로젝트'
   });
+  project.associate = function(models){
+      project.belongsTo(models.user, { foreignKey: {name: 'uid', allowNull: true}, onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+    }
   return project;
 };
