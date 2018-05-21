@@ -1,6 +1,5 @@
-module.exports = function (sequelize, DataTypes) {
   const todo = sequelize.define('todo', {
-    td_id: {
+    tdid: {
       type: DataTypes.INTEGER,
       allowNull: false,
       comment: '아이디'
@@ -17,8 +16,8 @@ module.exports = function (sequelize, DataTypes) {
       domain: '일시'
     },
     done: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
+      type: DataTypes.DATE,
+      allowNull: true,
       comment: '완료 여부'
     }
   }, {
@@ -26,7 +25,10 @@ module.exports = function (sequelize, DataTypes) {
     comment: '새 테이블'
   });
   todo.associate = function (models) {
-    todo.belongsTo(models.project, { foreignKey: { name: 'p_id', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+    todo.belongsTo(models.project, { foreignKey: { name: 'pid', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' });
   };
   return todo;
 };
+
+
+

@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
   const user = sequelize.define('user', {
-    u_id: {
+    uid: {
       type: DataTypes.STRING(20),
       primarykey: true,
       allowNull: false,
@@ -26,6 +26,12 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING(20),
       allowNull: true,
       comment: '전화번호'
+    },
+    auth: {
+      type: DataTypes.INTEGER(1),
+      allowNull: false,
+      comment: '권한',
+      defaultValue: 0,
     }
 
   }, {
