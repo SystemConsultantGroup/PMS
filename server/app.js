@@ -77,7 +77,8 @@ const _storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: _storage }, { limits: 1024 * 1024 * 20 });
-const routes = require('./routes/index');
+const index = require('./routes/index');
+const admin = require('./routes/admin');
 
 /* 개발을 위해 잠시 주석처리
 app.use('/*', function (req, res, next) {
@@ -89,8 +90,8 @@ app.use('/*', function (req, res, next) {
 */
 
 // 라우팅
-app.use('/', routes);
-app.use('/admin',admin);
+app.use('/', index);
+app.use('/admin', admin);
 
 // angular route html5Mode support
 app.use('/*', (req, res) => {
