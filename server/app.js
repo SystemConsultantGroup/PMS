@@ -1,20 +1,18 @@
-
-
 const express = require('express');
 const path = require('path');
-const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const debug = require('debug');
 const http = require('http');
-const models = require('./models');
 const config = require('./config/config.json')[process.env.NODE_ENV || 'development'];
-
 const viewPath = config.path;
 const session = require('express-session');
-const sequelize = require('sequelize');
 const multer = require('multer');
+/* enable for sequelize sync
+const models = require('./models');
+const sequelize = require('sequelize');
+*/
 
 console.log(process.env.NODE_ENV);
 
@@ -61,13 +59,14 @@ app.use(cookieParser());
 
 // error handling
 app.use((err, req, res, next) => {
-  console.error(err.stack);
   next(err);
   res.send('error');
 });
 
 // storage destination
-const _storage = multer.diskStorage({
+
+/* 안쓰이는거 주석처리
+const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, config.db.upload_path);
   },
@@ -76,7 +75,9 @@ const _storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: _storage }, { limits: 1024 * 1024 * 20 });
+const upload = multer({ storage }, { limits: 1024 * 1024 * 20 });
+*/
+
 const index = require('./routes/index');
 const admin = require('./routes/admin');
 
@@ -103,7 +104,7 @@ app.use('/*', (req, res) => {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use((err, req, res, next) => {
+  app.use((err, req, res) => {
     res.status(err.status || 500);
     console.log(err);
     /* res.render('error', {
@@ -115,7 +116,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
@@ -126,19 +127,19 @@ app.use((err, req, res, next) => {
 app.set('port', config.port);
 const server = http.createServer(app);
 
-// models.sequelize.sync(function(){
-// //    force: true
-// });
-
+/*
+models.sequelize.sync(function(){
+	force: true
+});
+*/
 
 /**
  * Listen on provided port, on all network interfaces.
  */
+
 server.listen(config.port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -197,5 +198,7 @@ function onListening() {
     `port ${addr.port}`;
   debug(`Listening on ${bind}`);
 }
+
+
 
 // //////////////////////////////////////////////////////////////////////

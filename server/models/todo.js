@@ -1,3 +1,4 @@
+module.exports = function (sequelize, DataTypes) {
   const todo = sequelize.define('todo', {
     tdid: {
       type: DataTypes.INTEGER,
@@ -28,7 +29,6 @@
     todo.belongsTo(models.project, { foreignKey: { name: 'pid', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' });
   };
   return todo;
-};
-
+}
 
 

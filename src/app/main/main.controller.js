@@ -4,7 +4,7 @@
     .controller('MainController', MainController);
 
   // 로그인 컨트롤러
-  function MainController($log, $rootScope, $scope, $http, $state, $location, $sessionStorage, $document, $window, SHA256) {
+  function MainController($log) {
     const vm = this;
     vm.log = $log.log;
 

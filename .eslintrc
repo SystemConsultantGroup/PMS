@@ -13,6 +13,10 @@
       "camelcase": "off",
       "comma-dangle": "off",
       "linebreak-style": "off",
-      "no-param-reassign": "off"
+      "no-param-reassign": "off",
+      "no-bitwise": "off",
+      "no-use-before-define": "off",
+      "no-undef": "off",
+      "func-names": "off"
   }
 }
