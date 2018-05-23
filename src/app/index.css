@@ -79,6 +79,11 @@ md-content#innerContent{
   -webkit-transform: scale(1);
           transform: scale(1);
 }
+
+.login__image {
+  margin-left: 50px;
+}
+
 .login.inactive {
   opacity: 0;
   -webkit-transform: scale(1.1);
@@ -205,6 +210,7 @@ md-content#innerContent{
   color: #fff;
   cursor: pointer;
 }
+
 
 .app {
   position: absolute;
@@ -475,6 +481,10 @@ md-content#innerContent{
   -webkit-animation: animRipple 0.4s;
           animation: animRipple 0.4s;
   border-radius: 50%;
+}
+
+::-webkit-input-placeholder {
+    color: #FFFFFF;
 }
 
 @-webkit-keyframes animRipple {
