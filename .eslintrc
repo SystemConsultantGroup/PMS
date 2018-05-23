@@ -18,6 +18,7 @@
       "no-use-before-define": "off",
       "no-undef": "off",
       "func-names": "off",
-      "no-console": "off"
+      "no-console": "off",
+      "no-alert": off
   }
 }
