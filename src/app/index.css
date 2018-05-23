@@ -524,3 +524,21 @@ md-content#innerContent{
     stroke-dashoffset: 0;
   }
 }
+
+#sidebar .custom-sidenav{
+  width: auto !important;
+}
+#sidebar > md-sidenav > div > div > div > div > div.navbar.nav_title > a > img{
+  width:50px;
+  height:70px;
+  margin-top:10px;
+
+}
+
+#sidebar > md-sidenav > div > div > div > div > div.navbar.nav_title > a{
+  height:100px;
+}
+
+#outerContent > div > footer{
+  background-color:transparent;
+}

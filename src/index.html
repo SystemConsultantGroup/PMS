@@ -22,9 +22,11 @@
     </head>
     <body ng-controller="LayoutController as layout" layout="column">
             <section layout="row" flex="">
-                <md-sidenav data-ui-view="sidebar" layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
-                             md-is-locked-open="$mdMedia('gt-md')" ng-hide="layout.state.current.name == 'login'">
-                </md-sidenav>
+                <div id = "sidebar">
+	                <md-sidenav data-ui-view="sidebar" layout="column" class="custom-sidenav" md-component-id="left"
+	                             md-is-locked-open="$mdMedia('gt-md')" ng-hide="layout.state.current.name == 'login'">
+	                </md-sidenav>
+            		</div>
                 <md-content id="outerContent" flex="" layout-padding="" class = "cont">
                     <div layout="column"  class="relative" layout-fill role="main">
                         <header data-ui-view="header"></header>

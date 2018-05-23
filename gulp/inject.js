@@ -18,6 +18,7 @@ gulp.task('inject-reload', ['inject'], () => {
 gulp.task('inject', ['scripts'], () => {
   const injectStyles = gulp.src([
     path.join(conf.paths.src, '/app/**/*.css'),
+    path.join(conf.paths.src, '/assets/**/*.css'),
     path.join(conf.paths.src, '/app/css/fonts/**/css/*.css')
   ], { read: false });
 
