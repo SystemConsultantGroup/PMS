@@ -9,7 +9,7 @@
       .state('pms', {
         views: {
           header: { templateUrl: 'app/layout/header.html' },
-          sidebar: { templateUrl: 'app/layout/sidebar.html' },
+          sidebar: { templateUrl: 'app/layout/sidebar/sidebar.html' },
           content: { template: '<ui-view />' },
           footer: { templateUrl: 'app/layout/footer.html' }
         }
@@ -32,8 +32,7 @@
       .state('login', {
         url: '/login',
         views: {
-          content: { templateUrl: 'app/layout/login.html' },
-          footer: { templateUrl: 'app/layout/footer.html' }
+          content: { templateUrl: 'app/layout/login.html' }
         }
       });
 
