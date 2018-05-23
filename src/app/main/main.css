@@ -1,0 +1,244 @@
+/* 정렬 화살표 숨김 */
+.table_notice > thead > tr > th > md-icon{
+    display:none !important;
+}
+
+.table_notice > thead > tr{
+    height:50px;
+}
+
+.table_notice > tbody > tr{
+    height:50px;
+}
+
+.table_notice > thead > tr > th{
+    text-align: center !important;
+}
+
+.table_notice > tbody > tr > td{
+    text-align: center !important;
+}
+
+.table_notice > thead > tr > th:nth-child(2){
+    text-align: center !important;
+}
+
+.table_notice > tbody > tr > td:nth-child(2){
+    text-align: center !important;
+}
+
+.table_notice > thead > tr > th.md-column:nth-child(n+1):nth-last-child(n+1){
+    padding: 0px !important;
+}
+
+.table_notice > tbody > tr > td:nth-child(n+1):nth-last-child(n+1){
+    padding: 0px !important;
+}
+
+.table_notice > thead > tr > th:nth-child(1){
+width:80px;
+min-width:60px;
+}
+
+.table_notice > thead > tr > th:nth-child(2){
+    min-width:0px;
+}
+
+.table_notice > thead > tr > th:nth-child(3){
+    width:120px;
+    min-width:80px;
+}
+
+.table_notice > thead > tr > th:nth-child(4){
+    width:58px;
+    min-width:60px;
+}
+
+.table_notice > thead > tr > th:nth-child(5){
+    width:100px;
+    min-width:80px;
+}
+
+.table_notice > thead > tr > th:nth-child(6){
+    width:230px;
+    min-width:120px;
+}
+
+.table_notice .md-button{
+     margin : 0px !important;
+ }
+
+
+
+
+.tb10 {
+ clear: none;
+ float: none;
+ 	background-color: transparent;
+  resize:none;
+  overflow: hidden;
+  outline: none;
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  margin-bottom: 10px;
+  font: 30px Arial, Helvetica, sans-serif;
+  height: 45px;
+}
+
+
+
+
+.table_view {
+ border: 0px solid #ccc;
+ border-collapse: collapse;
+ margin: 0;
+ padding: 0;
+ width: 100%;
+ table-layout: fixed;
+ margin-top: 25px;
+ margin-left: 30px;
+ text-align: left;
+}
+
+.table_view > tbody > tr {
+ background: transparent;
+ border: 0px solid #000;
+ padding: .35em;
+ text-align: left;
+}
+
+.table_view > tbody > tr > td {
+ padding: .625em;
+ text-align: left;
+}
+
+.view_content {
+ text-align: justify;
+}
+
+.write_content {
+  text-align: justify;
+}
+
+.write_margin1 {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.write_margin2 {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.head_title {
+  font: 30px Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.head_inform {
+  color: gray;
+}
+
+.icon_size {
+  font-size: 1px;
+}
+
+.download_line {
+  background-color: #BDBDBD;
+  border: none;
+  height: 1px;
+  margin-right: 60px;
+}
+
+.attachment_1 {
+  color: gray;
+}
+
+
+.attachment_2 {
+  font-weight: bold;
+  color: red;
+}
+
+.title_line {
+  background-color: #BDBDBD;
+  border: none;
+  height: 1.3px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.att_ {
+  margin-left: 20px;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
