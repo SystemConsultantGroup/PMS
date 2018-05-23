@@ -4,7 +4,7 @@
     .controller('LayoutController', LayoutController);
 
   /** @ngInject */
-  function LayoutController() {
+  function LayoutController($state, $stateParams) {
     const vm = this;
     /* 교수 정보 */
     vm.state = $state;
