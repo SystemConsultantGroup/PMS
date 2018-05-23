@@ -17,6 +17,7 @@
       "no-bitwise": "off",
       "no-use-before-define": "off",
       "no-undef": "off",
-      "func-names": "off"
+      "func-names": "off",
+      "no-console": "off"
   }
 }

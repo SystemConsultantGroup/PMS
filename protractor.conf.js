@@ -1,5 +1,3 @@
-
-
 const paths = require('./.yo-rc.json')['generator-gulp-angular'].props.paths;
 
 // An example configuration file.

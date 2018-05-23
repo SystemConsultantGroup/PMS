@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const todo = sequelize.define('todo', {
     tdid: {
       type: DataTypes.INTEGER,
@@ -25,10 +25,9 @@ module.exports = function (sequelize, DataTypes) {
     tableName: 'todo',
     comment: '새 테이블'
   });
-  todo.associate = function (models) {
+  todo.associate = (models) => {
     todo.belongsTo(models.project, { foreignKey: { name: 'pid', allowNull: false }, onDelete: 'CASCADE', onUpdate: 'CASCADE' });
   };
   return todo;
-}
-
+};
 

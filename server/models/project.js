@@ -33,8 +33,8 @@ module.exports = function (sequelize, DataTypes) {
     tableName: 'project',
     comment: '프로젝트'
   });
-  project.associate = function(models){
-      project.belongsTo(models.user, { foreignKey: {name: 'uid', allowNull: true}, onDelete: 'CASCADE', onUpdate: 'CASCADE'});
-    }
+  project.associate = function (models) {
+    project.belongsTo(models.user, { foreignKey: { name: 'uid', allowNull: true }, onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+  };
   return project;
 };

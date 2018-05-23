@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
     uid: {
       type: DataTypes.STRING(20),

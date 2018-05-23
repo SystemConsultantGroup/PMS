@@ -6,9 +6,10 @@ const bodyParser = require('body-parser');
 const debug = require('debug');
 const http = require('http');
 const config = require('./config/config.json')[process.env.NODE_ENV || 'development'];
+
 const viewPath = config.path;
 const session = require('express-session');
-const multer = require('multer');
+// const multer = require('multer');
 /* enable for sequelize sync
 const models = require('./models');
 const sequelize = require('sequelize');
@@ -124,40 +125,18 @@ app.use((err, req, res) => {
   });
 });
 
+
 app.set('port', config.port);
 const server = http.createServer(app);
-
-/*
-models.sequelize.sync(function(){
-	force: true
-});
-*/
-
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(config.port);
-server.on('error', onError);
-server.on('listening', onListening);
-/**
- * Normalize a port into a number, string, or false.
- */
-function normalizePort(val) {
-  const port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
+/*
+models.sequelize.sync(function(){
+  force: true
+});
+*/
 
 /**
  * Event listener for HTTP server "error" event.
@@ -199,6 +178,9 @@ function onListening() {
   debug(`Listening on ${bind}`);
 }
 
+server.listen(config.port);
+server.on('error', onError);
+server.on('listening', onListening);
 
 
 // //////////////////////////////////////////////////////////////////////
