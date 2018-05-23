@@ -133,7 +133,7 @@ const server = http.createServer(app);
  */
 
 /*
-models.sequelize.sync(function(){
+models.sequelize.sync({
   force: true
 });
 */
