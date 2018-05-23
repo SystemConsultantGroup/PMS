@@ -1,12 +1,11 @@
 <div ng-controller="MainController as main">
   <h2 style="font-size: 23pt; color: #ffc000">TO DO LIST</h2>
-  <h2 style="font-size: 23pt; color: #ffffff" ng-controller="MainController as main"> TOTAL REQUESTS: <strong>{{main.datas.length}}</strong>개 
+  <h2 style="font-size: 23pt; color: #ffffff"> TOTAL REQUESTS: <strong>{{main.datas.length}}</strong>개 
     <br>
-    REMAINED REQUESTS: <strong>{{main.remain()}}</strong>개
+    REMAINED REQUESTS: <strong>{{main.remainingTodos}}</strong>개
   </h2>
-</div>
 
-<md-card ng-controller="MainController as main" ng-cloak>
+<md-card ng-cloak>
 
     <md-card>
       <md-input-container md-no-float class="md-block">
@@ -37,8 +36,8 @@
             <td md-cell class="breakall">{{data.u_name}}</td>
             <td md-cell class="breakall">{{data.startdate}}</td>
             <td md-cell>{{data.duedate}}</td>
-            <td md-cell ng-if="layout.user=='admin'"><md-button class="md-primary" a ui-sref="modify({ modify_id: data.id })">수정</md-button>
-              <md-button class="md-accent" ng-click="main.delete(1, notice.id)">삭제</md-button>
+            <td md-cell><md-button class="md-primary" a ui-sref="modify({ modify_id: data.id })">수정</md-button>
+              <md-button class="md-accent" ng-click="main.delete(data.id)">삭제</md-button>
             </td>
           </tr>
         </tbody>
@@ -49,3 +48,4 @@
                          md-total="{{main.datas.length}}" md-page-select
                          md-boundary-links></md-table-pagination>
 </md-card>
+</div>
