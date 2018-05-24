@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       comment: 'id'
     },
     name: {
-      type: DataTypes.STRING(5),
+      type: DataTypes.STRING(20),
       allowNull: false,
       comment: '사용자이름'
     },
