@@ -211,6 +211,10 @@ md-content#innerContent{
   cursor: pointer;
 }
 
+.register__row {
+  height: 4rem;
+  padding-top: 1rem;
+}
 
 .app {
   position: absolute;

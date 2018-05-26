@@ -34,6 +34,12 @@
         views: {
           content: { templateUrl: 'app/layout/login.html' }
         }
+      })
+      .state('loginRegister', {
+        url: '/loginRegister',
+        views: {
+          content: { templateUrl: 'app/layout/loginRegister.html' }
+        }
       });
 
     // $urlRouterProvider.otherwise('/login');
