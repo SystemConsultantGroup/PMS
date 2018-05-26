@@ -326,11 +326,30 @@ html , body{
     display: inline-block
 }
 .nav_menu {
+    font-size: 20px;
+    letter-spacing: 0.005em;
+    box-sizing: border-box;
+    font-weight: 400;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    width: 100%;
+    height: 64px;
+    max-height: 64px;
+    padding: 0 16px;
+
     float: left;
+
     background: #EDEDED;
     border-bottom: 1px solid #D9DEE4;
     margin-bottom: 10px;
-    width: 100%;
     position: relative
 }
 @media (min-width: 480px) {
