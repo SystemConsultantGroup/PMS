@@ -1,0 +1,40 @@
+<div ng-controller="BoardController as board">
+  <div ng-init="board.initModify()" enctype="multipart/form-data">
+    <form enctype="multipart/form-data" ng-submit="board.modify(file1, file2, 1)">
+      <md-card>
+        <div>
+          <input type="text" class="tb10 write_margin1" ng-model="board.pre_contents.name" placeholder="제목">
+          <hr class="title_line">
+        </div>
+        <div class="write_margin2">
+          <div ckeditor="options" ng-model="board.pre_contents.content" ready="onReady()"></div>
+        </div>
+        <div class="write_margin2">
+        <br/><br/>
+          <span><h3 class="write_margin2" style="display: inline;">첨부파일 목록</h3>   (기존 파일 삭제후 새로운 파일을 등록할 수 있습니다.)</span><br/><br/>
+          <div class="write_margin2" ng-show="board.attIsVisible_1">
+            {{board.pre_file1.name}}
+            <md-button type="button" ng-click="board.delete_file(board.pre_file1.id, 1)" aria-label="Close">
+              <ng-md-icon icon="delete" style="color:gray;"><ng-md-icon>
+            </md-button>
+          </div>
+          <div class="write_margin2" ng-show="board.attIsVisible_2">
+            {{board.pre_file2.name}}
+            <md-button type="button" ng-click="board.delete_file(board.pre_file2.id, 2)" aria-label="Close">
+              <ng-md-icon icon="delete" style="color:gray;"><ng-md-icon>
+            </md-button>
+          </div>
+          <br />
+          <div class="att_" ng-show="!board.attIsVisible_1">
+            <input type="file" ngf-select ng-model="file1" ngf-multiple="false" name="file1" ngf-max-size="200MB">
+          </div>
+          <br/><br/>
+          <div class="att_" ng-show="!board.attIsVisible_2">
+            <input type="file" ngf-select ng-model="file2" ngf-multiple="false" name="file2" ngf-max-size="200MB">
+          </div>
+        </div>
+      </md-card>
+      <md-button type="submit" style="float:right" class="md-raised md-primary">수정하기</button>
+    </form>
+  </div>
+</div>
