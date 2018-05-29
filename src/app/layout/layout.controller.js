@@ -11,17 +11,18 @@
     vm.stateParams = $stateParams;
     vm.log = $log.log;
     vm.act = 'none';
-    vm.toggleLeft = function () {
+    vm.toggleLeft = () => {
       $mdSidenav('left').toggle();
     };
 
-    vm.close = function () {
+    vm.close = () => {
       $mdSidenav('left').close();
     };
-    vm.change = function(){
-      if(vm.act === 'none')vm.act = 'block';
-      else if(vm.act === 'block')vm.act = 'none';
-    }
+
+    vm.change = () => {
+      if (vm.act === 'none') vm.act = 'block';
+      else if (vm.act === 'block') vm.act = 'none';
+    };
     // link에 state이름, title에 사이드바에 띄우는 항목명
     vm.admin = [{
       link: 'notice',
