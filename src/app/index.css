@@ -487,6 +487,17 @@ md-content#innerContent{
   border-radius: 50%;
 }
 
+.board__input {
+  text-align: left;
+  color: black;
+  background-color: white;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  font-size: 20px; 
+}
+
 ::-webkit-input-placeholder {
     color: #FFFFFF;
 }
