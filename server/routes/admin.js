@@ -8,9 +8,18 @@ const router = express.Router();
 const models = require('../models');
 const wrap = require('express-async-wrap');
 
+// get project list
 router.get('/project', wrap(async (req, res) => {
-  const projects = await models.project.findAll();
-  res.send(projects);
+  try {
+    const projects = await models.project.findAll();
+    if (projects) {
+      res.send(projects);
+    }
+  } catch (e) {
+    res.send({
+      result: false
+    });
+  }
 }));
 
 // add project
