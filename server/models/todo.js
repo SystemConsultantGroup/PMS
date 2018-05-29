@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     tdid: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
       comment: '아이디'
     },
     component: {

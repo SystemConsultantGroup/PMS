@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
     uid: {
       type: DataTypes.STRING(20),
-      primarykey: true,
+      primaryKey: true,
       allowNull: false,
       comment: 'id'
     },
