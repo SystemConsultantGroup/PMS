@@ -44,9 +44,9 @@
         uid: vm.uid,
         pw: vm.pw,
         email: vm.email,
-        ph: vm.ph,
+        ph: vm.ph
       });
-      $window.location.path('/login');
+      $window.location.assign('/login');
     };
   }
 }());
