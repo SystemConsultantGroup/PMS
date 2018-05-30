@@ -72,7 +72,7 @@
     ]; */
 
     vm.initView = function () {
-      $http.get('/admin/project/{pid}').success((data) => {
+      $http.get('/rest/admin/project/{pid}').success((data) => {
         console.log(data);
         vm.project = data;
       });
@@ -82,18 +82,18 @@
       const cf = window.confirm('삭제하시겠습니까?');
       if (cf) {
         vm.pid = pid;
-        $http.delete('/{vm.session.uid}/project/{pid}');
+        $http.delete('/rest/{vm.session.uid}/project/{pid}');
         alert('게시글이 삭제되었습니다.');
         vm.location.reload();
       }
     };
 
 
-    $http.get('/session').then((result) => {
+    $http.get('/rest/session').then((result) => {
       if (result.data.auth === 1) { vm.user = 'admin'; } else if (result.data.auth === 0 && result.data.auth > 1) { vm.user = 'user'; }
     });
 
-    $http.get('/session').then(successCallback, errorCallback);
+    $http.get('/rest/session').then(successCallback, errorCallback);
     function successCallback(response) {
       // vm.$log.log(response);
       if (response.data.auth === 1) vm.state = 'admin';
@@ -105,12 +105,12 @@
     }
 
     // 글 목록 가져오기
-    $http.get('/admin/project').then((response) => {
+    $http.get('/rest/admin/project').then((response) => {
       vm.projects = response.data;
     });
 
     vm.add = () => {
-      $http.post('/admin/project', {
+      $http.post('/rest/admin/project', {
         name: vm.name,
         startdate: vm.startdate,
         duedate: vm.duedate,
@@ -122,7 +122,7 @@
     vm.initModify = () => {
       if (vm.pid != null) {
         // 글 데이터 불러오기
-        $http.get('/admin/project/{vm.pid}').then((response) => {
+        $http.get('/rest/admin/project/{vm.pid}').then((response) => {
           if (response.data.error) {
             alert('글이 존재하지 않습니다.');
           }
@@ -134,7 +134,7 @@
     // 글 수정
 
     vm.modify = () => {
-      $http.put('/admin/project/{vm.pid}', {
+      $http.put('/rest/admin/project/{vm.pid}', {
         name: vm.name,
         startdate: vm.name,
         duedate: vm.duedate,
