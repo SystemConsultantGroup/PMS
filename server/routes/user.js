@@ -46,5 +46,52 @@ router.delete('/', wrap(async (req, res) => {
   }
 }));
 
+
+// 유저  정보 수정
+router.put('/user', wrap(async (req, res) => {
+  try {
+    const update = await models.user.update(req.body, {
+      where: {
+        uid: req.session.uid
+      }
+    });
+
+    if (update) {
+      res.send({
+        result: true
+      });
+    }
+  } catch (e) {
+    res.send({
+      result: false
+    });
+  }
+}));
+
+
+// 유저 정보 읽기
+router.get('/:uid', wrap(async (req, res) => {
+  try {
+    const inform = await models.user.findOne({
+      where: {
+        uid: req.params.uid
+      }
+    });
+    await delete inform.dataValues.pw;
+
+    if (inform) {
+      res.send(inform);
+    } else {
+      res.send({
+        result: false
+      });
+    }
+  } catch (e) {
+    res.send({
+      result: false
+    });
+  }
+}));
+
 module.exports = router;
 
