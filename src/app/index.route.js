@@ -19,12 +19,7 @@
         params: { user: 'prof' }
       })
       .state('admin', {
-        views: {
-          header: { templateUrl: 'app/layout/header.html' },
-          sidebar: { templateUrl: 'app/layout/sidebar/admin.sidebar.html' },
-          content: { template: '<ui-view />' },
-          footer: { templateUrl: 'app/layout/footer.html' },
-        },
+        parent: 'pms',
         params: { user: 'admin' }
       })
       .state('main', {
@@ -47,37 +42,37 @@
         }
       })
       .state('adminProject', {
-        parent: 'admin',
+        parent: 'pms',
         url: '/admin/project',
-        templateUrl: 'app/admin/admin.project.html',
+        templateUrl: 'app/admin/project/admin.project.html',
         controllerAs: 'AdminProjectController',
         params: { title: '관리자 페이지' }
       })
       .state('adminProjectView', {
-        parent: 'admin',
+        parent: 'pms',
         url: '/admin/project/:pid',
-        templateUrl: 'app/admin/admin.project.view.html',
+        templateUrl: 'app/admin/project/admin.project.view.html',
         controllerAs: 'AdminProjectController',
         params: { title: '프로젝트 페이지' }
       })
       .state('adminProjectWrite', {
-        parent: 'admin',
+        parent: 'pms',
         url: '/admin/project/write',
-        templateUrl: 'app/admin/admin.project.write.html',
+        templateUrl: 'app/admin/project/admin.project.write.html',
         controllerAs: 'AdminProjectController',
         params: { title: '프로젝트 추가' }
       })
       .state('adminProjectModify', {
-        parent: 'admin',
+        parent: 'pms',
         url: '/admin/project/modify/:pid',
-        templateUrl: 'app/admin/admin.project.modify.html',
+        templateUrl: 'app/admin/project/admin.project.modify.html',
         controllerAs: 'AdminProjectController',
         params: { title: '프로젝트 수정' }
       })
       .state('adminUsers', {
-        parent: 'admin',
+        parent: 'pms',
         url: '/admin/users',
-        templateUrl: 'app/admin/admin.users.html',
+        templateUrl: 'app/admin/account/admin.users.html',
         controllerAs: 'AdminUsersController',
         params: { title: '유저 목록' }
       })
