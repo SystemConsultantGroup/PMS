@@ -10,7 +10,7 @@
 
     vm.login = () => {
       // 백엔드에 인증 시도
-      $http.post('/user/login', {
+      $http.post('/rest/user/login', {
         uid: vm.uid,
         pw: SHA256(vm.pw)
       }).then((result) => {
@@ -33,13 +33,13 @@
 
     vm.logout = () => {
       $sessionStorage.remove('session');
-      $http.get('/logout').then(() => {
+      $http.get('/rest/logout').then(() => {
         $state.go('/login');
       });
     };
 
     vm.register = () => {
-      $http.post('/user', {
+      $http.post('/rest/user', {
         name: vm.name,
         uid: vm.uid,
         pw: vm.pw,
