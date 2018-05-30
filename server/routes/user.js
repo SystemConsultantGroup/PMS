@@ -8,24 +8,10 @@ const router = express.Router();
 const models = require('../models');
 const wrap = require('express-async-wrap');
 
-// get project list
-router.get('/project', wrap(async (req, res) => {
+// add user
+router.post('/', wrap(async (req, res) => {
   try {
-    const projects = await models.project.findAll();
-    if (projects) {
-      res.send(projects);
-    }
-  } catch (e) {
-    res.send({
-      result: false
-    });
-  }
-}));
-
-// add project
-router.post('/project', wrap(async (req, res) => {
-  try {
-    const create = await models.project.create(req.body);
+    const create = await models.user.create(req.body);
     if (create) {
       res.send({
         result: true
@@ -38,18 +24,19 @@ router.post('/project', wrap(async (req, res) => {
   }
 }));
 
-// 유저 이메일, 전화번호, 역할 정보 수정
-router.put('/user/:uid', wrap(async (req, res) => {
+// 유저 삭제
+router.delete('/', wrap(async (req, res) => {
   try {
-    const update = await models.user.update(req.body, {
-      where: {
-        uid: req.params.uid
-      }
+    const dest = await models.user.destroy({
+      where: { uid: req.body.uid }
     });
-
-    if (update) {
+    if (dest) {
       res.send({
         result: true
+      });
+    } else {
+      res.send({
+        result: false
       });
     }
   } catch (e) {
@@ -60,3 +47,4 @@ router.put('/user/:uid', wrap(async (req, res) => {
 }));
 
 module.exports = router;
+

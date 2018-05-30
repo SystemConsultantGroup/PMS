@@ -2,7 +2,7 @@ module.exports = function (sequelize, DataTypes) {
   const project = sequelize.define('project', {
     pid: {
       type: DataTypes.INTEGER,
-      primarykey: true,
+      primaryKey: true,
       allowNull: false,
       comment: '프로젝트 id'
     },

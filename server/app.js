@@ -81,6 +81,7 @@ const upload = multer({ storage }, { limits: 1024 * 1024 * 20 });
 
 const index = require('./routes/index');
 const admin = require('./routes/admin');
+const user = require('./routes/user');
 
 /* 개발을 위해 잠시 주석처리
 app.use('/*', function (req, res, next) {
@@ -92,8 +93,9 @@ app.use('/*', function (req, res, next) {
 */
 
 // 라우팅
-app.use('/rest', index);
+app.use('/rest/', index);
 app.use('/rest/admin', admin);
+app.use('/rest/user', user);
 
 // angular route html5Mode support
 app.use('/*', (req, res) => {
