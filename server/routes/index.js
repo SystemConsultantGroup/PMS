@@ -39,6 +39,22 @@ router.post('/login', wrap(async (req, res) => {
   }
 }));
 
+
+// logout
+router.get('/logout', wrap(async (req, res) => {
+  try {
+    const destroy = await req.session.destroy;
+    if (destroy) {
+      res.redirect('/');
+    }
+  } catch (e) {
+    res.send({
+      result: false
+    });
+  }
+}));
+
+
 // load session
 router.get('/session', wrap(async (req, res) => {
   try {
