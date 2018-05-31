@@ -85,6 +85,12 @@
       }
     };
 
+    vm.order = vm.orders[0];
+    vm.new = {};
+    vm.addProj = function() {
+        vm.datas.push(vm.new);
+        vm.new = {};
+    };
 
     // 사용자 구분
     /* $http.get('/session').then(successCallback, errorCallback);
