@@ -1,12 +1,31 @@
-<div class="form-group" ng-controller="AdminProjectController as adminproject">
-    <form ng-submit="adminproject.add()">
-    <h2>Name</h2><input class="board__input" type="name" ng-model="name">
-    <br>
-    <h2>Startdate</h2><input class="board__input" type="date" ng-model="startdate">
-    <br>
-    <h2>Duedate</h2><input class="board__input" type="date" ng-model="duedate">
-    <br>
-    <br>
-    <md-button class="md-raised" type="submit"><i class="fa fa-plus-square"> Create Project </i></md-button>
-  </form>
-</div>
+<div class="clearfix"></div>
+    <h3>Add Project</h3>
+    <form name="main.addForm" class="form" ng-submit="main.addProj()">
+        <div class="form-group">
+            <label>프로젝트 이름</label>
+            <input type="text" class="form-control" ng-model="main.new.p_name" required />
+        </div>
+        <div class="form-group">
+            <label>Todo</label>
+            <input type="text" class="form-control" ng-model="main.new.td_name" required />
+        </div>
+        <div class="form-group">
+            <label>담당자</label>
+            <input type="text" class="form-control" ng-model="main.new.u_name" required />
+        </div>
+        <div class="form-group">
+            <label>작성일</label>
+            <input type="text" class="form-control" ng-model="main.new.startdate" required />
+        </div>
+        <div class="form-group">
+            <label>마감일</label>
+            <input type="text" class="form-control" ng-model="main.new.duedate" required />
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <label>Finished: <input type="checkbox" ng-model="main.new.done" /></label>
+            </div>
+            <div class="col-xs-6">
+                <button class="btn btn-success pull-right"> Add</button>
+            </div>
+        </div>
