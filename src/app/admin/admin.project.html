@@ -1,4 +1,4 @@
-<div ng-controller="AdminProjectController as adminproject">
+<div ng-controller="AdminProjectController as adminproject" ng-init="initView()">
   <md-button class="md-raised"><a href="/admin/project/write"><i class="fa fa-plus-square"></i> New Project </a></md-button>
   <md-button class="md-raised"><a href="/admin/users"><i class="fa fa-users"></i> Developers </a></md-button>
 
@@ -27,7 +27,7 @@
             <td md-cell class="breakall"><input type="checkbox" ng-model="project.done" checked="checked">
             </td>
             <td md-cell class="breakall"><a href="/admin/project/{{project.pid}}">{{project.name}}</a></td>
-            <td md-cell class="breakall">{{project.startdate}}</td>
+            <td md-cell class="breakall">{{project.startdate | date:'medium'}}</td>
             <td md-cell class="breakall">{{project.duedate}}</td>
 
             <td md-cell><md-button class="md-primary"><a href="/admin/project/modify/{{project.pid}}">수정</a></md-button>

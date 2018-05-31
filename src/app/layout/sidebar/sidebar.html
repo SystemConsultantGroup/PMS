@@ -33,7 +33,7 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa"></span></a></li>
                   <li ng-click="layout.change()"><a><i class="fa fa-table"></i> Projects <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" ng-style="{'display' : layout.act}">
-                      <li ng-repeat="i in layout.admin">{{i.title}}</li>
+                      <li ng-repeat="i in layout.admin"><a href="{{i.link}}">{{i.title}}</a></li>
                     </ul>
                   </li>
                 </ul>
