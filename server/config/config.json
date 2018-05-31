@@ -1,13 +1,13 @@
 {
     "development": {
-        "title": "",
+        "title": "dev_pms",
         "port": 3000,
         "db": {
-            "host": "",
-            "user": "",
-            "username": "",
-            "password": "",
-            "database": "",
+            "host": "211.249.61.207",
+            "user": "dev_pms",
+            "username": "dev_pms",
+            "password": "dev_pms",
+            "database": "dev_pms",
             "dialect": "mysql",
             "logging": true,
             "multipleStatements": true,
@@ -15,20 +15,24 @@
             "upload_path": "webdata/uploads",
             "operatorsAliases": false
         },
+        "email" : {
+            "id" : "scg@scg.skku.ac.kr",
+            "password" : "!tlzjs(*&"
+        },
         "path": {
               "view": "/../.tmp/serve",
               "index": "/../src"
         }
     },
   "production": {
-    "title": "",
-    "port": 0,
+    "title": "pro_pms",
+    "port": 8090,
     "db": {
-            "host": "",
-            "user": "",
-            "username": "",
-            "password": "",
-            "database": "",
+            "host": "115.145.172.24",
+            "user": "pro_pms",
+            "username": "pro_pms",
+            "password": "pro_pms",
+            "database": "pro_pms",
             "dialect": "mysql",
             "logging": true,
             "multipleStatements": true,

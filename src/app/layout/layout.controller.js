@@ -41,12 +41,12 @@
       title: '최종 확정 내역',
       icon: 'dns'
     }, {
-      link: 'user_manage',
-      title: '사용자',
+      link: '/admin/users',
+      title: '사용자 관리',
       icon: 'face'
     }, {
-      link: 'timemodel_list',
-      title: '수업모형',
+      link: '/admin/project',
+      title: '프로젝트 관리',
       icon: 'event'
     }, {
       link: 'system',
