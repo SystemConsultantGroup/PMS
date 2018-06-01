@@ -58,4 +58,42 @@ router.post('/:uid/:pid', wrap(async (req, res) => {
   }
 }));
 
+// 해당 프로젝트 제거(PM과 ADMIN만 가능)
+router.delete('/:uid/:pid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const destroy = await models.project.destroy({
+      where: { pid: req.params.pid }
+    });
+    if (destroy) {
+      res.send({
+        result: true
+      });
+    }
+  } else if (req.session.user.auth === 2) {
+    const project = await models.project.findOne({
+      where: {
+        pid: req.params.pid
+      }
+    });
+    if (req.session.user.uid === project.uid) {
+      const destroy = await models.project.destroy({
+        where: { pid: req.params.pid }
+      });
+      if (destroy) {
+        res.send({
+          result: true
+        });
+      }
+    } else {
+      res.send({
+        result: false
+      });
+    }
+  } else {
+    res.send({
+      result: false
+    });
+  }
+}));
+
 module.exports = router;
