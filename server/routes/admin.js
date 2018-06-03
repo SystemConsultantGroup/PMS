@@ -49,4 +49,34 @@ router.put('/user/:uid', wrap(async (req, res) => {
   res.status(500).send('error');
 }));
 
+// 전체 수행원의 이름, auth 정보 불러옴
+router.get('/users', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const users = await models.user.findAll({
+      attributes: ['name', 'auth']
+    });
+    if (users) {
+      res.send(users);
+    }
+  }
+  res.status(500).send('error');
+}));
+
+// auth 정보 수정
+router.put('/users', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const update = await models.user.update({ auth: req.body.auth }, {
+      where: {
+        uid: req.body.uid
+      }
+    });
+    if (update) {
+      res.send({
+        result: true
+      });
+    }
+  }
+  res.status(500).send('error');
+}));
+
 module.exports = router;
