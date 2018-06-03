@@ -32,13 +32,15 @@
       .state('login', {
         url: '/login',
         views: {
-          content: { templateUrl: 'app/layout/login.html' }
+          content: { templateUrl: 'app/layout/login.html' },
+          footer: { templateUrl: 'app/layout/footer.html' }
         }
       })
       .state('loginRegister', {
         url: '/loginRegister',
         views: {
-          content: { templateUrl: 'app/layout/loginRegister.html' }
+          content: { templateUrl: 'app/layout/loginRegister.html' },
+          footer: { templateUrl: 'app/layout/footer.html' }
         }
       })
       .state('adminProject', {
