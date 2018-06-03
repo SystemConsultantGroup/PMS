@@ -98,6 +98,52 @@ router.delete('/:uid/:pid', wrap(async (req, res) => {
   }
 }));
 
+// 해당 to do 수정(PM과 ADMIN만 가능)
+router.put('/:uid/:pid/:tdid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const update = await models.todo.update(req.body, {
+      where: {
+        tdid: req.params.tdid
+      }
+    });
+    if (update) {
+      res.send({
+        result: true
+      });
+    }
+  } else if (req.session.user.auth === 2) {
+    const todo = await models.todo.findOne({
+      where: {
+        tdid: req.params.tdid
+      }
+    });
+    const project = await models.project.findOne({
+      where: {
+        pid: todo.pid
+      }
+    });
+    if (req.session.user.uid === project.uid) {
+      const update = await models.todo.update(req.body, {
+        where: {
+          tdid: req.params.tdid
+        }
+      });
+      if (update) {
+        res.send({
+          result: true
+        });
+      }
+    } else {
+      res.send({
+        result: false
+      });
+    }
+  } else {
+    res.send({
+      result: false
+    });
+  }
+
 // Todo 상세 정보 불러옴(get방식으로)
 router.get('/:uid/:pid/:tdid', wrap(async (req, res) => {
   const list = await models.list.findAll({
