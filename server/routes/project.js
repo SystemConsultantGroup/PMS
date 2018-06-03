@@ -16,6 +16,8 @@ router.get('/:uid', wrap(async (req, res) => {
   res.send(assign_r);
 }));
 
+
+
 // 프로젝트 수행원 추가, 역할 부여(PM과 ADMIN만 가능)
 router.post('/:uid/:pid', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
@@ -94,6 +96,18 @@ router.delete('/:uid/:pid', wrap(async (req, res) => {
       result: false
     });
   }
+}));
+
+// Todo 상세 정보 불러옴(get방식으로)
+router.get('/:uid/:pid/:tdid', wrap(async (req, res) => {
+  const list = await models.list.findAll({
+    where: {
+      uid: req.params.uid,
+      tdid: req.params.tdid
+    },
+    include: ['todo']
+  });
+  res.send(list);
 }));
 
 module.exports = router;
