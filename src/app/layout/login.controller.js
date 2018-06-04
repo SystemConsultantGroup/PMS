@@ -10,9 +10,9 @@
 
     vm.login = () => {
       // 백엔드에 인증 시도
-      $http.post('/rest/user/login', {
+      $http.post('/rest/login', {
         uid: vm.uid,
-        pw: SHA256(vm.pw)
+        pw: vm.pw
       }).then((result) => {
         if (result.data.result) {
           $window.location.assign('/main');
