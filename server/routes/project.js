@@ -17,7 +17,6 @@ router.get('/:uid', wrap(async (req, res) => {
 }));
 
 
-
 // 프로젝트 수행원 추가, 역할 부여(PM과 ADMIN만 가능)
 router.post('/:uid/:pid', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
@@ -143,6 +142,7 @@ router.put('/:uid/:pid/:tdid', wrap(async (req, res) => {
       result: false
     });
   }
+}));
 
 // Todo 상세 정보 불러옴(get방식으로)
 router.get('/:uid/:pid/:tdid', wrap(async (req, res) => {

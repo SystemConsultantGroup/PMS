@@ -53,7 +53,7 @@ router.put('/user/:uid', wrap(async (req, res) => {
 router.get('/users', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
     const users = await models.user.findAll({
-      attributes: ['name', 'auth']
+      attributes: ['uid', 'name', 'auth']
     });
     if (users) {
       res.send(users);
