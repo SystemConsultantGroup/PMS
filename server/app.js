@@ -93,7 +93,7 @@ app.use('/*', function (req, res, next) {
 })
 */
 
-// 라우팅    
+// 라우팅
 app.use('/rest/', index);
 app.use('/rest/admin', admin);
 app.use('/rest/user', user);

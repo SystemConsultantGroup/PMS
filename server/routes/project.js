@@ -144,6 +144,46 @@ router.put('/:uid/:pid/:tdid', wrap(async (req, res) => {
   }
 }));
 
+// todo 제거(PM과 ADMIN만 가능)
+router.delete('/:pid/:tdid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const destroy = await models.todo.destroy({
+      where: { tdid: req.params.tdid }
+    });
+    if (destroy) {
+      res.send({
+        result: true
+      });
+    }
+  } else if (req.session.user.auth === 2) {
+    const todo = await models.todo.findOne({
+      where: {
+        tdid: req.params.tdid
+      },
+      include: ['project']
+    });
+    if (todo.project.uid === req.session.user.uid) {
+      const destroy = await models.todo.destroy({
+        where: { tdid: req.params.tdid }
+      });
+      if (destroy) {
+        res.send({
+          result: true
+        });
+      }
+    } else {
+      res.send({
+        result: false
+      });
+    }
+  } else {
+    res.send({
+      result: false
+    });
+  }
+}));
+
+
 // Todo 상세 정보 불러옴(get방식으로)
 router.get('/:uid/:pid/:tdid', wrap(async (req, res) => {
   const list = await models.list.findAll({
