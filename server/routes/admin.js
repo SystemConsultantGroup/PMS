@@ -99,4 +99,17 @@ router.get('/user/:uid', wrap(async (req, res) => {
   }
 }));
 
+// 선택한 유저 삭제
+router.delete('/user/:uid', wrap(async (req, res) => {
+  console.log('delete');
+  const destroy = await models.user.destroy({
+    where: { uid: req.params.uid }
+  });
+  if (destroy) {
+    res.send({
+      result: true
+    });
+  }
+}));
+
 module.exports = router;
