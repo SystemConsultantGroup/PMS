@@ -196,4 +196,38 @@ router.get('/:uid/:pid/:tdid', wrap(async (req, res) => {
   res.send(list);
 }));
 
+// todo 추가
+router.post('/todo', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const create = await models.todo.create(req.body);
+    if (create) {
+      res.send({
+        result: true
+      });
+    }
+  } else if (req.session.user.auth === 2) {
+    const project = await models.project.findOne({
+      where: {
+        pid: req.body.pid
+      }
+    });
+    if (project.uid === req.session.user.uid) {
+      const create = await models.todo.create(req.body);
+      if (create) {
+        res.send({
+          result: true
+        });
+      }
+    } else {
+      res.send({
+        result: false
+      });
+    }
+  } else {
+    res.send({
+      result: false
+    });
+  }
+}));
+
 module.exports = router;
