@@ -79,4 +79,37 @@ router.put('/users', wrap(async (req, res) => {
   res.status(500).send('error');
 }));
 
+// 선택한 수행원의 정보 전체 및 소속 프로젝트 이름과 pid 리스트
+router.get('/user/:uid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const user = await models.user.findOne({
+      where: { uid: req.params.uid },
+      attributes: ['uid', 'name', 'auth', 'email', 'ph']
+    });
+    const project = await models.assign_r.findAll({
+      where: { uid: req.params.uid },
+      attributes: ['pid'],
+      include: [{ model: models.project, attributes: ['name'] }]
+    });
+    if (user && project) {
+      res.send({ user, project });
+    }
+  } else {
+    res.status(500).send('error');
+  }
+}));
+
+// 선택한 유저 삭제
+router.delete('/user/:uid', wrap(async (req, res) => {
+  console.log('delete');
+  const destroy = await models.user.destroy({
+    where: { uid: req.params.uid }
+  });
+  if (destroy) {
+    res.send({
+      result: true
+    });
+  }
+}));
+
 module.exports = router;

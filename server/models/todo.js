@@ -2,8 +2,9 @@ module.exports = (sequelize, DataTypes) => {
   const todo = sequelize.define('todo', {
     tdid: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
+      allowNull: false,
       comment: '아이디'
     },
     component: {
