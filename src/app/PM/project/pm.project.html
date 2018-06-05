@@ -1,0 +1,42 @@
+<div ng-controller="PMController as pm">
+  <md-button class="md-raised"><a href="/pm/project/write"><i class="fa fa-plus-square"></i> New Project </a></md-button>
+<md-card ng-cloak>
+
+    <md-card>
+      <md-input-container md-no-float class="md-block">
+        <ng-md-icon icon="search" style="margin-left:5px"></ng-md-icon>
+        <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="검색">
+      </md-input-container>
+    </md-card>
+
+    <md-table-container>
+      <table md-table class="table_notice">
+        <thead md-head md-order="pm.query.order">
+        <tr md-row>
+          <th md-column md-numeric md-order-by="p_id"><span class="title_size">완료 여부</span></th>
+          <th md-column md-numeric md-order-by="p_id"><span class="title_size">Project</span></th>
+          <th md-column md-numeric><span class="title_size">작성일</span></th>
+          <th md-column md-order-by="duedate"><span class="title_size">마감일</span></th>
+        </tr>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row
+            ng-repeat="project in pm.projects | filter: filter.search | orderBy: pm.query.order | limitTo: pm.query.limit : (pm.query.page -1) * pm.query.limit">
+            <td md-cell class="breakall"><input type="checkbox" ng-model="project.done" checked="checked">
+            </td>
+            <td md-cell class="breakall"><a href="/admin/project/{{project.pid}}">{{project.name}}</a></td>
+            <td md-cell class="breakall">{{project.startdate}}</td>
+            <td md-cell class="breakall">{{project.duedate}}</td>
+
+            <td md-cell><md-button class="md-primary"><a href="/admin/project/modify/{{project.pid}}">수정</a></md-button>
+              <md-button class="md-accent" ng-click="pm.delete(project.pid)">삭제</md-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <md-table-pagination md-limit="pm.query.limit" md-page="pm.query.page"
+                         md-total="{{pm.projects.length}}" md-page-select
+                         md-boundary-links></md-table-pagination>
+</md-card>
+</div>
