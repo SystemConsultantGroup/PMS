@@ -209,7 +209,8 @@ router.post('/todo', wrap(async (req, res) => {
     const project = await models.project.findOne({
       where: {
         pid: req.body.pid
-      }});
+      }
+    });
     if (project.uid === req.session.user.uid) {
       const create = await models.todo.create(req.body);
       if (create) {
@@ -228,6 +229,5 @@ router.post('/todo', wrap(async (req, res) => {
     });
   }
 }));
-
 
 module.exports = router;
