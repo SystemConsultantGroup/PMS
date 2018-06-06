@@ -112,8 +112,7 @@ router.delete('/user/:uid', wrap(async (req, res) => {
   }
 }));
 
-// 선택한 프로젝트의 (해당 유저 소속) To Do list 불러옴 
-
+// 선택한 프로젝트의 (해당 유저 소속) To Do list 불러옴
 router.get('/user/:uid/:pid', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
     const assign_r = await models.assign_r.findAll({
@@ -124,17 +123,16 @@ router.get('/user/:uid/:pid', wrap(async (req, res) => {
     });
     if (assign_r) {
       const todo = await models.todo.findAll({
-        where: { 
-          pid: req.params.pid 
+        where: {
+          pid: req.params.pid
         }
       });
-      console.log(todo);
-      if ( todo ) {
+      if (todo) {
         res.send(todo);
-      } 
+      }
     }
-  } else { 
-    res.status(500).send('error');    
+  } else {
+    res.status(500).send('error');
   }
 }));
 
