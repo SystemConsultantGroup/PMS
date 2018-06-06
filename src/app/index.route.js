@@ -78,6 +78,13 @@
         controllerAs: 'AdminUsersController',
         params: { title: '유저 목록' }
       })
+      .state('adminUserModify', {
+        parent: 'pms',
+        url: '/admin/user/modify/:modify_id',
+        templateUrl: 'app/admin/account/admin.users.modify.html',
+        controllerAs: 'AdminUsersModifyController',
+        params: { title: '유저 상세 정보' }
+      })
       .state('/project', {
         parent: 'pms',
         url: '/main',
