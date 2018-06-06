@@ -1,12 +1,10 @@
-<div ng-controller="AdminUsersController as adminusers">
-  <h2 style="font-size: 23pt; color: #ffc000">TO DO LIST</h2>
-  <h2 style="font-size: 23pt; color: #ffffff"> TOTAL REQUESTS: <strong>{{adminusers.datas.length}}</strong>개 
+<div ng-controller="AdminUsersController as adminUsers">
+  <md-card>
+    <h2 style="font-size: 23pt;">&nbsp;Total Users: <strong>{{adminUsers.users.length}}</strong>명 
     <br>
-    REMAINED REQUESTS: <strong>{{adminusers.remainingTodos}}</strong>개
-  </h2>
-
-<md-card ng-cloak>
-
+    </h2>
+  </md-card>
+  <md-card ng-cloak>
     <md-card>
       <md-input-container md-no-float class="md-block">
         <ng-md-icon icon="search" style="margin-left:5px"></ng-md-icon>
@@ -16,36 +14,43 @@
 
     <md-table-container>
       <table md-table class="table_notice">
-        <thead md-head md-order="adminusers.query.order">
+        <thead md-head md-order="adminUsers.query.order">
         <tr md-row>
-          <th md-column md-numeric md-order-by="p_id"><span class="title_size">완료 여부</span></th>
-          <th md-column md-numeric md-order-by="p_id"><span class="title_size">Project</span></th>
-          <th md-column md-order-by="td_id"><span class="title_size">Todo</span></th>
-          <th md-column md-order-by="name"><span class="title_size">작성자</span></th>
-          <th md-column md-numeric><span class="title_size">작성일</span></th>
-          <th md-column md-order-by="duedate"><span class="title_size">마감일</span></th>
+          <th md-column md-numeric md-order-by="uid" colspan="2"><span class="title_size">ID</span></th>
+          <th md-column md-numeric md-order-by="name"><span class="title_size">User Name</span></th>
+          <th md-column md-numeric md-order-by="auth"><span class="title_size">Role</span></th>
         </tr>
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
-            ng-repeat="data in adminusers.datas | filter: filter.search | orderBy: noticecon.query.order | limitTo: adminusers.query.limit : (adminusers.query.page -1) * adminusers.query.limit">
-            <td md-cell class="breakall"><input type="checkbox" ng-model="data.done" checked="checked">
+            ng-repeat="user in adminUsers.users | filter: filter.search | orderBy: adminUsers.query.order | limitTo: adminUsers.query.limit : (adminUsers.query.page -1) * adminUsers.query.limit">
+            
+            <td md-cell class="breakall" colspan="2">{{user.uid}}</td>
+            <td md-cell class="breakall">{{user.name}}</td>
+            <td md-cell class="breakall">
+              <div ng-switch="{{user.auth}}">
+                <div ng-switch-when="0">
+                  Developer
+                </div>
+              </div>
+              <div ng-switch="{{user.auth}}">
+                <div ng-switch-when="1">
+                  Admin
+                </div>
+              </div>
+              <div ng-switch="{{user.auth}}">
+                <div ng-switch-when="2">
+                  Project Manager
+                </div>
+              </div>
             </td>
-            <td md-cell class="breakall">{{data.p_name}}</td>
-            <td md-cell class="breakall">{{data.td_name}}</td>
-            <td md-cell class="breakall">{{data.u_name}}</td>
-            <td md-cell class="breakall">{{data.startdate}}</td>
-            <td md-cell>{{data.duedate}}</td>
-            <td md-cell><md-button class="md-primary" a ui-sref="modify({ modify_id: data.id })">수정</md-button>
-              <md-button class="md-accent" ng-click="adminusers.delete(data.id)">삭제</md-button>
+            <td md-cell><md-button class="md-primary" a ui-sref="adminUserModify({ modify_id: user.uid })">View</md-button>
+              <md-button class="md-accent" ng-click="adminUsers.delete(user.uid)">Delete</md-button>
             </td>
           </tr>
         </tbody>
       </table>
-
     </md-table-container>
-    <md-table-pagination md-limit="adminusers.query.limit" md-page="adminusers.query.page"
-                         md-total="{{adminusers.datas.length}}" md-page-select
-                         md-boundary-links></md-table-pagination>
-</md-card>
+    <md-table-pagination md-limit="adminUsers.query.limit" md-page="adminUsers.query.page" md-total="{{adminUsers.datas.length}}" md-page-select md-boundary-links></md-table-pagination>
+  </md-card>
 </div>
