@@ -1,0 +1,64 @@
+<div ng-controller="AdminUsersModifyController as adminModify">
+  <div ng-init="adminModify.initModify()">
+    <form ng-submit="adminModify.modify()">
+      <md-card>
+        <div>
+          <h3 style="text-align: center">User</h3>
+          <hr class="title_line">
+          <h2>Id</h2>
+          <input type="text" class="" ng-model="adminModify.user.uid" value="{{adminModify.user.uid}}">
+          <hr>
+        </div>
+        <div>
+          <h2>Name</h2>
+          <input type="text" class="" ng-model="adminModify.user.name" value="{{adminModify.user.name}}">
+          <hr>
+        </div>
+        <div>
+          <h2>auth</h2>
+          <input type="text" class="" ng-model="adminModify.user.auth" value="{{adminModify.user.auth}}">
+          <hr>
+        </div>
+        <div>
+          <h2>Email</h2>
+          <input type="text" class="" ng-model="adminModify.user.email" value="{{adminModify.user.email}}">
+          <hr>
+        </div>
+        <div>
+          <h2>Phone</h2>
+          <input type="text" class="" ng-model="adminModify.user.ph" value="{{adminModify.user.ph}}">
+          <hr>
+        </div>
+      </md-card>
+      <md-card>
+        <div>
+          <h3 style="text-align: center">Project</h3>
+          <hr class="title_line">
+          <md-table-container>
+            <table md-table class="table_notice">
+              <thead md-head md-order="adminUsers.query.order">
+              <tr md-row>
+                <th md-column md-numeric md-order-by="uid" colspan="2"><span class="table_title">ID</span></th>
+                <th md-column md-numeric md-order-by="name"><span class="table_title">Project Name</span></th>
+              </tr>
+              </thead>
+              <tbody md-bodylayout="row">
+                <tr md-row
+            ng-repeat="proj in adminModify.proj | orderBy: adminModify.query.order | limitTo: adminModify.query.limit : (adminModify.query.page -1) * adminModify.query.limit">
+            
+                  <td md-cell class="breakall" colspan="2">{{proj.pid}}</td>
+                  <td md-cell class="breakall">{{proj.project.name}}</td>
+                  <td md-cell><md-button class="md-primary" a ui-sref="adminModify({ modify_id: user.uid })">View</md-button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </md-table-container>    
+        </div>
+      </md-card>
+      <md-card>
+        <md-button type="submit" class="md-raised"><i class="fa fa-edit">Edit</i></md-button>
+      </md-card>
+    </form>
+  </div>
+</div>
