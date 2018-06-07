@@ -89,22 +89,14 @@
 
 
     $http.get('/rest/session').then((result) => {
-      if (result.data.auth === 2) { vm.user = 'pm'; } else if (result.data.auth === 0 && result.data.auth > 2) { vm.user = 'user'; }
+      vm.session = result.data;
+      if (vm.session.auth === 2) vm.user = 'pm';
+      else if (vm.session.auth === 0 || vm.session.auth > 2) vm.user = 'user';
     });
 
-    $http.get('/rest/session').then(successCallback, errorCallback);
-    function successCallback(response) {
-      // vm.$log.log(response);
-      if (response.data.auth === 2) vm.state = 'pm';
-      else if (response.data.auth === 0 && response.data.auth > 2) vm.state = 'user';
-    }
-
-    function errorCallback(error) {
-      vm.log(error, 'can not get data.');
-    }
 
     // 글 목록 가져오기
-    $http.get('/rest/pm/project').then((response) => {
+    $http.get('/rest/project/'.concat(vm.session.uid)).then((response) => {
       vm.projects = response.data;
     });
 
