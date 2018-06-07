@@ -196,4 +196,40 @@ router.get('/:uid/:pid/:tdid', wrap(async (req, res) => {
   res.send(list);
 }));
 
+// pid에 해당하는 todo 목록 가져오기
+router.get('/pmpid/:pid', wrap(async (req, res) => {
+  const todo = await models.todo.findAll({
+    where: { pid: req.params.pid }
+  });
+  if (todo) {
+    res.send(todo);
+  }
+}));
+
+// pm의 uid를 받으면 해당 pid를 알아내고 그 pid에 해당하는 assign_r에서 uid를 모두 출력
+router.get('/pmuid/:uid', wrap(async (req, res) => {
+  const output = {};
+  const projects = await models.project.findAll({
+    where: { uid: req.params.uid },
+    attributes: ['pid']
+  });
+
+  await projects.forEach((project) => {
+    output[project.pid] = [];
+  });
+
+  const list = await models.assign_r.findAll({
+    where: {
+      pid: Object.keys(output)
+    },
+    attributes: ['uid', 'pid']
+  });
+
+  await list.forEach((assign) => {
+    output[assign.pid].push(assign.uid);
+  });
+
+  res.send(output);
+}));
+
 module.exports = router;
