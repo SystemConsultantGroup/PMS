@@ -230,4 +230,25 @@ router.post('/todo', wrap(async (req, res) => {
   }
 }));
 
+// 본인 소속 프로젝트의 프로젝트 정보와 To Do list 불러옴
+router.get('/:uid/:pid', wrap(async (req, res) => {
+  const project = await models.assign_r.findAll({
+    where: {
+      uid: req.params.uid,
+      pid: req.params.pid
+    },
+    include: ['project']
+  });
+  const todo = await models.todo.findAll({
+    where: {
+      pid: req.params.pid
+    }
+  });
+  if (project && todo) {
+    res.send({ project, todo });
+  } else {
+    res.status(500).send('error');
+  }
+}));
+
 module.exports = router;
