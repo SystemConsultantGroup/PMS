@@ -4,7 +4,7 @@
     .controller('LoginController', LoginController);
 
   // 로그인 컨트롤러
-  function LoginController($log, $window, $sessionStorage, $document, $http, $state, SHA256) {
+  function LoginController($log, $window, $sessionStorage, $document, $http, $state, $sha) {
     const vm = this;
     vm.log = $log.log;
 
@@ -12,13 +12,12 @@
       // 백엔드에 인증 시도
       $http.post('/rest/login', {
         uid: vm.uid,
-        pw: vm.pw
+        pw: $sha.hash(vm.pw)
       }).then((result) => {
         if (result.data.result) {
           $window.location.assign('/main');
         } else if (vm.uid == null) alert('아이디를 입력해주세요.');
         else alert('아이디 또는 비밀번호를 다시 확인해주세요.');
-        console.log('Login Error');
 
         $sessionStorage.putObject('session', result.data);
       });
@@ -58,7 +57,7 @@
       $http.post('/rest/user', {
         name: vm.name,
         uid: vm.uid,
-        pw: vm.pw,
+        pw: $sha.hash(vm.pw),
         email: vm.email,
         ph: vm.ph
       });
