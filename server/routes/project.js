@@ -231,6 +231,7 @@ router.get('/pmuid/:uid', wrap(async (req, res) => {
 
   res.send(output);
 }));
+
 // todo 추가
 router.post('/todo', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
