@@ -1,0 +1,45 @@
+<div ng-controller="AdminUsersTodoController as adminTodo">
+  <md-card>
+    <h2 style="font-size: 23pt;">&nbsp; &nbsp;Total Todos: <strong>{{adminTodo.todos.length}}</strong>개 
+    <br>
+    </h2>
+  </md-card>
+  <md-card>
+    <h2 style="font-size: 23pt; text-align: center"><pre><strong>User Id : {{adminTodo.uid}}   Project Id : {{adminTodo.pid}}   Project Name : {{adminTodo.proj}}</strong></pre>
+    </h2>
+  </md-card>
+  <md-card ng-cloak>
+    <md-card>
+      <md-input-container md-no-float class="md-block">
+        <ng-md-icon icon="search" style="margin-left:5px"></ng-md-icon>
+        <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="검색">
+      </md-input-container>
+    </md-card>
+
+    <md-table-container>
+      <table md-table class="table_notice">
+        <thead md-head md-order="adminTodo.query.order">
+        <tr md-row>
+          <th md-column md-numeric md-order-by="uid"><span class="title_size">Todo Id</span></th>
+          <th md-column md-numeric md-order-by="name"><span class="title_size">Component</span></th>
+          <th md-column md-numeric md-order-by="auth"><span class="title_size">Due Date</span></th>
+          <th md-column md-numeric md-order-by="auth"><span class="title_size">Done</span></th>
+        </tr>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row
+            ng-repeat="todo in adminTodo.todos | filter: filter.search | orderBy: adminTodo.query.order | limitTo: adminTodo.query.limit : (adminTodo.query.page -1) * adminTodo.query.limit">
+            
+            <td md-cell class="breakall">{{todo.tdid}}</td>
+            <td md-cell class="breakall">{{todo.component}}</td>
+            <td md-cell class="breakall">
+            {{todo.duedate}}</td>
+            <td md-cell class="breakall">
+            {{todo.done}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <md-table-pagination md-limit="adminTodo.query.limit" md-page="adminTodo.query.page" md-total="{{adminTodo.todos.length}}" md-page-select md-boundary-links></md-table-pagination>
+  </md-card>
+</div>

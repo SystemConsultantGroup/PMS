@@ -136,4 +136,17 @@ router.get('/user/:uid/:pid', wrap(async (req, res) => {
   }
 }));
 
+// 회원가입 승인 auth를 0에서 9로 바꿈
+router.post('/register', wrap(async (req, res) => {
+  if (req.session.user.auth === 0) {
+    const userAuth = await models.user.update(
+      { auth: req.body.auth = 9 },
+      { where: { uid: req.body.uid } }
+    );
+    res.send(userAuth);
+  } else {
+    res.status(500).send('error');
+  }
+}));
+
 module.exports = router;

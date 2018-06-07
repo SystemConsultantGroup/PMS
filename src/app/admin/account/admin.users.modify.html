@@ -48,7 +48,7 @@
             
                   <td md-cell class="breakall" colspan="2">{{proj.pid}}</td>
                   <td md-cell class="breakall">{{proj.project.name}}</td>
-                  <td md-cell><md-button class="md-primary" a ui-sref="adminModify({ modify_id: user.uid })">View</md-button>
+                  <td md-cell><md-button class="md-primary" a ui-sref="adminUsersTodo({ todo_id: adminModify.user.uid, todo_pid: proj.pid, todo_proj: proj.project.name })">View</md-button>
                   </td>
                 </tr>
               </tbody>

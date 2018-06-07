@@ -85,6 +85,13 @@
         controllerAs: 'AdminUsersModifyController',
         params: { title: '유저 상세 정보' }
       })
+      .state('adminUsersTodo', {
+        parent: 'pms',
+        url: '/admin/user/todo/:todo_id/:todo_pid/:todo_proj',
+        templateUrl: 'app/admin/account/admin.users.todo.html',
+        controllerAs: 'AdminUsersTodoController',
+        params: { title: '유저 투두 상세 정보' }
+      })
       .state('/project', {
         parent: 'pms',
         url: '/main',
