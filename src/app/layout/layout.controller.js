@@ -24,11 +24,11 @@
       else if (vm.act === 'block') vm.act = 'none';
     };
     // link에 state이름, title에 사이드바에 띄우는 항목명
-    vm.admin = [{
+    vm.admin = [/*{
       link: 'notice',
       title: '공지사항',
       icon: 'announcement'
-    }, /*{
+    }, {
       link: 'subject_manage',
       title: '과목',
       icon: 'assignment'
@@ -42,11 +42,11 @@
       icon: 'dns'
     }, */{
       link: '/admin/users',
-      title: '사용자 관리',
+      title: 'Users List',
       icon: 'face'
     }, {
       link: '/admin/project',
-      title: '프로젝트 관리',
+      title: 'PM page',
       icon: 'event'
     }, /*{
       link: 'system',
