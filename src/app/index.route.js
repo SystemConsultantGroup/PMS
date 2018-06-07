@@ -14,9 +14,9 @@
           footer: { templateUrl: 'app/layout/footer.html' }
         }
       })
-      .state('prof', {
+      .state('pm', {
         parent: 'pms',
-        params: { user: 'prof' }
+        params: { user: 'pm' }
       })
       .state('admin', {
         parent: 'pms',
@@ -78,12 +78,47 @@
         controllerAs: 'AdminUsersController',
         params: { title: '유저 목록' }
       })
+      .state('adminUserModify', {
+        parent: 'pms',
+        url: '/admin/user/modify/:modify_id',
+        templateUrl: 'app/admin/account/admin.users.modify.html',
+        controllerAs: 'AdminUsersModifyController',
+        params: { title: '유저 상세 정보' }
+      })
       .state('/project', {
         parent: 'pms',
         url: '/main',
         templateUrl: 'app/main/main.html',
         controllerAs: 'MainController',
         params: { title: '메인 페이지' }
+      })
+      .state('pmProject', {
+        parent: 'pms',
+        url: '/pm/project',
+        templateUrl: 'app/PM/project/pm.project.html',
+        controllerAs: 'PMController',
+        params: { title: 'PM 페이지' }
+      })
+      .state('pmProjectView', {
+        parent: 'pms',
+        url: '/pm/project/:pid',
+        templateUrl: 'app/PM/project/pm.project.view.html',
+        controllerAs: 'PMController',
+        params: { title: '프로젝트 페이지' }
+      })
+      .state('pmProjectWrite', {
+        parent: 'pms',
+        url: '/pm/project/write',
+        templateUrl: 'app/PM/project/pm.project.write.html',
+        controllerAs: 'PMController',
+        params: { title: '프로젝트 추가' }
+      })
+      .state('pmProjectModify', {
+        parent: 'pms',
+        url: '/pm/project/modify/:pid',
+        templateUrl: 'app/PM/project/pm.project.modify.html',
+        controllerAs: 'PMController',
+        params: { title: '프로젝트 수정' }
       });
 
     // $urlRouterProvider.otherwise('/login');
