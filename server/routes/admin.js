@@ -131,8 +131,6 @@ router.get('/user/:uid/:pid', wrap(async (req, res) => {
         res.send(todo);
       }
     }
-  } else {
-    res.status(500).send('error');
   }
 }));
 
@@ -144,8 +142,6 @@ router.post('/register', wrap(async (req, res) => {
       { where: { uid: req.body.uid } }
     );
     res.send(userAuth);
-  } else {
-    res.status(500).send('error');
   }
 }));
 
