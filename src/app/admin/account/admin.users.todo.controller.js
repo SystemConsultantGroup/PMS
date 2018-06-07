@@ -1,10 +1,10 @@
 (function () {
   angular
     .module('pms')
-    .controller('AdminUsersModifyController', AdminUsersModifyController);
+    .controller('AdminUsersTodoController', AdminUsersTodoController);
 
-  // admin/users 컨트롤러
-  function AdminUsersModifyController($log, $http, $window, $sessionStorage, $location, $stateParams) {
+  // admin/user/todo/uid 컨트롤러
+  function AdminUsersTodoController($log, $http, $window, $sessionStorage, $location, $stateParams) {
     const vm = this;
 
     vm.log = $log.log;
@@ -28,20 +28,18 @@
     function errorCallback(error) {
       vm.log(error, 'can not get data.');
     }
-    vm.initModify = () => {
-      if (vm.stateParams.modify_id != null) {
-        // 유저 데이터 불러오기
-        $http.get(`/rest/admin/user/${vm.stateParams.modify_id}`).then((response) => {
-          if (response.data.error) {
-            alert('글이 존재하지 않습니다.');
-          }
-          vm.user = response.data.user;
-          vm.proj = response.data.project;
-          console.log(response.data);
-          console.log(vm.proj);
-        });
-      }
-    };
+    vm.uid = vm.stateParams.todo_id;
+    vm.pid = vm.stateParams.todo_pid;
+    vm.proj = vm.stateParams.todo_proj;
+    if (vm.uid != null) {
+      // 유저 데이터 불러오기
+      $http.get(`/rest/admin/user/${vm.uid}/${vm.pid}`).then((response) => {
+        if (response.data.error) {
+          alert('글이 존재하지 않습니다.');
+        }
+        vm.todos = response.data;
+      });
+    }
     // 유저 수정
     vm.modify = () => {
       $http.put(`/rest/admin/user/${vm.stateParams.modify_id}`, {
