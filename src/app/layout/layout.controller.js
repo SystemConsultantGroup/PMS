@@ -28,7 +28,7 @@
       link: 'notice',
       title: '공지사항',
       icon: 'announcement'
-    }, {
+    }, /*{
       link: 'subject_manage',
       title: '과목',
       icon: 'assignment'
@@ -40,7 +40,7 @@
       link: 'approveList',
       title: '최종 확정 내역',
       icon: 'dns'
-    }, {
+    }, */{
       link: '/admin/users',
       title: '사용자 관리',
       icon: 'face'
@@ -48,10 +48,10 @@
       link: '/admin/project',
       title: '프로젝트 관리',
       icon: 'event'
-    }, {
+    }, /*{
       link: 'system',
       title: '시스템',
       icon: 'data_usage'
-    }];
+    }*/];
   }
 }());

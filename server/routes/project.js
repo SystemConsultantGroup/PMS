@@ -7,13 +7,11 @@ const wrap = require('express-async-wrap');
 
 // 본인 소속 프로젝트 리스트 불러옴 get방식
 router.get('/:uid', wrap(async (req, res) => {
-  const assign_r = await models.assign_r.findAll({
-    where: {
-      uid: req.params.uid
-    },
-    include: ['project']
+  const projects = await models.project.findAll({
+    where: { uid: req.params.uid }
   });
-  res.send(assign_r);
+
+  res.send(projects);
 }));
 
 
@@ -282,8 +280,6 @@ router.get('/:uid/:pid', wrap(async (req, res) => {
   });
   if (project && todo) {
     res.send({ project, todo });
-  } else {
-    res.status(500).send('error');
   }
 }));
 
