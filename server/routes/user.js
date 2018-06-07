@@ -10,16 +10,10 @@ const wrap = require('express-async-wrap');
 
 // add user
 router.post('/', wrap(async (req, res) => {
-  try {
-    const create = await models.user.create(req.body);
-    if (create) {
-      res.send({
-        result: true
-      });
-    }
-  } catch (e) {
+  const create = await models.user.create(req.body);
+  if (create) {
     res.send({
-      result: false
+      result: true
     });
   }
 }));
