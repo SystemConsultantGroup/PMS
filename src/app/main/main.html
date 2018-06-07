@@ -1,3 +1,7 @@
+<!-- Font Awesome -->
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+
 <div ng-controller="MainController as main">
   <h2 style="font-size: 23pt; color: #ffc000">TO DO LIST</h2>
   <h2 style="font-size: 23pt; color: #ffffff"> TOTAL REQUESTS: <strong>{{main.datas.length}}</strong>개 
@@ -36,8 +40,10 @@
             <td md-cell class="breakall">{{data.u_name}}</td>
             <td md-cell class="breakall">{{data.startdate}}</td>
             <td md-cell>{{data.duedate}}</td>
+            <!-- 유저는 수정, 삭제 권한 없음
             <td md-cell><md-button class="md-primary" a ui-sref="modify({ modify_id: data.id })">수정</md-button>
               <md-button class="md-accent" ng-click="main.delete(data.id)">삭제</md-button>
+            -->
             </td>
           </tr>
         </tbody>
