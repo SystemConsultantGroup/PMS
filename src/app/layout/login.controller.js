@@ -49,7 +49,7 @@
     vm.logout = () => {
       $sessionStorage.remove('session');
       $http.get('/rest/logout').then(() => {
-        $state.go('/login');
+        $window.location.assign('/login');
       });
     };
 
