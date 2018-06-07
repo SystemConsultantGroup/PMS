@@ -588,3 +588,7 @@ md-content#innerContent{
   margin-right: auto;
   margin-left: auto;
 }
+
+.table_title{
+  font-size: 16px;
+}

@@ -48,11 +48,11 @@ router.delete('/', wrap(async (req, res) => {
 
 
 // 유저  정보 수정
-router.put('/user', wrap(async (req, res) => {
+router.put('/', wrap(async (req, res) => {
   try {
     const update = await models.user.update(req.body, {
       where: {
-        uid: req.session.uid
+        uid: req.session.user.uid
       }
     });
 

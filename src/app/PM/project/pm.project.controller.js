@@ -1,10 +1,10 @@
 (function () {
   angular
     .module('pms')
-    .controller('AdminProjectController', AdminProjectController);
+    .controller('PMController', PMController);
 
   // admin/project 컨트롤러
-  function AdminProjectController(
+  function PMController(
     $log, $http, $scope, $window, $location,
     $sessionStorage
   ) {
@@ -72,7 +72,7 @@
     ]; */
 
     vm.initView = function () {
-      $http.get('/rest/admin/project/{pid}').success((data) => {
+      $http.get('/rest/pm/project/{pid}').success((data) => {
         vm.project = data;
       });
     };
@@ -89,14 +89,14 @@
 
 
     $http.get('/rest/session').then((result) => {
-      if (result.data.auth === 1) { vm.user = 'admin'; } else if (result.data.auth === 0 && result.data.auth > 1) { vm.user = 'user'; }
+      if (result.data.auth === 2) { vm.user = 'pm'; } else if (result.data.auth === 0 && result.data.auth > 2) { vm.user = 'user'; }
     });
 
     $http.get('/rest/session').then(successCallback, errorCallback);
     function successCallback(response) {
       // vm.$log.log(response);
-      if (response.data.auth === 1) vm.state = 'admin';
-      else if (response.data.auth === 0 && response.data.auth > 1) vm.state = 'user';
+      if (response.data.auth === 2) vm.state = 'pm';
+      else if (response.data.auth === 0 && response.data.auth > 2) vm.state = 'user';
     }
 
     function errorCallback(error) {
@@ -104,24 +104,24 @@
     }
 
     // 글 목록 가져오기
-    $http.get('/rest/admin/project').then((response) => {
+    $http.get('/rest/pm/project').then((response) => {
       vm.projects = response.data;
     });
 
     vm.add = () => {
-      $http.post('/rest/admin/project', {
+      $http.post('/rest/pm/project', {
         name: vm.name,
         startdate: vm.startdate,
         duedate: vm.duedate,
         done: vm.done,
       });
-      $window.location.path('/admin/project');
+      $window.location.path('/pm/project');
     };
 
     vm.initModify = () => {
       if (vm.pid != null) {
         // 글 데이터 불러오기
-        $http.get('/rest/admin/project/{vm.pid}').then((response) => {
+        $http.get('/rest/pm/project/{vm.pid}').then((response) => {
           if (response.data.error) {
             alert('글이 존재하지 않습니다.');
           }
@@ -133,13 +133,13 @@
     // 글 수정
 
     vm.modify = () => {
-      $http.put('/rest/admin/project/{vm.pid}', {
+      $http.put('/rest/pm/project/{vm.pid}', {
         name: vm.name,
         startdate: vm.name,
         duedate: vm.duedate,
         done: vm.done,
       });
-      $location.path('/admin/project');
+      $location.path('/pm/project');
     };
   }
 }());
