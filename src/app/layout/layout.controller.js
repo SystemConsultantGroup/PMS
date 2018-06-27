@@ -28,7 +28,7 @@
       link: 'notice',
       title: '공지사항',
       icon: 'announcement'
-    }, {
+    }, /*{
       link: 'subject_manage',
       title: '과목',
       icon: 'assignment'

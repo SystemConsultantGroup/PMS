@@ -28,23 +28,14 @@ router.post('/login', wrap(async (req, res) => {
     delete req.session.user.pw;
     req.session.user.result = true; // 로그인 성공 시 true
     res.send(req.session.user);
-  } else {
-    res.status(500).send('error');
   }
 }));
 
-
 // logout
 router.get('/logout', wrap(async (req, res) => {
-  try {
-    const destroy = await req.session.destroy;
-    if (destroy) {
-      res.redirect('/');
-    }
-  } catch (e) {
-    res.send({
-      result: false
-    });
+  const dest = await req.session.destroy();
+  if (dest) {
+    res.redirect('/');
   }
 }));
 
@@ -53,8 +44,6 @@ router.get('/session', wrap(async (req, res) => {
   const session = await req.session.user;
   if (session) {
     res.send(session);
-  } else {
-    res.status(500).send('error');
   }
 }));
 

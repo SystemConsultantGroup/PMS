@@ -280,8 +280,6 @@ router.get('/:uid/:pid', wrap(async (req, res) => {
   });
   if (project && todo) {
     res.send({ project, todo });
-  } else {
-    res.status(500).send('error');
   }
 }));
 

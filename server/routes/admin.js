@@ -16,7 +16,6 @@ router.get('/project', wrap(async (req, res) => {
       res.send(projects);
     }
   }
-  res.status(500).send('error');
 }));
 
 // add project
@@ -29,7 +28,6 @@ router.post('/project', wrap(async (req, res) => {
       });
     }
   }
-  res.status(500).send('error');
 }));
 
 // 유저 이메일, 전화번호, 역할 정보 수정
@@ -46,7 +44,6 @@ router.put('/user/:uid', wrap(async (req, res) => {
       });
     }
   }
-  res.status(500).send('error');
 }));
 
 // 전체 수행원의 이름, auth 정보 불러옴
@@ -59,7 +56,6 @@ router.get('/users', wrap(async (req, res) => {
       res.send(users);
     }
   }
-  res.status(500).send('error');
 }));
 
 // auth 정보 수정
@@ -76,7 +72,6 @@ router.put('/users', wrap(async (req, res) => {
       });
     }
   }
-  res.status(500).send('error');
 }));
 
 // 선택한 수행원의 정보 전체 및 소속 프로젝트 이름과 pid 리스트
@@ -94,14 +89,11 @@ router.get('/user/:uid', wrap(async (req, res) => {
     if (user && project) {
       res.send({ user, project });
     }
-  } else {
-    res.status(500).send('error');
   }
 }));
 
 // 선택한 유저 삭제
 router.delete('/user/:uid', wrap(async (req, res) => {
-  console.log('delete');
   const destroy = await models.user.destroy({
     where: { uid: req.params.uid }
   });
@@ -131,8 +123,6 @@ router.get('/user/:uid/:pid', wrap(async (req, res) => {
         res.send(todo);
       }
     }
-  } else {
-    res.status(500).send('error');
   }
 }));
 
@@ -144,8 +134,6 @@ router.post('/register', wrap(async (req, res) => {
       { where: { uid: req.body.uid } }
     );
     res.send(userAuth);
-  } else {
-    res.status(500).send('error');
   }
 }));
 
