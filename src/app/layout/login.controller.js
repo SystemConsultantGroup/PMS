@@ -16,8 +16,8 @@
       }).then((result) => {
         if (result.data.result) {
           $window.location.assign('/main');
-        } else if (vm.uid == null) alert('아이디를 입력해주세요.');
-        else alert('아이디 또는 비밀번호를 다시 확인해주세요.');
+        } else if (vm.uid == null) alert('Please enter valid ID.');
+        else alert('Please check your ID/PW.');
 
         $sessionStorage.putObject('session', result.data);
       });
