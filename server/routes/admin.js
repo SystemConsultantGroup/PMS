@@ -126,9 +126,25 @@ router.get('/user/:uid/:pid', wrap(async (req, res) => {
   }
 }));
 
+// auth가 0인 사람들만 불러옴(전체 수행원의 이름, auth 정보)
+router.get('/users', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const users = await models.user.findAll({
+       where: {
+        auth: 0
+       },
+      attributes: ['uid', 'name', 'auth']
+    });
+    if (users) {
+      res.send(users);
+    }
+  }
+}));
+
+
 // 회원가입 승인 auth를 0에서 9로 바꿈
 router.post('/register', wrap(async (req, res) => {
-  if (req.session.user.auth === 0) {
+  if (req.session.user.auth === 1) {
     const userAuth = await models.user.update(
       { auth: req.body.auth = 9 },
       { where: { uid: req.body.uid } }
