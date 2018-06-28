@@ -127,7 +127,7 @@ router.get('/user/:uid/:pid', wrap(async (req, res) => {
 }));
 
 // auth가 0인 사람들만 불러옴(전체 수행원의 이름, auth 정보)
-router.get('/users', wrap(async (req, res) => {
+router.get('/users/default', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
     const users = await models.user.findAll({
        where: {
