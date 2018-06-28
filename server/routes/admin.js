@@ -30,6 +30,55 @@ router.post('/project', wrap(async (req, res) => {
   }
 }));
 
+// get (선택한) 프로젝트 이름, startdate, duedate, done 리스트 불러옴
+router.get('/project/:pid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const projects = await models.project.findAll({
+      where: {
+        pid: req.params.pid
+      },
+      attributes: [
+        'name', 'startdate', 'duedate', 'done'
+      ]
+    });
+    if (projects) {
+      res.send(projects);
+    }
+  }
+}));
+
+// put (선택한) 프로젝트 이름, startdate, duedate, done 정보 수정
+router.put('/project/:pid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const update = await models.project.update(req.body, {
+      where: {
+        pid: req.params.pid
+      }
+    });
+    if (update) {
+      res.send({
+        result: true
+      });
+    }
+  }
+}));
+
+// delete (선택한) 프로젝트 정보 삭제
+router.delete('/project/:pid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const destroy = await models.project.destroy({
+      where: {
+        pid: req.params.pid
+      }
+    });
+    if (destroy) {
+      res.send({
+        result: true
+      });
+    }
+  }
+}));
+
 // 유저 이메일, 전화번호, 역할 정보 수정
 router.put('/user/:uid', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
@@ -130,9 +179,9 @@ router.get('/user/:uid/:pid', wrap(async (req, res) => {
 router.get('/users/default', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
     const users = await models.user.findAll({
-       where: {
+      where: {
         auth: 0
-       },
+      },
       attributes: ['uid', 'name', 'auth']
     });
     if (users) {
@@ -141,13 +190,12 @@ router.get('/users/default', wrap(async (req, res) => {
   }
 }));
 
-
-// 회원가입 승인 auth를 0에서 9로 바꿈
-router.post('/register', wrap(async (req, res) => {
+// put 회원가입 승인 auth를 0에서 9로 바꿈
+router.put('/users/approve/:uid', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
     const userAuth = await models.user.update(
-      { auth: req.body.auth = 9 },
-      { where: { uid: req.body.uid } }
+      { auth: req.params.auth = 9 },
+      { where: { uid: req.params.uid } }
     );
     res.send(userAuth);
   }
