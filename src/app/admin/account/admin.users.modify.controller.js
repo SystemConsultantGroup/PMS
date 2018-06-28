@@ -33,12 +33,10 @@
         // 유저 데이터 불러오기
         $http.get(`/rest/admin/user/${vm.stateParams.modify_id}`).then((response) => {
           if (response.data.error) {
-            alert('글이 존재하지 않습니다.');
+            alert('해당 유저가 존재하지 않습니다.');
           }
           vm.user = response.data.user;
           vm.proj = response.data.project;
-          console.log(response.data);
-          console.log(vm.proj);
         });
       }
     };

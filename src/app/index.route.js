@@ -78,6 +78,13 @@
         controllerAs: 'AdminUsersController',
         params: { title: '유저 목록' }
       })
+      .state('adminUsersApprove', {
+        parent: 'pms',
+        url: '/admin/users/approve',
+        templateUrl: 'app/admin/account/admin.users.approve.html',
+        controllerAs: 'AdminApproveController',
+        params: { title: 'Approve Default Users' }
+      })
       .state('adminUserModify', {
         parent: 'pms',
         url: '/admin/user/modify/:modify_id',
