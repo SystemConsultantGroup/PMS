@@ -1,5 +1,5 @@
-<div ng-controller="AdminProjectController as adminproject" ng-init="initView()">
-<h2>{{project.name}}</h2>
+<div ng-controller="AdminProjectController as adminproject" ng-init="adminproject.initView()">
+<h2>{{adminproject.project.name}}</h2>
 <br>
 <md-card ng-cloak>
 	<md-table-container>
@@ -11,9 +11,9 @@
 					<td>Duedate</td> 
 				</tr>
 				<tr md-row>
-					<td md-cell class="breakall">{{project.startdate}}</td>
+					<td md-cell class="breakall">{{adminproject.project.startdate}}</td>
 					<td>|</td>
-					<td md-cell class="breakall">{{project.duedate}}</td>
+					<td md-cell class="breakall">{{adminproject.project.duedate}}</td>
 				</tr>
         	</tbody>
     	</table>
@@ -35,7 +35,7 @@
         <tbody md-bodylayout="row">
           <tr md-row
             ng-repeat="user in adminproject.users | filter: filter.search | orderBy: adminproject.query.order | limitTo: adminproject.query.limit : (adminproject.query.page -1) * adminproject.query.limit">
-            <td md-cell class="breakall"><a href="/admin/project/{{project.pid}}">{{user.name}}</a></td>
+            <td md-cell class="breakall"><a href="/admin/project/{{adminproject.pid}}">{{user.name}}</a></td>
             <td md-cell class="breakall">{{user.email}}</td>
             <td md-cell class="breakall">{{user.ph}}</td>
             </td>
