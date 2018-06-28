@@ -11,9 +11,9 @@
 					<td>Duedate</td> 
 				</tr>
 				<tr md-row>
-					<td md-cell class="breakall">{{adminproject.project[0].startdate}}</td>
+					<td md-cell class="breakall">{{adminproject.project[0].startdate.slice(0,10)}}</td>
 					<td>|</td>
-					<td md-cell class="breakall">{{adminproject.project[0].duedate}}</td>
+					<td md-cell class="breakall">{{adminproject.project[0].duedate.slice(0,10)}}</td>
 				</tr>
         	</tbody>
     	</table>
@@ -51,7 +51,7 @@
 
 <br>
 <br>
-  <md-button class="md-raised"><a href="/admin/project/modify/{{project.pid}}"><i class="fa fa-edit"></i> Edit </a></md-button>
-  <md-button class="md-raised" ng-click="delete(project.pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
+  <md-button class="md-raised" a ui-sref="adminProjectModify({ modify_id: adminproject.project[0].pid })"><i class="fa fa-edit"></i> Edit </md-button>
+  <md-button class="md-raised" ng-click="adminproject.delete(adminproject.project[0].pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
 
 </div>
