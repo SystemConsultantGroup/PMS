@@ -100,6 +100,14 @@
         params: { title: 'User Todo Information' }
       // 유저 투두 상세 정보
       })
+      .state('adminUserApprove', {
+        parent: 'pms',
+        url: '/admin/users/approve',
+        templateUrl: 'app/admin/account/admin.users.approve.html',
+        controllerAs: 'AdminApproveController',
+        params: { title: 'User Approval' }
+      // 유저 승인 페이지
+      })
       .state('/project', {
         parent: 'pms',
         url: '/main',

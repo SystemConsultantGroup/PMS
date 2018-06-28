@@ -31,19 +31,7 @@
     });
 
     // link에 state이름, title에 사이드바에 띄우는 항목명
-    vm.admin = [/*{
-      link: 'notice',
-      title: '공지사항',
-      icon: 'announcement'
-    }, /*{
-      link: 'subject_manage', 
-      title: '과목',
-      icon: 'assignment'
-    }, {
-      link: 'request_list',
-      title: '신청 관리',
-      icon: 'settings'
-    }, */{
+    vm.admin = [{
       link: '/admin/users',
       title: 'User List',
       icon: 'face'
@@ -55,10 +43,7 @@
       link: '/admin/users/approve',
       title: 'User Approve',
       icon: 'dns'
-    }, /*{
-      link: 'system',
-      title: '시스템',
-      icon: 'data_usage'
-    }*/];
+    },
+    ];
   }
 }());
