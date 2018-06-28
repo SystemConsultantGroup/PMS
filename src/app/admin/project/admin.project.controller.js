@@ -6,10 +6,11 @@
   // admin/project 컨트롤러
   function AdminProjectController(
     $log, $http, $scope, $window, $location,
-    $sessionStorage
+    $sessionStorage, $stateParams
   ) {
     const vm = this;
     vm.log = $log.log;
+    vm.stateParams = $stateParams
     vm.session = $sessionStorage.getObject('session');
     vm.query = {
       order: 'pid',
@@ -71,21 +72,17 @@
       },
     ]; */
 
-    vm.initView = function () {
-      $http.get('/rest/admin/project/{pid}').success((data) => {
-        vm.project = data;
+    $http.get('/rest/session').then((result)=>{
+      vm.uid = result.data.uid;
+      });
+
+    vm.initView = () => {
+      $http.get(`/rest/project/${vm.uid}/${vm.stateParams.view_id}`).then((result) => {
+        vm.project = result.data;
+        console.log(vm.project);
       });
     };
-
-    vm.delete = (pid) => {
-      const cf = window.confirm('삭제하시겠습니까?');
-      if (cf) {
-        vm.pid = pid;
-        $http.delete('/rest/{vm.session.uid}/project/{pid}');
-        alert('게시글이 삭제되었습니다.');
-        vm.location.reload();
-      }
-    };
+    
 
 
     $http.get('/rest/session').then((result) => {
@@ -106,22 +103,28 @@
     // 글 목록 가져오기
     $http.get('/rest/admin/project').then((response) => {
       vm.projects = response.data;
+      pids = []
+      for (i in vm.projects) {
+        pids.push(vm.projects[i].pid)
+      }
     });
 
     vm.add = () => {
       $http.post('/rest/admin/project', {
+        uid: vm.uid,
+        pid: Math.max.apply(null, pids)+1,
         name: vm.name,
         startdate: vm.startdate,
         duedate: vm.duedate,
-        done: vm.done,
+        done: null,
       });
-      $window.location.path('/admin/project');
+      $window.location.assign('/admin/project');
     };
 
     vm.initModify = () => {
       if (vm.pid != null) {
         // 글 데이터 불러오기
-        $http.get('/rest/admin/project/{vm.pid}').then((response) => {
+        $http.get(`/rest/project/${uid}/${pid}`).then((response) => {
           if (response.data.error) {
             alert('글이 존재하지 않습니다.');
           }
@@ -140,6 +143,15 @@
         done: vm.done,
       });
       $location.path('/admin/project');
+    };
+
+    vm.delete = (pid) => {
+      const cf = window.confirm('삭제하시겠습니까?');
+      if (cf) {
+        $http.delete(`/rest/project/${vm.uid}/${pid}`);
+        alert('게시글이 삭제되었습니다.');
+        $window.location.assign('/admin/project');
+      }
     };
   }
 }());

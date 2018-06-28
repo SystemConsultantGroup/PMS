@@ -27,7 +27,8 @@
         url: '/main',
         templateUrl: 'app/main/main.html',
         controllerAs: 'MainController',
-        params: { title: '메인 페이지' }
+        params: { title: 'Main Page'} 
+        //메인 페이지
       })
       .state('login', {
         url: '/login',
@@ -48,91 +49,96 @@
         url: '/admin/project',
         templateUrl: 'app/admin/project/admin.project.html',
         controllerAs: 'AdminProjectController',
-        params: { title: '관리자 페이지' }
+        params: { title: 'Admin : Main Page' }
+        // 관리자 페이지
       })
       .state('adminProjectView', {
         parent: 'pms',
-        url: '/admin/project/:pid',
+        url: '/admin/project/:view_id',
         templateUrl: 'app/admin/project/admin.project.view.html',
         controllerAs: 'AdminProjectController',
-        params: { title: '프로젝트 페이지' }
+        params: { title: 'Admin : Main Page' }
+        // 프로젝트 페이지
       })
       .state('adminProjectWrite', {
         parent: 'pms',
         url: '/admin/project/write',
         templateUrl: 'app/admin/project/admin.project.write.html',
         controllerAs: 'AdminProjectController',
-        params: { title: '프로젝트 추가' }
+        params: { title: 'Admin : Add Project' }
+        // 프로젝트 추가
       })
       .state('adminProjectModify', {
         parent: 'pms',
         url: '/admin/project/modify/:pid',
         templateUrl: 'app/admin/project/admin.project.modify.html',
         controllerAs: 'AdminProjectController',
-        params: { title: '프로젝트 수정' }
+        params: { title: 'Admin : Modify Project' }
       })
+      //프로젝트 수정
       .state('adminUsers', {
         parent: 'pms',
         url: '/admin/users',
         templateUrl: 'app/admin/account/admin.users.html',
         controllerAs: 'AdminUsersController',
-        params: { title: '유저 목록' }
-      })
-      .state('adminUsersApprove', {
-        parent: 'pms',
-        url: '/admin/users/approve',
-        templateUrl: 'app/admin/account/admin.users.approve.html',
-        controllerAs: 'AdminApproveController',
-        params: { title: 'Approve Default Users' }
+        params: { title: 'Admin : User List' }
+      // 유저 목록
       })
       .state('adminUserModify', {
         parent: 'pms',
         url: '/admin/user/modify/:modify_id',
         templateUrl: 'app/admin/account/admin.users.modify.html',
         controllerAs: 'AdminUsersModifyController',
-        params: { title: '유저 상세 정보' }
+        params: { title: 'Admin : User Information' }
+      // 유저 상세 정보
       })
       .state('adminUsersTodo', {
         parent: 'pms',
         url: '/admin/user/todo/:todo_id/:todo_pid/:todo_proj',
         templateUrl: 'app/admin/account/admin.users.todo.html',
         controllerAs: 'AdminUsersTodoController',
-        params: { title: '유저 투두 상세 정보' }
+        params: { title: 'User Todo Information' }
+      // 유저 투두 상세 정보
       })
       .state('/project', {
         parent: 'pms',
         url: '/main',
         templateUrl: 'app/main/main.html',
         controllerAs: 'MainController',
-        params: { title: '메인 페이지' }
+        params: { title: 'Main Page' }
+      // 메인 페이지
       })
       .state('pmProject', {
         parent: 'pms',
         url: '/pm/project',
         templateUrl: 'app/PM/project/pm.project.html',
         controllerAs: 'PMController',
-        params: { title: 'PM 페이지' }
+        params: { title: 'PM : Main Page' }
+      // PM 페이지
       })
       .state('pmProjectView', {
         parent: 'pms',
         url: '/pm/project/:pid',
         templateUrl: 'app/PM/project/pm.project.view.html',
         controllerAs: 'PMController',
-        params: { title: '프로젝트 페이지' }
+        params: { title: 'PM : Main Page' }
       })
+      // 프로젝트 페이지
       .state('pmProjectWrite', {
         parent: 'pms',
         url: '/pm/project/write',
         templateUrl: 'app/PM/project/pm.project.write.html',
         controllerAs: 'PMController',
-        params: { title: '프로젝트 추가' }
+        params: { title: 'PM : Add Project' }
+      // 프로젝트 추가
       })
       .state('pmProjectModify', {
         parent: 'pms',
         url: '/pm/project/modify/:pid',
         templateUrl: 'app/PM/project/pm.project.modify.html',
         controllerAs: 'PMController',
-        params: { title: '프로젝트 수정' }
+        params: { title: 'PM : Modify Project' }
+      // 프로젝트 수정
       });
 
     // $urlRouterProvider.otherwise('/login');
