@@ -43,18 +43,18 @@
       link: 'request_list',
       title: '신청 관리',
       icon: 'settings'
-    }, {
-      link: 'approveList',
-      title: '최종 확정 내역',
-      icon: 'dns'
     }, */{
       link: '/admin/users',
-      title: 'Users List',
+      title: 'User List',
       icon: 'face'
     }, {
       link: '/admin/project',
       title: 'PM page',
       icon: 'event'
+    }, {
+      link: '/admin/users/approve',
+      title: 'User Approve',
+      icon: 'dns'
     }, /*{
       link: 'system',
       title: '시스템',
