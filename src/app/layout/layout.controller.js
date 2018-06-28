@@ -12,7 +12,7 @@
     vm.stateParams = $stateParams;
     vm.log = $log.log;
     vm.act = 'none';
-    vm.name = session.name;
+    if(session) vm.name = session.name;
 
     vm.toggleLeft = () => {
       $mdSidenav('left').toggle();
