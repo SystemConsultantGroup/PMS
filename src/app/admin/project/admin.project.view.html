@@ -1,5 +1,5 @@
 <div ng-controller="AdminProjectController as adminproject" ng-init="adminproject.initView()">
-<h2>{{adminproject.project.name}}</h2>
+<h2>{{adminproject.project[0].name}}</h2>
 <br>
 <md-card ng-cloak>
 	<md-table-container>
@@ -11,9 +11,9 @@
 					<td>Duedate</td> 
 				</tr>
 				<tr md-row>
-					<td md-cell class="breakall">{{adminproject.project.startdate}}</td>
+					<td md-cell class="breakall">{{adminproject.project[0].startdate}}</td>
 					<td>|</td>
-					<td md-cell class="breakall">{{adminproject.project.duedate}}</td>
+					<td md-cell class="breakall">{{adminproject.project[0].duedate}}</td>
 				</tr>
         	</tbody>
     	</table>

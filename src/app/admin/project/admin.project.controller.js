@@ -77,7 +77,8 @@
       });
 
     vm.initView = () => {
-      $http.get(`/rest/project/${vm.uid}/${vm.stateParams.view_id}`).then((result) => {
+      const pid = vm.stateParams.view_id
+      $http.get(`/rest/admin/project/${pid}`).then((result) => {
         vm.project = result.data;
         console.log(vm.project);
       });
@@ -103,16 +104,11 @@
     // 글 목록 가져오기
     $http.get('/rest/admin/project').then((response) => {
       vm.projects = response.data;
-      pids = []
-      for (i in vm.projects) {
-        pids.push(vm.projects[i].pid)
-      }
     });
 
     vm.add = () => {
       $http.post('/rest/admin/project', {
         uid: vm.uid,
-        pid: Math.max.apply(null, pids)+1,
         name: vm.name,
         startdate: vm.startdate,
         duedate: vm.duedate,
