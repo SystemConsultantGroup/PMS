@@ -8,6 +8,9 @@ const router = express.Router();
 const models = require('../models');
 const wrap = require('express-async-wrap');
 
+let sequelize = require("sequelize");
+let Op = sequelize.Op;
+
 // get project list
 router.get('/project', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
@@ -96,9 +99,15 @@ router.put('/user/:uid', wrap(async (req, res) => {
 }));
 
 // 전체 수행원의 이름, auth 정보 불러옴
+// auth가 0이 아닌 유저들을 불러온다
 router.get('/users', wrap(async (req, res) => {
   if (req.session.user.auth === 1) {
     const users = await models.user.findAll({
+      where: {
+        auth: {
+          [Op.ne]: 0
+        }
+      },
       attributes: ['uid', 'name', 'auth']
     });
     if (users) {
