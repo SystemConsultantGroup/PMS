@@ -7,12 +7,26 @@ const wrap = require('express-async-wrap');
 
 // 본인 소속 프로젝트 리스트 불러옴 get방식
 router.get('/:uid', wrap(async (req, res) => {
-  const projects = await models.project.findAll({
-    where: { uid: req.params.uid }
+  if (req.params.uid === req.session.user.uid) {
+    const pids = await models.assign_r.findAll({
+      where: {uid: req.params.uid},
+      attributes: ['pid']
+    });
+    let projects = []
+    for (let i = 0; i < pids.length; i++) {
+      const project = await models.project.findAll({
+        where: { pid: pids[i].pid }
+      });
+      projects.push(project[0]);
+    }
+    res.send(projects)
+  } else {
+    res.send({
+    result: false
   });
-
-  res.send(projects);
-}));
+  }
+}
+));
 
 
 // 프로젝트 수행원 추가, 역할 부여(PM과 ADMIN만 가능)
