@@ -12,8 +12,13 @@
         </div>
         <div>
           <h2>Password</h2>
-          <div ng-click="AC.changePW()" style="cursor:pointer;">Change Password</div>
-          <input style = "border:1px solid black;"ng-style="{'display' : AC.pwshow}" type="text" class="" ng-model="AC.npw">
+          <div ng-if="AC.pwshow==='none'">Previous Password
+            <input style="border:1px solid black" ng-model="AC.check">
+            <span ng-click="AC.changePW()" style="border:1px solid black">Confirm</span>
+          </div>
+          <div ng-style="{'display' : AC.pwshow}">New Password
+            <input style = "border:1px solid black;" type="text" class="" ng-model="AC.npw">
+          </div>
           <hr>
         </div>
         <div>
