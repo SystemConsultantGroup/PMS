@@ -76,10 +76,10 @@
     ];
 
     vm.delete = (pid) => {
-      const cf = window.confirm('삭제하시겠습니까?');
+      const cf = window.confirm('Delete?');
       if (cf) {
         $http.delete(`/${vm.session.uid}/project/${pid}`);
-        alert('게시글이 삭제되었습니다.');
+        alert('Article has been deleted.');
         $location.reload();
       }
     };
