@@ -46,7 +46,7 @@
         $window.location.reload();
       }
     };
-    vm.delete = (uid) => {
+    vm.refuse = (uid) => {
       const cf = window.confirm('거절하시겠습니까?');
       if (cf) {
         $http.delete(`/rest/admin/user/${uid}`);
