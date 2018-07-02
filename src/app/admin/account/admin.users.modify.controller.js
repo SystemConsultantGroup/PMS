@@ -33,7 +33,7 @@
         // 유저 데이터 불러오기
         $http.get(`/rest/admin/user/${vm.stateParams.modify_id}`).then((response) => {
           if (response.data.error) {
-            alert('해당 유저가 존재하지 않습니다.');
+            alert('This user does not exist.');
           }
           vm.user = response.data.user;
           vm.proj = response.data.project;

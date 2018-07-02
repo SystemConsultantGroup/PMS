@@ -78,11 +78,11 @@
     };
 
     vm.delete = (pid) => {
-      const cf = window.confirm('삭제하시겠습니까?');
+      const cf = window.confirm('Are you sure you want to delete?');
       if (cf) {
         vm.pid = pid;
         $http.delete('/rest/{vm.session.uid}/project/{pid}');
-        alert('게시글이 삭제되었습니다.');
+        alert('Post has been deleted.');
         vm.location.reload();
       }
     };
@@ -115,7 +115,7 @@
         // 글 데이터 불러오기
         $http.get('/rest/pm/project/{vm.pid}').then((response) => {
           if (response.data.error) {
-            alert('글이 존재하지 않습니다.');
+            alert('This article does not exist.');
           }
         });
       }

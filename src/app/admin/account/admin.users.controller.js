@@ -32,10 +32,10 @@
       vm.users = res.data;
     });
     vm.delete = (uid) => {
-      const cf = window.confirm('삭제하시겠습니까?');
+      const cf = window.confirm('Are you sure you want to delete?');
       if (cf) {
         $http.delete(`/rest/admin/user/${uid}`);
-        alert('해당 유저가 삭제되었습니다.');
+        alert('The user has been deleted.');
       }
     };
   }

@@ -35,7 +35,7 @@
       // 유저 데이터 불러오기
       $http.get(`/rest/admin/user/${vm.uid}/${vm.pid}`).then((response) => {
         if (response.data.error) {
-          alert('글이 존재하지 않습니다.');
+          alert('This article does not exist.');
         }
         vm.todos = response.data;
       });
