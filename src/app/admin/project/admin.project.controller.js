@@ -137,10 +137,10 @@
     };
 
     vm.delete = (pid) => {
-      const cf = window.confirm('삭제하시겠습니까?');
+      const cf = window.confirm('Delete?');
       if (cf) {
         $http.delete(`/rest/project/${vm.uid}/${pid}`);
-        alert('게시글이 삭제되었습니다.');
+        alert('Deleted.');
         $window.location.assign('/admin/project');
       }
     };
