@@ -9,7 +9,7 @@
     <md-card>
       <md-input-container md-no-float class="md-block">
         <ng-md-icon icon="search" style="margin-left:5px"></ng-md-icon>
-        <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="search">
+        <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="Search">
       </md-input-container>
     </md-card>
 
@@ -47,7 +47,9 @@
             </td>
             <td md-cell>
               <md-button class="md-primary" ng-click="adminApprove.approve(user.uid)">Approve</md-button>
+              <md-button class="md-accent" ng-click="adminApprove.delete(user.uid)">Refuse</md-button>
             </td>
+              
           </tr>
         </tbody>
       </table>

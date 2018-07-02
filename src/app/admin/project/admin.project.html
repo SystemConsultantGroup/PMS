@@ -38,8 +38,18 @@
             <td md-cell class="breakall">{{project.duedate.slice(0,10)}}</td>
             <td md-cell class="breakall">{{project.done.slice(0,10)}}</td>
 
+<<<<<<< HEAD
             <td md-cell><md-button class="md-primary" a ui-sref="adminProjectModify({ modify_id: project.pid })">Edit</md-button>
               <md-button class="md-accent" ng-click="adminproject.delete(project.pid)">Delete</md-button>
+=======
+<<<<<<< HEAD
+            <td md-cell><md-button class="md-primary" a ui-sref="adminProjectView({ view_id: project.pid })">Edit</md-button>
+              <md-button class="md-accent" ng-click="adminproject.delete(project.pid)">Delete</md-button>
+=======
+            <td md-cell><md-button class="md-primary" a ui-sref="adminProjectModify({ modify_id: project.pid })">수정</md-button>
+              <md-button class="md-accent" ng-click="adminproject.delete(project.pid)">삭제</md-button>
+>>>>>>> f32ed4cafb9921d751c7e77b23f8e594657981a3
+>>>>>>> 0c75927873f79bb5f812ea3fc02a105e1da5d322
             </td>
           </tr>
         </tbody>
