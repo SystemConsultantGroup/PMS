@@ -3,7 +3,7 @@
 
 
 <body class="nav-md" ng-controller="LayoutController as layout">
-    <div class="container body">
+    <div class="container body" ng-init = "layout.init()">
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
@@ -29,13 +29,13 @@
             <br /> 
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" ng-init = "layout.init2(layout.uid)">
+              <div class="menu_section" ng-init = "layout.sidevar(layout.authgi)">
                 <ul class="nav side-menu">
                   <li><a href="/main"><i class="fa fa-home"></i> Home <span class="fa"></span></a></li>
                   <li ng-click="layout.change()"><a><i class="fa fa-table"></i> Projects <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" ng-style="{'display' : layout.act}">
-                      <li ng-repeat="i in layout.admin"><a href="{{i.link}}">{{i.title}}</a></li>
+                      <li ng-repeat="i in layout.side"><a ui-sref="{{i.link}}">{{i.title}}</a></li>
                     </ul>
                   </li>
                 </ul>
