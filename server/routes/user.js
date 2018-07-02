@@ -47,7 +47,7 @@ router.delete('/', wrap(async (req, res) => {
 
 
 // 유저  정보 수정
-router.put('/', wrap(async (req, res) => {
+router.put('/:uid', wrap(async (req, res) => {
   const update = await models.user.update(req.body, {
     where: {
       uid: req.session.user.uid
@@ -69,8 +69,6 @@ router.get('/:uid', wrap(async (req, res) => {
       uid: req.params.uid
     }
   });
-  await delete inform.dataValues.pw;
-
   if (inform) {
     res.send(inform);
   }
