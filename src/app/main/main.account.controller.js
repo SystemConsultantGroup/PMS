@@ -18,8 +18,8 @@
     vm.pwshow = "none";
     vm.npw = "";
     vm.changePW = () => {
-      console.log(vm.pwshow);
-      if(vm.pwshow==="none"){
+      console.log(vm.check)
+      if(vm.pwshow==="none" & $sha.hash(vm.check)===vm.user.pw){
         vm.pwshow="display";
       }
       else{
