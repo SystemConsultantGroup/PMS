@@ -38,7 +38,7 @@ router.get('/project/:pid', wrap(async (req, res) => {
         pid: req.params.pid
       },
       attributes: [
-        'name', 'startdate', 'duedate', 'done'
+        'pid', 'name', 'startdate', 'duedate', 'done'
       ]
     });
     if (projects) {

@@ -1,5 +1,5 @@
 <div ng-controller="AdminProjectController as adminproject" ng-init="adminproject.initView()">
-<h2>{{adminproject.project.name}}</h2>
+<h2>{{adminproject.project[0].name}}</h2>
 <br>
 <md-card ng-cloak>
 	<md-table-container>
@@ -11,16 +11,16 @@
 					<td>Duedate</td> 
 				</tr>
 				<tr md-row>
-					<td md-cell class="breakall">{{adminproject.project.startdate}}</td>
+					<td md-cell class="breakall">{{adminproject.project[0].startdate.slice(0,10)}}</td>
 					<td>|</td>
-					<td md-cell class="breakall">{{adminproject.project.duedate}}</td>
+					<td md-cell class="breakall">{{adminproject.project[0].duedate.slice(0,10)}}</td>
 				</tr>
         	</tbody>
     	</table>
     </md-table-container>
 </md-card>
 <br>
-<md-button class="md-raised"><i class="fa fa-users" ng-click="layout.toggleLeft()">  User List</i></md-button>
+<md-button class="md-raised"><i class="fa fa-users">  User List</i></md-button>
 
 <md-card>
 <md-table-container>
@@ -51,7 +51,7 @@
 
 <br>
 <br>
-  <md-button class="md-raised"><a href="/admin/project/modify/{{project.pid}}"><i class="fa fa-edit"></i> Edit </a></md-button>
-  <md-button class="md-raised" ng-click="delete(project.pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
+  <md-button class="md-raised" a ui-sref="adminProjectModify({ modify_id: adminproject.project[0].pid })"><i class="fa fa-edit"></i> Edit </md-button>
+  <md-button class="md-raised" ng-click="adminproject.delete(adminproject.project[0].pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
 
 </div>

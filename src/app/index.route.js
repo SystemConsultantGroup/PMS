@@ -70,7 +70,7 @@
       })
       .state('adminProjectModify', {
         parent: 'pms',
-        url: '/admin/project/modify/:pid',
+        url: '/admin/project/modify/:modify_id',
         templateUrl: 'app/admin/project/admin.project.modify.html',
         controllerAs: 'AdminProjectController',
         params: { title: 'Admin : Modify Project' }

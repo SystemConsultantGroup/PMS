@@ -77,7 +77,8 @@
       });
 
     vm.initView = () => {
-      $http.get(`/rest/project/${vm.uid}/${vm.stateParams.view_id}`).then((result) => {
+      const pid = vm.stateParams.view_id
+      $http.get(`/rest/admin/project/${pid}`).then((result) => {
         vm.project = result.data;
         console.log(vm.project);
       });
@@ -103,16 +104,11 @@
     // 글 목록 가져오기
     $http.get('/rest/admin/project').then((response) => {
       vm.projects = response.data;
-      pids = []
-      for (i in vm.projects) {
-        pids.push(vm.projects[i].pid)
-      }
     });
 
     vm.add = () => {
       $http.post('/rest/admin/project', {
         uid: vm.uid,
-        pid: Math.max.apply(null, pids)+1,
         name: vm.name,
         startdate: vm.startdate,
         duedate: vm.duedate,
@@ -122,23 +118,19 @@
     };
 
     vm.initModify = () => {
-      if (vm.pid != null) {
-        // 글 데이터 불러오기
-        $http.get(`/rest/project/${uid}/${pid}`).then((response) => {
-          if (response.data.error) {
-            alert('글이 존재하지 않습니다.');
-          }
-        });
-      }
+      const pid = vm.stateParams.modify_id
+      $http.get(`/rest/admin/project/${pid}`).then((result) => {
+        vm.project = result.data[0];
+      });
     };
 
 
     // 글 수정
 
     vm.modify = () => {
-      $http.put('/rest/admin/project/{vm.pid}', {
+      $http.put(`/rest/admin/project/${vm.stateParams.modify_id}`, {
         name: vm.name,
-        startdate: vm.name,
+        startdate: vm.startdate,
         duedate: vm.duedate,
         done: vm.done,
       });
