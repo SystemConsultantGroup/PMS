@@ -4,7 +4,7 @@
     .controller('AdminApproveController', AdminApproveController);
 
   // admin/users 컨트롤러
-  function AdminApproveController($log, $http, $window, $sessionStorage, $location) {
+  function AdminApproveController($log, $http, $window, $sessionStorage) {
     const vm = this;
 
     vm.log = $log.log;
