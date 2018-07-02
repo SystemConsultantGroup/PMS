@@ -147,7 +147,15 @@
         controllerAs: 'PMController',
         params: { title: 'PM : Modify Project' }
       // 프로젝트 수정
-      });
+      })
+      .state('userAccount', {
+        parent: 'pms',
+        url: '/account',
+        templateUrl: 'app/main/main.account.html',
+        controllerAs: 'AccountController',
+        params: { title: 'Account' }
+      // 프로젝트 수정
+      })
 
     // $urlRouterProvider.otherwise('/login');
   }
