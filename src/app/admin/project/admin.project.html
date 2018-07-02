@@ -7,7 +7,7 @@
     <md-card>
       <md-input-container md-no-float class="md-block">
         <ng-md-icon icon="search" style="margin-left:5px"></ng-md-icon>
-        <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="검색">
+        <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="Search">
       </md-input-container>
     </md-card>
 
@@ -29,8 +29,8 @@
             <td md-cell class="breakall">{{project.duedate}}</td>
             <td md-cell class="breakall">{{project.done}}</td>
 
-            <td md-cell><md-button class="md-primary" a ui-sref="adminProjectView({ view_id: project.pid })">수정</md-button>
-              <md-button class="md-accent" ng-click="adminproject.delete(project.pid)">삭제</md-button>
+            <td md-cell><md-button class="md-primary" a ui-sref="adminProjectView({ view_id: project.pid })">Edit</md-button>
+              <md-button class="md-accent" ng-click="adminproject.delete(project.pid)">Delete</md-button>
             </td>
           </tr>
         </tbody>

@@ -46,5 +46,13 @@
         $window.location.reload();
       }
     };
+    vm.delete = (uid) => {
+      const cf = window.confirm('거절하시겠습니까?');
+      if (cf) {
+        $http.delete(`/rest/admin/user/${uid}`);
+        alert('해당 유저가 삭제되었습니다.');
+        $window.location.reload();
+      }
+    };
   }
 }());
