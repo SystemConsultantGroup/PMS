@@ -2,15 +2,15 @@
   <md-button class="md-raised"><a href="/admin/project/write"><i class="fa fa-plus-square"></i> New Project </a></md-button>
   <md-button class="md-raised"><a href="/admin/users"><i class="fa fa-users"></i> Developers </a></md-button>
 
-<md-card ng-cloak>
-
+  <md-card ng-cloak>
     <md-card>
       <md-input-container md-no-float class="md-block">
         <ng-md-icon icon="search" style="margin-left:5px"></ng-md-icon>
-        <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="검색">
+        <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="Search">
       </md-input-container>
     </md-card>
 
+    <form ng-submit="adminproject.add()">
     <md-table-container>
       <table md-table class="table_notice">
         <thead md-head md-order="adminproject.query.order">
@@ -22,6 +22,15 @@
         </tr>
         </thead>
         <tbody md-bodylayout="row">
+          <tr>
+              <td><input type="text" class="text_input" ng-model="adminproject.name"></td>
+              <td><input type="date" class="text_input" ng-model="adminproject.startdate"></td>
+              <td><input type="date" class="text_input" ng-model="adminproject.duedate"></td>
+              <td></td>
+              <td><md-button class="" type="submit"><i class="fa fa-plus-square">CREATE</i></md-button></td>
+          </tr>
+        </tbody>
+        <tbody md-bodylayout="row">
           <tr md-row
             ng-repeat="project in adminproject.projects | filter: filter.search | orderBy: adminproject.query.order | limitTo: adminproject.query.limit : (adminproject.query.page -1) * adminproject.query.limit">
             <td md-cell class="breakall"><md-button a ui-sref="adminProjectView({ view_id: project.pid })">{{project.name}}</md-button></td>
@@ -29,15 +38,16 @@
             <td md-cell class="breakall">{{project.duedate.slice(0,10)}}</td>
             <td md-cell class="breakall">{{project.done.slice(0,10)}}</td>
 
-            <td md-cell><md-button class="md-primary" a ui-sref="adminProjectModify({ modify_id: project.pid })">수정</md-button>
-              <md-button class="md-accent" ng-click="adminproject.delete(project.pid)">삭제</md-button>
+            <td md-cell><md-button class="md-primary" a ui-sref="adminProjectModify({ modify_id: project.pid })">Edit</md-button>
+              <md-button class="md-accent" ng-click="adminproject.delete(project.pid)">Delete</md-button>
             </td>
           </tr>
         </tbody>
       </table>
     </md-table-container>
+    </form>
     <md-table-pagination md-limit="adminproject.query.limit" md-page="adminproject.query.page"
                          md-total="{{adminproject.projects.length}}" md-page-select
                          md-boundary-links></md-table-pagination>
-</md-card>
+    </md-card>
 </div>

@@ -27,8 +27,8 @@
         url: '/main',
         templateUrl: 'app/main/main.html',
         controllerAs: 'MainController',
-        params: { title: 'Main Page'} 
-        //메인 페이지
+        params: { title: 'Main Page' }
+        // 메인 페이지
       })
       .state('login', {
         url: '/login',
@@ -75,7 +75,7 @@
         controllerAs: 'AdminProjectController',
         params: { title: 'Admin : Modify Project' }
       })
-      //프로젝트 수정
+      // 프로젝트 수정
       .state('adminUsers', {
         parent: 'pms',
         url: '/admin/users',

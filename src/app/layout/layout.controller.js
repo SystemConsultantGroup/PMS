@@ -25,9 +25,13 @@
     };
 
     $http.get('/rest/session').then((result) => {
-      //if (result.data.auth === 1) { vm.user = 'admin'; } else if (result.data.auth === 0 && result.data.auth > 1) { vm.user = 'user'; }
+      /* if (result.data.auth === 1) {
+       vm.user = 'admin';
+     } else if (result.data.auth === 0 && result.data.auth > 1) {
+      vm.user = 'user';
+    } */
       console.log(result.data.name);
-      vm.name = result.data.name; 
+      vm.name = result.data.name;
     });
 
     // link에 state이름, title에 사이드바에 띄우는 항목명

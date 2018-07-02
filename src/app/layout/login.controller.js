@@ -15,13 +15,12 @@
         pw: $sha.hash(vm.pw)
       }).then((result) => {
         if (result.data.result) {
-          if(result.data.auth == 1){
-            $state.go('adminProject').then(function(){
+          if (result.data.auth === 1) {
+            $state.go('adminProject').then(() => {
               $window.location.reload(true);
             });
-          }
-          else{
-            $state.go('main').then(function(){
+          } else {
+            $state.go('main').then(() => {
               $window.location.reload(true);
             });
           }

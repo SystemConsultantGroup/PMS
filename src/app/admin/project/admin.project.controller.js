@@ -10,11 +10,11 @@
   ) {
     const vm = this;
     vm.log = $log.log;
-    vm.stateParams = $stateParams
+    vm.stateParams = $stateParams;
     vm.session = $sessionStorage.getObject('session');
     vm.query = {
       order: 'pid',
-      limit: 7,
+      limit: 10,
       page: 1
     };
 
@@ -72,18 +72,17 @@
       },
     ]; */
 
-    $http.get('/rest/session').then((result)=>{
+    $http.get('/rest/session').then((result) => {
       vm.uid = result.data.uid;
-      });
+    });
 
     vm.initView = () => {
-      const pid = vm.stateParams.view_id
+      const pid = vm.stateParams.view_id;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
         vm.project = result.data;
         console.log(vm.project);
       });
     };
-    
 
 
     $http.get('/rest/session').then((result) => {
@@ -118,9 +117,9 @@
     };
 
     vm.initModify = () => {
-      const pid = vm.stateParams.modify_id
+      const pid = vm.stateParams.modify_id;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
-        vm.project = result.data[0];
+        [vm.project] = result.data;
       });
     };
 
