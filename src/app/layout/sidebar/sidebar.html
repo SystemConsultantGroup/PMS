@@ -29,15 +29,54 @@
             <br /> 
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" ng-init = "layout.init2(layout.uid)">
-              <div class="menu_section" ng-init = "layout.sidevar(layout.authgi)">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a href="/main"><i class="fa fa-home"></i> Home <span class="fa"></span></a></li>
-                  <li ng-click="layout.change()"><a><i class="fa fa-table"></i> Projects <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu" ng-style="{'display' : layout.act}">
-                      <li ng-repeat="i in layout.side"><a ui-sref="{{i.link}}">{{i.title}}</a></li>
-                    </ul>
-                  </li>
+                  <!-- Admin sidebar -->
+                  <div ng-if="layout.auth==1">
+                    <li class="board" >
+                      <a ui-sref='adminProject'>
+                        <i class="fa fa-table"></i>
+                          <span class="title">Project</span>
+                      </a>
+                    </li>
+                    <li class="board" ng-click="layout.change()">
+                      <a><i class="fa fa-user"></i> User <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu" ng-style="{'display' : layout.act}">
+                        <li ng-repeat="i in layout.admin"><a ui-sref="{{i.link}}">{{i.title}}</a></li>
+                      </ul>
+                    </li>
+                  </div>
+                  <!-- PM sidebar -->
+                  <div ng-if="layout.auth==2">
+                    <li class="board" >
+                      <a ui-sref='main'>
+                        <i class="fa fa-star"></i>
+                          <span class="title">My Project</span>
+                      </a>
+                    </li>
+                    <li class="board" ng-click="layout.change()">
+                      <a ui-sref="pmProject"><i class="fa fa-table"></i> Project <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu" ng-style="{'display' : layout.act}">
+                        <li ng-repeat="i in layout.side"><a ui-sref="{{i.link}}">{{i.title}}</a></li>
+                      </ul>
+                    </li>
+                  </div>
+                  <!-- Developer sidebar -->
+                  <div ng-if="layout.auth>2">
+                    <li class="board" >
+                      <a ui-sref='main'>
+                        <i class="fa fa-home"></i>
+                        <span class="title">Home</span>
+                      </a>
+                    </li>
+                    <li class="board" ng-click="layout.change()">
+                      <a><i class="fa fa-table"></i> Project <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu" ng-style="{'display' : layout.act}">
+                        <li ng-repeat="i in layout.side"><a ui-sref="{{i.link}}">{{i.title}}</a></li>
+                      </ul>
+                    </li>
+                  </div>
                 </ul>
               </div>
 

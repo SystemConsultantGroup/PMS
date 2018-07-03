@@ -30,41 +30,54 @@
       vm.uid = result.data.uid;
       vm.log(result.data);
       vm.log(result.data.auth);
-      $http.get(`/rest/project/${vm.uid}`).then((result)=> {
+      $http.get(`/rest/project/pm/${vm.uid}`).then((result)=> {
         //vm.log(result.data);
         vm.projects = result.data;
-        vm.log(result.data);
+        vm.log(vm.projects);
         if(vm.auth == 1){
-        vm.log("asdfasdf");
-      vm.side = [{
-        link: 'adminUsers',
-        title: 'User List',
-        icon: 'face'
-      }, {
-        link: 'adminProject',
-        title: 'PM page',
-        icon: 'event'
-      }, {
-        link: 'adminUserApprove',
-        title: 'User Approve',
-        icon: 'dns'
-      },
-      ];
-    } else{
-      let i = 0;
-      vm.side = new Array;
-      while(vm.projects != null){
-        vm.side.push({
-          link: vm.projects[i].name,
-          title: vm.projects[i].name,
-          icon: 'project'
+          vm.admin = [{
+          link: 'adminUsers',
+          title: 'User List',
+          icon: 'face'
+        }, {
+          link: 'adminUserApprove',
+          title: 'User Approve',
+          icon: 'dns'
+        },
+        ];
+      } else if(vm.auth == 2){
+        let i = 0;
+        vm.side = new Array;
+        if(vm.projects.length != 0){
+          while(vm.projects != null){
+            vm.log(vm.projects[i].pid);
+            vm.side.push({
+              link: `pmProjectView({ pid : ${vm.projects[i].pid} })`,
+              title: vm.projects[i].name,
+              icon: 'project'
+            });
+            i++;
+          }
+        }
+      } else{
+        $http.get(`/rest/project/${vm.uid}`).then((result)=> {
+          let i = 0;
+          vm.side = new Array;
+          if(vm.projects.length != 0){
+            while(vm.projects != null){
+              vm.side.push({
+                //link: vm.projects[i].name,
+                title: vm.projects[i].name,
+                icon: 'project'
+              });
+              i++;
+            }
+          };
         });
-        i++;
-      }
-    }
-      });
+      };
     });
 
+    });
     };
     vm.init2 = (uid) => {
       vm.log(uid);
@@ -78,15 +91,12 @@
     
     // link에 state이름, title에 사이드바에 띄우는 항목명
     vm.sidevar = (auth) => {
+      //vm.home = 'adminProject';
       if(auth == 1){
         vm.side = [{
         link: 'adminUsers',
         title: 'User List',
         icon: 'face'
-      }, {
-        link: 'adminProject',
-        title: 'PM page',
-        icon: 'event'
       }, {
         link: 'adminUserApprove',
         title: 'User Approve',
