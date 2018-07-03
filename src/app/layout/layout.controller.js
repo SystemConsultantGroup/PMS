@@ -28,12 +28,9 @@
       vm.auth = result.data.auth;
       vm.name = result.data.name;
       vm.uid = result.data.uid;
-      vm.log(result.data);
-      vm.log(result.data.auth);
       $http.get(`/rest/project/pm/${vm.uid}`).then((result)=> {
         //vm.log(result.data);
         vm.projects = result.data;
-        vm.log(vm.projects);
         if(vm.auth == 1){
           vm.admin = [{
           link: 'adminUsers',
@@ -50,7 +47,6 @@
         vm.side = new Array;
         if(vm.projects.length != 0){
           while(vm.projects != null){
-            vm.log(vm.projects[i].pid);
             vm.side.push({
               link: `pmProjectView({ pid : ${vm.projects[i].pid} })`,
               title: vm.projects[i].name,
