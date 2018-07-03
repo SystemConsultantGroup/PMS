@@ -79,6 +79,9 @@
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
         vm.project = result.data;
       });
+      $http.get(`/rest/project/pmid/${pid}`).then((result) => {
+        vm.todoes = result.data.todo;
+      });
     };
     vm.initMain = () => {
       $http.get('/rest/session').then((result) => {
