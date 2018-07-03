@@ -6,14 +6,15 @@
   // admin/project 컨트롤러
   function PMController(
     $log, $http, $scope, $window, $location,
-    $sessionStorage
+    $sessionStorage, $stateParams
   ) {
     const vm = this;
     vm.log = $log.log;
+    vm.stateParams = $stateParams;
     vm.session = $sessionStorage.getObject('session');
     vm.query = {
       order: 'pid',
-      limit: 7,
+      limit: 10,
       page: 1
     };
 
@@ -71,67 +72,72 @@
       },
     ]; */
 
-    vm.initView = function () {
-      $http.get('/rest/pm/project/{pid}').success((data) => {
-        vm.project = data;
+    
+
+    vm.initView = () => {
+      const pid = vm.stateParams.pid;
+      $http.get(`/rest/admin/project/${pid}`).then((result) => {
+        vm.project = result.data;
+      });
+    };
+    vm.initMain = () => {
+      $http.get('/rest/session').then((result) => {
+        $http.get(`/rest/project/pm/${result.data.uid}`).then((res) => {
+          vm.projects = res.data;
+        });
       });
     };
 
-    vm.delete = (pid) => {
-      const cf = window.confirm('Are you sure you want to delete?');
-      if (cf) {
-        vm.pid = pid;
-        $http.delete('/rest/{vm.session.uid}/project/{pid}');
-        alert('Post has been deleted.');
-        vm.location.reload();
-      }
-    };
+    $http.get('/rest/session').then(successCallback, errorCallback);
+    
+    function successCallback(response) {
+      // vm.$log.log(response);
+      if (response.data.auth === 1) vm.state = 'admin';
+      else if (response.data.auth === 0 && response.data.auth > 1) vm.state = 'user';
+    }
 
-
-    $http.get('/rest/session').then((result) => {
-      vm.session = result.data;
-      if (vm.session.auth === 2) vm.user = 'pm';
-      else if (vm.session.auth === 0 || vm.session.auth > 2) vm.user = 'user';
-    });
-
-
-    // 글 목록 가져오기
-    $http.get('/rest/project/'.concat(vm.session.uid)).then((response) => {
-      vm.projects = response.data;
-    });
+    function errorCallback(error) {
+      vm.log(error, 'can not get data.');
+    }
 
     vm.add = () => {
-      $http.post('/rest/pm/project', {
+      $http.post('/rest/admin/project', {
+        uid: vm.uid,
         name: vm.name,
         startdate: vm.startdate,
         duedate: vm.duedate,
-        done: vm.done,
+        done: null,
       });
-      $window.location.path('/pm/project');
+      $window.location.assign('/admin/project');
     };
 
     vm.initModify = () => {
-      if (vm.pid != null) {
-        // 글 데이터 불러오기
-        $http.get('/rest/pm/project/{vm.pid}').then((response) => {
-          if (response.data.error) {
-            alert('This article does not exist.');
-          }
-        });
-      }
+      const pid = vm.stateParams.modify_id;
+      $http.get(`/rest/admin/project/${pid}`).then((result) => {
+        [vm.project] = result.data;
+      });
     };
 
 
     // 글 수정
 
     vm.modify = () => {
-      $http.put('/rest/pm/project/{vm.pid}', {
+      $http.put(`/rest/admin/project/${vm.stateParams.modify_id}`, {
         name: vm.name,
-        startdate: vm.name,
+        startdate: vm.startdate,
         duedate: vm.duedate,
         done: vm.done,
       });
-      $location.path('/pm/project');
+      $location.path('/admin/project');
+    };
+
+    vm.delete = (pid) => {
+      const cf = window.confirm('Delete?');
+      if (cf) {
+        $http.delete(`/rest/project/${vm.uid}/${pid}`);
+        alert('Deleted.');
+        $window.location.assign('/admin/project');
+      }
     };
   }
 }());

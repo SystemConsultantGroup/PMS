@@ -35,8 +35,8 @@ router.post('/project', wrap(async (req, res) => {
 
 // get (선택한) 프로젝트 이름, startdate, duedate, done 리스트 불러옴
 router.get('/project/:pid', wrap(async (req, res) => {
-  if (req.session.user.auth === 1) {
-    const projects = await models.project.findAll({
+  if (req.session.user.auth === 1 || req.session.user.auth === 2) {
+    const projects = await models.project.findOne({
       where: {
         pid: req.params.pid
       },
