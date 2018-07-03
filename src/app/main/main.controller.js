@@ -6,6 +6,26 @@
   // 메인 컨트롤러
   function MainController($log, $http, $location, $sessionStorage) {
     const vm = this;
+    vm.lists = [];
+
+
+
+    ///////// 소속 프로젝트 불러오기 //////////
+
+    
+    $http.get('/rest/session').then((result) => {
+      vm.uid = result.data.name;
+      $http.get(`/rest/project/${vm.uid}`).then((res) => {
+        vm.datas = res.data;
+        for (x in res.data) {
+          vm.lists.push(res.data[x]);
+        };
+      });
+    });
+
+  
+    ////////////////////////////////////////
+
 
     vm.log = $log.log;
     vm.session = $sessionStorage.getObject('session');
@@ -14,66 +34,7 @@
       limit: 7,
       page: 1
     };
-    // 더미 데이터베이스
-    vm.datas =
-    [
-      {
-        p_name: 'AngularJs',
-        td_name: 'AngularJs 독서',
-        u_name: '이창원',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        p_name: 'AngularJs',
-        td_name: 'AngularJs 공부하기',
-        u_name: '김윤지',
-        startdate: '5/23',
-        duedate: '6/14',
-        done: true,
-      },
-      {
-        p_name: 'AngularJs',
-        td_name: 'AngularJs 게시판 만들기',
-        u_name: '조건희',
-        startdate: '5/28',
-        duedate: '6/2',
-        done: false,
-      },
-      {
-        p_name: 'project A',
-        td_name: 'REST DOCUMENT 작성하기',
-        u_name: '고현수',
-        startdate: '5/29',
-        duedate: '6/12',
-        done: false,
-      },
-      {
-        p_name: 'project A',
-        td_name: 'DB 스키마 만들기',
-        u_name: '김병남',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        p_name: 'project B',
-        td_name: '레이아웃 작업하기',
-        u_name: '류민재',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        p_name: 'project B',
-        td_name: 'Config 파일 작성',
-        u_name: '오영환',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: false,
-      },
-    ];
+
 
     vm.delete = (pid) => {
       const cf = window.confirm('Delete?');
@@ -104,15 +65,15 @@
       vm.datas = response.data;
     }); */
 
-    function remainingTodos() {
-      const count = vm.datas.reduce((accumulator, currentValue) => {
-        if (currentValue.done === false) return accumulator + 1;
+    vm.remainingTodos = () => {
+      const count = vm.lists.reduce((accumulator, currentValue) => {
+        if (currentValue.done === null) return accumulator + 1;
         return accumulator;
       }, 0);
 
       return count;
-    }
+    };
 
-    vm.remainingTodos = remainingTodos();
+
   }
 }());
