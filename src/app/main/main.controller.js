@@ -9,22 +9,20 @@
     vm.lists = [];
 
 
+    // /////// 소속 프로젝트 불러오기 //////////
 
-    ///////// 소속 프로젝트 불러오기 //////////
 
-    
     $http.get('/rest/session').then((result) => {
       vm.uid = result.data.name;
       $http.get(`/rest/project/${vm.uid}`).then((res) => {
         vm.datas = res.data;
-        for (x in res.data) {
-          vm.lists.push(res.data[x]);
-        };
+        for (i in res.data) {
+          if (res.data) {
+            vm.lists.push(res.data[i]);
+          }
+        }
       });
     });
-
-  
-    ////////////////////////////////////////
 
 
     vm.log = $log.log;
@@ -73,7 +71,5 @@
 
       return count;
     };
-
-
   }
 }());

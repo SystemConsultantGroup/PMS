@@ -4,7 +4,10 @@
     .controller('AdminUsersModifyController', AdminUsersModifyController);
 
   // admin/users 컨트롤러
-  function AdminUsersModifyController($log, $http, $window, $sessionStorage, $location, $stateParams) {
+  function AdminUsersModifyController(
+    $log, $http, $window, $sessionStorage, $location,
+    $stateParams
+  ) {
     const vm = this;
 
     vm.log = $log.log;

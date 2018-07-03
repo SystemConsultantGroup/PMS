@@ -155,7 +155,7 @@
         controllerAs: 'AccountController',
         params: { title: 'Account' }
       // 프로젝트 수정
-      })
+      });
 
     // $urlRouterProvider.otherwise('/login');
   }

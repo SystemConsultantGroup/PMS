@@ -4,7 +4,10 @@
     .controller('AdminUsersTodoController', AdminUsersTodoController);
 
   // admin/user/todo/uid 컨트롤러
-  function AdminUsersTodoController($log, $http, $window, $sessionStorage, $location, $stateParams) {
+  function AdminUsersTodoController(
+    $log, $http, $window, $sessionStorage, $location,
+    $stateParams
+  ) {
     const vm = this;
 
     vm.log = $log.log;
