@@ -28,9 +28,9 @@
       vm.auth = result.data.auth;
       vm.name = result.data.name;
       vm.uid = result.data.uid;
-      $http.get(`/rest/project/pm/${vm.uid}`).then((result)=> {
+      $http.get(`/rest/project/pm/${vm.uid}`).then((res)=> {
         //vm.log(result.data);
-        vm.projects = result.data;
+        vm.projects = res.data;
         if(vm.auth == 1){
           vm.admin = [{
           link: 'adminUsers',
