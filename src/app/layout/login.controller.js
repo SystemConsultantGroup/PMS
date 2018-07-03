@@ -19,15 +19,19 @@
             $state.go('adminProject').then(() => {
               $window.location.reload(true);
             });
+          } else if (result.data.auth === 2) {
+            $state.go('pmProject').then(() => {
+              $window.location.reload(true);
+            });
           } else {
             $state.go('main').then(() => {
               $window.location.reload(true);
             });
           }
-        } else if (vm.uid == null) alert('Please enter your ID');
-        else alert('Please check your ID and PW again.');
-
-        $sessionStorage.putObject('session', result.data);
+          $sessionStorage.putObject('session', result.data);
+        } else if (vm.uid === undefined || vm.uid === null || vm.uid === '') alert('Please enter your ID');
+        else if (vm.pw === undefined || vm.pw === null || vm.pw === '') alert('Please enter your Password');
+        else alert('Please check your ID and Password');
       });
     };
 
