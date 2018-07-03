@@ -6,7 +6,7 @@
   <h2 style="font-size: 23pt; color: #ffc000">TO DO LIST</h2>
   <h2 style="font-size: 23pt; color: #ffffff"> TOTAL REQUESTS: <strong>{{main.datas.length}}</strong>개 
     <br>
-    REMAINED REQUESTS: <strong>{{main.remainingTodos}}</strong>개
+    REMAINED REQUESTS: <strong>{{main.remainingTodos()}}</strong>개
   </h2>
 
 <md-card ng-cloak>
@@ -22,24 +22,27 @@
       <table md-table class="table_notice">
         <thead md-head md-order="main.query.order">
         <tr md-row>
-          <th md-column md-numeric md-order-by="p_id"><span class="title_size">완료 여부</span></th>
+          <th md-column md-numeric md-order-by="p_id"><span class="title_size">Done</span></th>
           <th md-column md-numeric md-order-by="p_id"><span class="title_size">Project</span></th>
-          <th md-column md-order-by="td_id"><span class="title_size">Todo</span></th>
-          <th md-column md-order-by="name"><span class="title_size">작성자</span></th>
-          <th md-column md-numeric><span class="title_size">작성일</span></th>
+          <th md-column md-order-by="td_id"><span class="title_size">Start Date</span></th>
+          <th md-column md-order-by="name"><span class="title_size">Due Date</span></th>
+          <th md-column md-numeric><span class="title_size">PM</span></th>
+          <!--
           <th md-column md-order-by="duedate"><span class="title_size">마감일</span></th>
+        -->
         </tr>
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
             ng-repeat="data in main.datas | filter: filter.search | orderBy: noticecon.query.order | limitTo: main.query.limit : (main.query.page -1) * main.query.limit">
-            <td md-cell class="breakall"><input type="checkbox" ng-model="data.done" checked="checked">
+            <td md-cell class="breakall"><input ng-if="data.done!==null" type="checkbox" checked="checked">
             </td>
-            <td md-cell class="breakall">{{data.p_name}}</td>
-            <td md-cell class="breakall">{{data.td_name}}</td>
-            <td md-cell class="breakall">{{data.u_name}}</td>
+            <td md-cell class="breakall">{{data.name}}</td>
             <td md-cell class="breakall">{{data.startdate}}</td>
-            <td md-cell>{{data.duedate}}</td>
+            <td md-cell class="breakall">{{data.duedate}}</td>
+            <td md-cell class="breakall">{{data.uid}}</td>
+            <!-- <td md-cell>{{data.duedate}}</td> -->
+            
             <!-- 유저는 수정, 삭제 권한 없음
             <td md-cell><md-button class="md-primary" a ui-sref="modify({ modify_id: data.id })">수정</md-button>
               <md-button class="md-accent" ng-click="main.delete(data.id)">삭제</md-button>
