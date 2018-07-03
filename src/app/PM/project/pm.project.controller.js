@@ -72,21 +72,20 @@
       },
     ]; */
 
-    
 
     vm.initView = () => {
-      const pid = vm.stateParams.pid;
-      $http.get(`/rest/admin/project/${pid}`).then((result) => {
+      $http.get(`/rest/admin/project/${vm.stateParams.pid}`).then((result) => {
         vm.project = result.data;
       });
-      $http.get(`/rest/project/pmid/${pid}`).then((result) => {
+      $http.get(`/rest/project/pmid/${vm.stateParams.pid}`).then((result) => {
         vm.todoes = result.data.todo;
       });
-      $http.get(`/rest/project/pmuid/${pid}`).then((result) => {
+      $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
         vm.users = result.data;
         console.log(result.data);
       });
     };
+
     vm.initMain = () => {
       $http.get('/rest/session').then((result) => {
         $http.get(`/rest/project/pm/${result.data.uid}`).then((res) => {
@@ -96,7 +95,7 @@
     };
 
     $http.get('/rest/session').then(successCallback, errorCallback);
-    
+
     function successCallback(response) {
       // vm.$log.log(response);
       if (response.data.auth === 1) vm.state = 'admin';
