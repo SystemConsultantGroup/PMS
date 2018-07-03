@@ -234,29 +234,24 @@ router.get('/pmpid/:pid', wrap(async (req, res) => {
 }));
 
 // pm의 uid를 받으면 해당 pid를 알아내고 그 pid에 해당하는 assign_r에서 uid를 모두 출력
-router.get('/pmuid/:uid', wrap(async (req, res) => {
+router.get('/pmuid/:pid', wrap(async (req, res) => {
   const output = {};
-  const projects = await models.project.findAll({
-    where: { uid: req.params.uid },
-    attributes: ['pid']
+  const projects = await models.assign_r.findAll({
+    where: { pid: req.params.pid },
+    attributes: ['uid']
   });
 
   await projects.forEach((project) => {
-    output[project.pid] = [];
+    output[project.uid] = [];
   });
 
-  const list = await models.assign_r.findAll({
+  const list = await models.user.findAll({
     where: {
-      pid: Object.keys(output)
-    },
-    attributes: ['uid', 'pid']
+      uid: Object.keys(output)
+    }
   });
 
-  await list.forEach((assign) => {
-    output[assign.pid].push(assign.uid);
-  });
-
-  res.send(output);
+  res.send(list);
 }));
 
 // todo 추가
