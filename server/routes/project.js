@@ -5,29 +5,44 @@ const router = express.Router();
 const models = require('../models');
 const wrap = require('express-async-wrap');
 
-// 본인 소속 프로젝트 리스트 불러옴 get방식
+
+// 본인이 project의 pm인 경우 그 프로젝트를 불러온다 
+// 문제점 pm이 uid로 찾고있음...
+router.get('/pm/:uid', wrap(async (req, res) => {
+  if (req.params.uid === req.session.user.uid){
+  const pmprojects = await models.project.findAll({
+    where: { uid: req.params.uid }
+  });
+  res.send(pmprojects);
+  } else {
+    res.send({
+      result: false
+    });
+  }
+}));
+
+// 본인 소속 프로젝트 리스트 불러옴 get방식(pm인 경우도 불러온다)
 router.get('/:uid', wrap(async (req, res) => {
   if (req.params.uid === req.session.user.uid) {
     const pids = await models.assign_r.findAll({
-      where: {uid: req.params.uid},
+      where: { uid: req.params.uid },
       attributes: ['pid']
     });
-    let projects = []
-    for (let i = 0; i < pids.length; i++) {
+    const projects = [];
+    for (let i = 0; i < pids.length; i += 1) {
       const project = await models.project.findAll({
-        where: { pid: pids[i].pid }
+        where: { pid: pids[i].pid },
+        include: ['user']
       });
       projects.push(project[0]);
     }
-    res.send(projects)
+    res.send(projects);
   } else {
     res.send({
-    result: false
-  });
+      result: false
+    });
   }
-}
-));
-
+}));
 
 // 프로젝트 수행원 추가, 역할 부여(PM과 ADMIN만 가능)
 router.post('/:uid/:pid', wrap(async (req, res) => {
@@ -296,5 +311,9 @@ router.get('/:uid/:pid', wrap(async (req, res) => {
     res.send({ project, todo });
   }
 }));
+
+
+
+
 
 module.exports = router;
