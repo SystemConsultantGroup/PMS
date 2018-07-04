@@ -1,5 +1,5 @@
 <div ng-controller="PMController as pm" ng-init="pm.initView()">
-<h2>{{pm.project.name}}</h2>
+<h2 style="padding : 0% 50%;">{{pm.project.name}}</h2>
 <br>
 <md-card ng-cloak>
   <md-table-container>
@@ -51,8 +51,6 @@
 
 <br>
 <br>
-  <md-button class="md-raised"><a href="/admin/project/modify/{{project.pid}}"><i class="fa fa-edit"></i> Edit </a></md-button>
-  <md-button class="md-raised" ng-click="delete(project.pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
 <md-card ng-cloak>
   <md-table-container>
     <table md-table class="table_notice">
@@ -77,4 +75,6 @@
       </table>
     </md-table-container>
 </md-card>
+  <md-button class="md-raised" ui-sref="pmProjectModify({pid : pm.pid})"><i class="fa fa-edit"></i> Edit</md-button>
+  <md-button class="md-raised" ng-click="delete(project.pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
 </div>

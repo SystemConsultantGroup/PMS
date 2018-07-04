@@ -526,7 +526,9 @@ md-content#innerContent{
 ::-webkit-input-placeholder {
     color: #FFFFFF;
 }
-
+input::-webkit-input-placeholder {
+    color: black;
+}
 @-webkit-keyframes animRipple {
   to {
     -webkit-transform: scale(3.5);

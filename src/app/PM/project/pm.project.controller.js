@@ -74,6 +74,7 @@
 
 
     vm.initView = () => {
+      vm.pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${vm.stateParams.pid}`).then((result) => {
         vm.project = result.data;
       });
@@ -118,9 +119,10 @@
     };
 
     vm.initModify = () => {
-      const pid = vm.stateParams.modify_id;
+      const pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
-        [vm.project] = result.data;
+        vm.mproject = result.data;
+        console.log(vm.mproject.name);
       });
     };
 

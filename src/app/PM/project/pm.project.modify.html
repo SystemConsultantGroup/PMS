@@ -1,20 +1,20 @@
-<div ng-controller="AdminProjectController as adminproject">
-  <div ng-init="adminproject.initModify()">
-    <form ng-submit="adminproject.modify()">
+<div ng-controller="PMController as pm">
+  <div ng-init="pm.initModify()">
+    <form ng-submit="pm.modify()">
       <md-card>
         <div>
           <h2>Name</h2>
-          <input type="text" class="" ng-model="adminproject.name" placeholder="{{project.name}}">
+          <input type="text" class="" ng-model="pm.name" placeholder="{{pm.mproject.name}}">
           <hr class="title_line">
         </div>
         <div>
           <h2>Startdate</h2>
-          <input type="date" class="" ng-model="adminproject.startdate" placeholder="{{project.startdate}}">
+          <input type="date" class="" ng-model="pm.startdate" value="pm.mproject.startdate.slice(0,10)">
           <hr class="title_line">
         </div>
         <div>
           <h2>Duedate</h2>
-          <input type="date" class="" ng-model="adminproject.duedate" placeholder="{{project.duedate}}">
+          <input type="date" class="" ng-model="pm.duedate" placeholder="{{pm.mproject.duedate}}">
           <hr class="title_line">
         </div>
         <md-button type="submit" class="md-raised"><i class="fa fa-edit">  Edit Project</i></md-button>
