@@ -220,6 +220,8 @@ router.get('/todo/:uid/:pid', wrap(async (req, res) => {
     }
   });
   let existence = []
+  console.log(existence);
+
   for (let i = 0; i < tdids.length; i++){
     const list1 = await models.list.findAll({
       where: {
@@ -227,10 +229,23 @@ router.get('/todo/:uid/:pid', wrap(async (req, res) => {
         tdid: tdids[i].tdid
       }
     });
-    existence.push(list1);
+    if (list1[0] != null){
+      existence.push(list1[0].tdid);
+    }
+    console.log(existence);
   }
-  if (existence[0][0] != null) {
-    res.send(tdids)
+
+  if (existence[0] != null) {
+    const tdidUser = []
+    for (let j = 0; j < existence.length; j++){
+      const list2 = await models.todo.findAll({
+        where: {
+          tdid: existence[j]
+        }
+      });
+      tdidUser.push(list2);
+    }
+    res.send(tdidUser);
   } else {
     res.send({
       result: false
