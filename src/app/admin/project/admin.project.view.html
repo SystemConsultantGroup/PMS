@@ -21,7 +21,7 @@
     </md-table-container>
 </md-card>
 <br>
-<md-button class="md-raised" a ui-sref="adminProjectUsers({ modify_id: adminproject.project.pid })"><i class="fa fa-users">Add Users</i></md-button>
+<md-button class="md-raised" a ui-sref="adminProjectUsers({ pid: adminproject.project.pid })"><i class="fa fa-users">Add Users</i></md-button>
 
 <md-card>
 <md-table-container>
@@ -52,7 +52,7 @@
 
 <br>
 <br>
-  <md-button class="md-raised" a ui-sref="adminProjectModify({ modify_id: adminproject.project.pid })"><i class="fa fa-edit"></i> Edit </md-button>
+  <md-button class="md-raised" a ui-sref="adminProjectModify({ pid: adminproject.project.pid })"><i class="fa fa-edit"></i> Edit </md-button>
   <md-button class="md-raised" ng-click="adminproject.delete(adminproject.project.pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
 </div>
 </div>

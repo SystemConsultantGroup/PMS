@@ -1,7 +1,7 @@
 <div ng-controller="AdminProjectController as adminProject" ng-init="adminProject.initProject()"> 
 <div ng-init="adminProject.initModify()">
   <md-card>
-    <h2 style="font-size: 23pt;">&nbsp;Reamining Developers: <strong>{{adminProject.restusers.length}}</strong>명 
+    <h2 style="font-size: 23pt;">&nbsp;Remaining Developers: <strong>{{adminProject.restusers.length}}</strong>명 
     <br>
     </h2>
   </md-card>
@@ -44,7 +44,7 @@
                 </div>
               </div>
             </td>
-            <td md-cell><form ng-submit="adminProject.useradd(user.uid, adminProject.project.pid)"><md-button class="md-primary" type="submit">Add</md-button></form>
+            <td md-cell><form ng-submit="adminProject.useradd(user.uid, adminProject.project.pid, user.name)"><md-button class="md-primary" type="submit">Add</md-button></form>
             </td>
           </tr>
         </tbody>
@@ -54,6 +54,6 @@
     <md-table-pagination md-limit="adminProject.query.limit" md-page="adminProject.query.page" md-total="{{adminProject.restusers.length}}" md-page-select md-boundary-links></md-table-pagination>
   </md-card>
 
-  <md-button class="md-raised" a ui-sref="adminProjectView({view_id:adminProject.project.pid})">Back</md-button>
+  <md-button class="md-raised" a ui-sref="adminProjectView({pid:adminProject.project.pid})">Back</md-button>
 </div>
 </div>

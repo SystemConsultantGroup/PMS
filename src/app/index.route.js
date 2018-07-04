@@ -54,7 +54,7 @@
       })
       .state('adminProjectView', {
         parent: 'pms',
-        url: '/admin/project/:view_id',
+        url: '/admin/project/:pid',
         templateUrl: 'app/admin/project/admin.project.view.html',
         controllerAs: 'AdminProjectController',
         params: { title: 'Admin : Main Page' }
@@ -70,7 +70,7 @@
       })
       .state('adminProjectModify', {
         parent: 'pms',
-        url: '/admin/project/modify/:modify_id',
+        url: '/admin/project/modify/:pid',
         templateUrl: 'app/admin/project/admin.project.modify.html',
         controllerAs: 'AdminProjectController',
         params: { title: 'Admin : Modify Project' }
@@ -78,7 +78,7 @@
       // 프로젝트 수정
       .state('adminProjectUsers', {
         parent: 'pms',
-        url: '/admin/project/users/:modify_id',
+        url: '/admin/project/users/:pid',
         templateUrl: 'app/admin/project/admin.project.users.html',
         controllerAs: 'AdminProjectController',
         params: { title: 'Admin : Add Users' }

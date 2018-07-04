@@ -28,7 +28,7 @@
       vm.restusers = [];
       vm.totalusers = res.data;
 
-      $http.get(`/rest/project/pmuid/${vm.stateParams.modify_id}`).then((result) => {
+      $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
       vm.users = result.data;
       vm.uidlist = [];
 
@@ -40,7 +40,6 @@
       for (x in vm.totalusers) {
         if (! vm.uidlist.includes(vm.totalusers[x].uid)) {
           vm.restusers.push(vm.totalusers[x]);
-          console.log(vm.restusers)
         }
       };
     });
@@ -48,7 +47,7 @@
 
 
     vm.initView = () => {
-      const pid = vm.stateParams.view_id;
+      const pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
         vm.project = result.data;
       });
@@ -87,7 +86,7 @@
     };
 
     vm.initModify = () => {
-      const pid = vm.stateParams.modify_id;
+      const pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
         vm.project = result.data;
       });
@@ -97,7 +96,7 @@
     // 글 수정
 
     vm.modify = () => {
-      $http.put(`/rest/admin/project/${vm.stateParams.modify_id}`, {
+      $http.put(`/rest/admin/project/${vm.stateParams.pid}`, {
         name: vm.name,
         startdate: vm.startdate,
         duedate: vm.duedate,
@@ -115,11 +114,12 @@
       }
     };
 
-    vm.useradd = (uid, pid) => {
+    vm.useradd = (uid, pid, name) => {
       $http.post(`/rest/project/${uid}/${pid}`, {
         role: 'joined'
       });
-      alert(`${uid} joined`)
+      alert(`${name} joined`);
+      $window.location.reload()
     };
 
   }
