@@ -1,5 +1,4 @@
 <div ng-controller="TodoController as todo" ng-init="todo.initView()">
-<h2 style="padding : 0% 50%;">{{todo.project.name}}</h2>
 <br>
 <md-card ng-cloak>
   <md-table-container>
@@ -52,9 +51,7 @@
                          md-total="{{todo.projects.length}}" md-page-select
                          md-boundary-links></md-table-pagination>
 </md-card>
-
-
 <br>
 <br>
- <md-button class="md-raised" ui-sref="todoModify({tdid : todo.tdid})"><i class="fa fa-edit"></i> Edit</md-button>
+ <md-button class="md-raised" ui-sref="todoModify({tdid : todo.td.todo.tdid})"><i class="fa fa-edit"></i> Edit</md-button>
 </div>

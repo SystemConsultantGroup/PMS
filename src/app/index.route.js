@@ -182,7 +182,7 @@
       })
       .state('todoView', {
         parent: 'pms',
-        url: '/todo/:tdid',
+        url: '/todo/view/:tdid',
         templateUrl: 'app/PM/todo/todo.view.html',
         controllerAs: 'TodoController',
         params: { title: 'Todo : View Page' }
