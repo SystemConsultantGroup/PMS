@@ -42,26 +42,30 @@
             },
             ];
           } else if (vm.auth === 2) {
-            let i = 0;
-            vm.side = [];
-            if (vm.projects.length !== 0) {
-              while (vm.projects !== null) {
-                vm.side.push({
-                  link: `pmProjectView({ pid : ${vm.projects[i].pid} })`,
-                  title: vm.projects[i].name,
-                  icon: 'project'
-                });
-                i += 1;
-              }
-            }
-          } else {
-            $http.get(`/rest/project/${vm.uid}`).then(() => {
+            $http.get(`/rest/project/pm/${vm.uid}`).then((res1) => {
+              vm.projects = res1.data;
               let i = 0;
               vm.side = [];
               if (vm.projects.length !== 0) {
-                while (vm.projects !== null) {
+                while (vm.projects != null) {
                   vm.side.push({
-                    // link: vm.projects[i].name,
+                    link: `pmProjectView({ pid : ${vm.projects[i].pid} })`,
+                    title: vm.projects[i].name,
+                    icon: 'project'
+                  });
+                  i += 1;
+                }
+              }
+            });
+          } else {
+            $http.get(`/rest/project/${vm.uid}`).then((res2) => {
+              vm.projects = res2.data;
+              let i = 0;
+              vm.side = [];
+              if (vm.projects.length !== 0) {
+                while (vm.projects != null) {
+                  vm.side.push({
+                    link: `userProjectView({ pid : ${vm.projects[i].pid} })`,
                     title: vm.projects[i].name,
                     icon: 'project'
                   });
