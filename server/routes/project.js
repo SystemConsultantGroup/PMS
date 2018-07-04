@@ -332,14 +332,12 @@ router.post('/todo', wrap(async (req, res) => {
   }
 }));
 
-// 본인 소속 프로젝트의 프로젝트 정보와 To Do list 불러옴
+// 본인 소속 프로젝트의 프로젝트 정보 불러옴
 router.get('/:uid/:pid', wrap(async (req, res) => {
-  const project = await models.assign_r.findAll({
+  const project = await models.project.findAll({
     where: {
-      uid: req.params.uid,
       pid: req.params.pid
-    },
-    include: ['project']
+    }
   });
   if (project) {
     res.send({ project });
