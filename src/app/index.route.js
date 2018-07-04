@@ -163,6 +163,38 @@
         controllerAs: 'developController',
         params: { title: 'Developer Project View' }
         // 일반 유저 프로젝트 뷰
+      })
+      .state('todo', {
+        parent: 'pms',
+        url: '/todo/:pid',
+        templateUrl: 'app/PM/todo/todo.html',
+        controllerAs: 'TodoController',
+        params: { title: 'Todo : Main Page' }
+      // PM 페이지
+      })
+      .state('todoView', {
+        parent: 'pms',
+        url: '/todo/:tdid',
+        templateUrl: 'app/PM/todo/todo.view.html',
+        controllerAs: 'TodoController',
+        params: { title: 'Todo : View Page' }
+      })
+      // 프로젝트 페이지
+      .state('todoWrite', {
+        parent: 'pms',
+        url: '/todo/write/:pid',
+        templateUrl: 'app/PM/todo/todo.write.html',
+        controllerAs: 'TodoController',
+        params: { title: 'PM : Add Todo' }
+      // 프로젝트 추가
+      })
+      .state('todoModify', {
+        parent: 'pms',
+        url: '/todo/modify/:pid',
+        templateUrl: 'app/PM/todo/todo.modify.html',
+        controllerAs: 'TodoController',
+        params: { title: 'Todo : Todify Todo' }
+      // 프로젝트 수정
       });
 
     // $urlRouterProvider.otherwise('/login');

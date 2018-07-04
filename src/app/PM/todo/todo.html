@@ -1,0 +1,28 @@
+<div ng-controller="TodoController as todo" ng-init="todo.initMain()">
+  <md-button class="md-raised"><a ui-sref="todoWrite({pid: todo.pid})"><i class="fa fa-plus-square"></i> New Todo </a></md-button>
+
+<md-card ng-cloak>
+  <md-table-container>
+    <table md-table class="table_notice">
+        <thead md-head>
+        <tr md-row>
+          <th md-column md-numeric><span class="title_size">Component</span></th>
+          <th md-column md-numeric><span class="title_size">Uptodate</span></th>
+          <th md-column><span class="title_size">Duedate</span></th>
+          <th md-column><span class="title_size">Done</span></th>
+        </tr>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row
+            ng-repeat="todo in todo.todoes">
+            <td md-cell class="breakall"><a ui-sref="todoView({tdid : todo.tdid})">{{todo.component}}</a></td>
+            <td md-cell class="breakall">{{todo.updatedAt}}</td>
+            <td md-cell class="breakall">{{todo.duedate}}</td>
+            <td md-cell class="breakall">{{todo.done}}</td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+</md-card>
+</div>
