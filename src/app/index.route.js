@@ -155,6 +155,14 @@
         controllerAs: 'AccountController',
         params: { title: 'Account' }
       // 프로젝트 수정
+      })
+      .state('userProjectView', {
+        parent: 'pms',
+        url: '/user/project/:pid',
+        templateUrl: 'app/main/developerView.html',
+        controllerAs: 'developController',
+        params: { title: 'Developer Project View' }
+        // 일반 유저 프로젝트 뷰
       });
 
     // $urlRouterProvider.otherwise('/login');
