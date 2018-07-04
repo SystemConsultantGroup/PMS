@@ -76,6 +76,14 @@
         params: { title: 'Admin : Modify Project' }
       })
       // 프로젝트 수정
+      .state('adminProjectUsers', {
+        parent: 'pms',
+        url: '/admin/project/users/:modify_id',
+        templateUrl: 'app/admin/project/admin.project.users.html',
+        controllerAs: 'AdminProjectController',
+        params: { title: 'Admin : Add Users' }
+      })
+      // 수행원 추가
       .state('adminUsers', {
         parent: 'pms',
         url: '/admin/users',
