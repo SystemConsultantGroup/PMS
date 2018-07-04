@@ -33,7 +33,7 @@
               <div class="menu_section">
                 <ul class="nav side-menu">
                   <!-- Admin sidebar -->
-                  <div ng-if="layout.auth==1">
+                  <div ng-if="layout.auth==1" class="nav side-menu">
                     <li class="board" >
                       <a ui-sref='adminProject'>
                         <i class="fa fa-table"></i>
@@ -48,23 +48,23 @@
                     </li>
                   </div>
                   <!-- PM sidebar -->
-                  <div ng-if="layout.auth==2">
-                    <li class="board" >
+                  <div ng-if="layout.auth==2" class="nav side-menu">
+                    <li class="board">
                       <a ui-sref='main'>
                         <i class="fa fa-star"></i>
-                          <span class="title">My Project</span>
+                        <span class="title">My Project</span>
                       </a>
                     </li>
                     <li class="board" ng-click="layout.change()">
-                      <a ui-sref="pmProject"><i class="fa fa-table"></i> Project </a><span class="fa fa-chevron-down"></span>
+                      <a ui-sref="pmProject"><i class="fa fa-table"></i> Project <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu" ng-style="{'display' : layout.act}">
                         <li ng-repeat="i in layout.side"><a ui-sref="{{i.link}}">{{i.title}}</a></li>
                       </ul>
                     </li>
                   </div>
                   <!-- Developer sidebar -->
-                  <div ng-if="layout.auth>2">
-                    <li class="board" >
+                  <div ng-if="layout.auth>2" class="nav side-menu">
+                    <li class="board">
                       <a ui-sref='main'>
                         <i class="fa fa-home"></i>
                         <span class="title">Home</span>
