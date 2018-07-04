@@ -9,12 +9,12 @@
         </div>
         <div>
           <h2>Startdate</h2>
-          <input type="date" class="" ng-model="pm.startdate" value="pm.mproject.startdate.slice(0,10)">
+          <input type="date" class="" ng-model="pm.startdate" value="{{pm.mproject.startdate.slice(0,10)}}">
           <hr class="title_line">
         </div>
         <div>
           <h2>Duedate</h2>
-          <input type="date" class="" ng-model="pm.duedate" placeholder="{{pm.mproject.duedate}}">
+          <input type="date" class="" ng-model="pm.duedate" value="{{pm.mproject.duedate.slice(0,10)}}">
           <hr class="title_line">
         </div>
         <md-button type="submit" class="md-raised"><i class="fa fa-edit">  Edit Project</i></md-button>
