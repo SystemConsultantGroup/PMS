@@ -52,7 +52,7 @@ router.get('/project/:pid', wrap(async (req, res) => {
 
 // put (선택한) 프로젝트 이름, startdate, duedate, done 정보 수정
 router.put('/project/:pid', wrap(async (req, res) => {
-  if (req.session.user.auth === 1) {
+  if (req.session.user.auth === 1 || req.session.user.auth === 2) {
     const update = await models.project.update(req.body, {
       where: {
         pid: req.params.pid

@@ -130,13 +130,25 @@
     // 글 수정
 
     vm.modify = () => {
-      $http.put(`/rest/admin/project/${vm.stateParams.modify_id}`, {
+      if(vm.name === null){
+        vm.name = vm.mproject.name;
+      }
+      if(vm.duedate === null){
+        vm.duedate = vm.mproject.duedate;
+      }
+      if(vm.startdate === null){
+        vm.startdate = vm.mproject.startdate;
+      }
+      if(vm.done == null){
+        vm.done = vm.mproject.done;
+      }
+      $http.put(`/rest/admin/project/${vm.stateParams.pid}`, {
         name: vm.name,
         startdate: vm.startdate,
         duedate: vm.duedate,
         done: vm.done,
       });
-      $location.path('/admin/project');
+      $location.path(`/pm/project/${vm.stateParams.pid}`);
     };
 
     vm.delete = (pid) => {
