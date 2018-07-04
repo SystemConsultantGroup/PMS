@@ -15,6 +15,10 @@ router.post('/', wrap(async (req, res) => {
     res.send({
       result: true
     });
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 
@@ -58,6 +62,10 @@ router.put('/:uid', wrap(async (req, res) => {
     res.send({
       result: true
     });
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 
@@ -71,6 +79,10 @@ router.get('/:uid', wrap(async (req, res) => {
   });
   if (inform) {
     res.send(inform);
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 

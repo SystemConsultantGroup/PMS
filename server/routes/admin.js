@@ -17,6 +17,10 @@ router.get('/project', wrap(async (req, res) => {
     const projects = await models.project.findAll();
     if (projects) {
       res.send(projects);
+    } else {
+      res.send({
+        result: false
+      });
     }
   }
 }));
@@ -28,6 +32,10 @@ router.post('/project', wrap(async (req, res) => {
     if (create) {
       res.send({
         result: true
+      });
+    } else {
+      res.send({
+        result: false
       });
     }
   }
@@ -46,6 +54,10 @@ router.get('/project/:pid', wrap(async (req, res) => {
     });
     if (projects) {
       res.send(projects);
+    } else {
+      res.send({
+        result: false
+      });
     }
   }
 }));
@@ -61,6 +73,10 @@ router.put('/project/:pid', wrap(async (req, res) => {
     if (update) {
       res.send({
         result: true
+      });
+    } else {
+      res.send({
+        result: false
       });
     }
   }
@@ -78,6 +94,10 @@ router.delete('/project/:pid', wrap(async (req, res) => {
       res.send({
         result: true
       });
+    } else {
+      res.send({
+        result: false
+      });
     }
   }
 }));
@@ -93,6 +113,10 @@ router.put('/user/:uid', wrap(async (req, res) => {
     if (update) {
       res.send({
         result: true
+      });
+    } else {
+      res.send({
+        result: false
       });
     }
   }
@@ -112,6 +136,10 @@ router.get('/users', wrap(async (req, res) => {
     });
     if (users) {
       res.send(users);
+    } else {
+      res.send({
+        result: false
+      });
     }
   }
 }));
@@ -127,6 +155,10 @@ router.put('/users', wrap(async (req, res) => {
     if (update) {
       res.send({
         result: true
+      });
+    } else{ 
+      res.send({
+        result: false
       });
     }
   }
@@ -146,7 +178,15 @@ router.get('/user/:uid', wrap(async (req, res) => {
     });
     if (user && project) {
       res.send({ user, project });
+    } else {
+      res.send ({
+        result: false
+      });
     }
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 
@@ -159,7 +199,11 @@ router.delete('/user/:uid', wrap(async (req, res) => {
     res.send({
       result: true
     });
-  }
+  } else {
+    res.send({
+      result: false
+    });
+  }  
 }));
 
 // 선택한 프로젝트의 (해당 유저 소속) To Do list 불러옴
@@ -179,8 +223,20 @@ router.get('/user/:uid/:pid', wrap(async (req, res) => {
       });
       if (todo) {
         res.send(todo);
+      } else {
+        res.send({
+          result: false
+        });
       }
+    } else {
+      res.send({
+        result: false
+      });
     }
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 
@@ -195,7 +251,15 @@ router.get('/users/default', wrap(async (req, res) => {
     });
     if (users) {
       res.send(users);
+    } else {
+      res.send({
+        result: false
+      });
     }
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 
@@ -207,6 +271,10 @@ router.put('/users/approve/:uid', wrap(async (req, res) => {
       { where: { uid: req.params.uid } }
     );
     res.send(userAuth);
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 

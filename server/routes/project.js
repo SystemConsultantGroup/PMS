@@ -181,6 +181,10 @@ router.delete('/todo/:pid/:tdid', wrap(async (req, res) => {
       res.send({
         result: true
       });
+    } else {
+      res.send({
+        result: false
+      });
     }
 }));
 
@@ -262,6 +266,10 @@ router.get('/pmpid/:pid', wrap(async (req, res) => {
   });
   if (todo) {
     res.send(todo);
+  } else {
+    res.send({
+      reslut: false
+    });
   }
 }));
 
@@ -293,6 +301,10 @@ router.post('/todo', wrap(async (req, res) => {
       res.send({
         result: true
       });
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 
