@@ -243,7 +243,7 @@ router.get('/todo/:uid/:pid', wrap(async (req, res) => {
           tdid: existence[j]
         }
       });
-      tdidUser.push(list2);
+      tdidUser.push(list2[0]);
     }
     res.send(tdidUser);
   } else {
@@ -332,16 +332,14 @@ router.post('/todo', wrap(async (req, res) => {
   }
 }));
 
-// 본인 소속 프로젝트의 프로젝트 정보 불러옴
-router.get('/:pid', wrap(async (req, res) => {
+// 본인 소속 프로젝트의 프로젝트 정보와 To Do list 불러옴
+router.get('/:uid/:pid', wrap(async (req, res) => {
   const project = await models.project.findAll({
     where: {
       pid: req.params.pid
     }
   });
-  if (project) {
-    res.send({ project });
-  }
+  res.send(project);
 }));
 
 
