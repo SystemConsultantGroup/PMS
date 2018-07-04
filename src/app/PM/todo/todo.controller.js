@@ -19,12 +19,12 @@
     };
 
     vm.initView = () => {
-      console.log("asdfasdf");
       const tdid = vm.stateParams.tdid;
       $http.get(`/rest/project/todo/${tdid}`).then((result) => {
         vm.td = result.data;
         console.log(result.data);
       });
+      console.log(tdid);
     };
 
     vm.initMain = () => {
