@@ -105,8 +105,9 @@
         pid: vm.stateParams.pid,
         component: vm.component,
         duedate: vm.duedate,
+        done: null,
       });
-      $location.path(`/todo/view/${vm.stateParams.pid}`);
+      $location.path(`/todo/${vm.stateParams.pid}`);
     };
 
     vm.initModify = () => {
