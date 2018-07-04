@@ -1,3 +1,4 @@
+
 const express = require('express');
 
 const router = express.Router();
@@ -211,6 +212,34 @@ router.delete('/:pid/:tdid', wrap(async (req, res) => {
 }));
 
 
+// 본인 소속 프로젝트의 프로젝트 정보와 (본인의 )To Do list 불러옴
+router.get('/todo/:uid/:pid', wrap(async (req, res) => {
+  const tdids = await models.todo.findAll({
+    where: {
+      pid: req.params.pid
+    }
+  });
+  let existence = []
+  for (let i = 0; i < tdids.length; i++){
+    const list1 = await models.list.findAll({
+      where: {
+        uid: req.params.uid,
+        tdid: tdids[i].tdid
+      }
+    });
+    existence.push(list1);
+  }
+  if (existence[0][0] != null) {
+    res.send(tdids)
+  } else {
+    res.send({
+      result: false
+    });
+  }
+}));
+
+
+
 // Todo 상세 정보 불러옴(get방식으로)
 router.get('/:uid/:pid/:tdid', wrap(async (req, res) => {
   const list = await models.list.findAll({
@@ -306,6 +335,8 @@ router.get('/:uid/:pid', wrap(async (req, res) => {
     res.send({ project, todo });
   }
 }));
+
+
 
 
 

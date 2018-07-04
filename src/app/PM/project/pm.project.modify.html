@@ -4,17 +4,22 @@
       <md-card>
         <div>
           <h2>Name</h2>
-          <input type="text" class="" ng-model="pm.name" placeholder="{{pm.mproject.name}}">
+          <input type="text" class="minput" ng-model="pm.name" placeholder="{{pm.mproject.name}}">
           <hr class="title_line">
         </div>
         <div>
           <h2>Startdate</h2>
-          <input type="date" class="" ng-model="pm.startdate" value="{{pm.mproject.startdate.slice(0,10)}}">
+          <input type="date" class="" ng-model="pm.startdate" placeholder="{{pm.mproject.startdate}}" value="{{pm.mproject.startdate.slice(0,10)}}">
           <hr class="title_line">
         </div>
         <div>
           <h2>Duedate</h2>
           <input type="date" class="" ng-model="pm.duedate" value="{{pm.mproject.duedate.slice(0,10)}}">
+          <hr class="title_line">
+        </div>
+        <div>
+          <h2>Done</h2>
+          <input type="date" class="" ng-model="pm.done" value="{{pm.mproject.done.slice(0,10)}}">
           <hr class="title_line">
         </div>
         <md-button type="submit" class="md-raised"><i class="fa fa-edit">  Edit Project</i></md-button>
