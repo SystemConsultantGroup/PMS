@@ -18,69 +18,39 @@
       page: 1
     };
 
-    // 더미 데이터베이스
-    /* vm.projects =
-    [
-      {
-        pid: 1,
-        name: 'AngularJs 독서',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        pid: 2,
-        name: 'AngularJs 공부하기',
-        startdate: '5/23',
-        duedate: '6/14',
-        done: true,
-      },
-      {
-        pid: 3,
-        name: 'AngularJs 게시판 만들기',
-        startdate: '5/28',
-        duedate: '6/2',
-        done: false,
-      },
-      {
-        pid: 4,
-        name: 'REST DOCUMENT 작성하기',
-        startdate: '5/29',
-        duedate: '6/12',
-        done: false,
-      },
-      {
-        pid: 5,
-        name: 'DB 스키마 만들기',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        pid: 6,
-        name: '레이아웃 작업하기',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        pid: 7,
-        name: 'Config 파일 작성',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: false,
-      },
-    ]; */
+    vm.initProject = () => {}
 
     $http.get('/rest/session').then((result) => {
       vm.uid = result.data.uid;
     });
 
+    $http.get('/rest/admin/users').then((res) => {
+      vm.restusers = [];
+      vm.totalusers = res.data;
+
+      $http.get(`/rest/project/pmuid/${vm.stateParams.modify_id}`).then((result) => {
+      vm.users = result.data;
+      vm.uidlist = [];
+
+      for (i in vm.users) {
+        vm.uidlist.push(vm.users[i].uid)
+      };
+
+
+      for (x in vm.totalusers) {
+        if (! vm.uidlist.includes(vm.totalusers[x].uid)) {
+          vm.restusers.push(vm.totalusers[x]);
+          console.log(vm.restusers)
+        }
+      };
+    });
+    });
+
+
     vm.initView = () => {
       const pid = vm.stateParams.view_id;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
         vm.project = result.data;
-        console.log(vm.project);
       });
     };
 
@@ -119,7 +89,7 @@
     vm.initModify = () => {
       const pid = vm.stateParams.modify_id;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
-        [vm.project] = result.data;
+        vm.project = result.data;
       });
     };
 
@@ -144,5 +114,13 @@
         $window.location.assign('/admin/project');
       }
     };
+
+    vm.useradd = (uid, pid) => {
+      $http.post(`/rest/project/${uid}/${pid}`, {
+        role: 'joined'
+      });
+      alert(`${uid} joined`)
+    };
+
   }
 }());

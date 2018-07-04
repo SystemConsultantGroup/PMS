@@ -1,5 +1,6 @@
-<div ng-controller="AdminProjectController as adminproject" ng-init="adminproject.initView()">
-<h2>{{adminproject.project[0].name}}</h2>
+<div ng-controller="AdminProjectController as adminproject" ng-init="adminproject.initProject()"> 
+<div ng-init="adminproject.initView()">
+<h2>{{adminproject.project.name}}</h2>
 <br>
 <md-card ng-cloak>
 	<md-table-container>
@@ -11,16 +12,16 @@
 					<td>Duedate</td> 
 				</tr>
 				<tr md-row>
-					<td md-cell class="breakall">{{adminproject.project[0].startdate.slice(0,10)}}</td>
+					<td md-cell class="breakall">{{adminproject.project.startdate.slice(0,10)}}</td>
 					<td>|</td>
-					<td md-cell class="breakall">{{adminproject.project[0].duedate.slice(0,10)}}</td>
+					<td md-cell class="breakall">{{adminproject.project.duedate.slice(0,10)}}</td>
 				</tr>
         	</tbody>
     	</table>
     </md-table-container>
 </md-card>
 <br>
-<md-button class="md-raised"><i class="fa fa-users">  User List</i></md-button>
+<md-button class="md-raised" a ui-sref="adminProjectUsers({ modify_id: adminproject.project.pid })"><i class="fa fa-users">Add Users</i></md-button>
 
 <md-card>
 <md-table-container>
@@ -34,8 +35,8 @@
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
-            ng-repeat="user in adminproject.users | filter: filter.search | orderBy: adminproject.query.order | limitTo: adminproject.query.limit : (adminproject.query.page -1) * adminproject.query.limit">
-            <td md-cell class="breakall"><a href="/admin/project/{{adminproject.pid}}">{{user.name}}</a></td>
+            ng-repeat="user in adminproject.users">
+            <td md-cell class="breakall">{{user.name}}</td>
             <td md-cell class="breakall">{{user.email}}</td>
             <td md-cell class="breakall">{{user.ph}}</td>
             </td>
@@ -51,7 +52,7 @@
 
 <br>
 <br>
-  <md-button class="md-raised" a ui-sref="adminProjectModify({ modify_id: adminproject.project[0].pid })"><i class="fa fa-edit"></i> Edit </md-button>
-  <md-button class="md-raised" ng-click="adminproject.delete(adminproject.project[0].pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
-
+  <md-button class="md-raised" a ui-sref="adminProjectModify({ modify_id: adminproject.project.pid })"><i class="fa fa-edit"></i> Edit </md-button>
+  <md-button class="md-raised" ng-click="adminproject.delete(adminproject.project.pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
+</div>
 </div>
