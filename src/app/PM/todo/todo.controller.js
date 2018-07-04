@@ -55,9 +55,10 @@
     };
 
     vm.initModify = () => {
-      const pid = vm.stateParams.pid;
-      $http.get(`/rest/admin/project/${pid}`).then((result) => {
-        vm.mproject = result.data;
+      const tdid = vm.stateParams.tdid;
+      $http.get(`/rest/project/todo/${tdid}`).then((result) => {
+        vm.mtodo = result.data;
+        console.log(result.data);
       });
     };
 

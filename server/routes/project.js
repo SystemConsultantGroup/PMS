@@ -229,15 +229,30 @@ router.get('/todo/:uid/:pid', wrap(async (req, res) => {
 
 
 // Todo 상세 정보 불러옴(get방식으로)
-router.get('/:uid/:pid/:tdid', wrap(async (req, res) => {
-  const list = await models.list.findAll({
+router.get('/todo/:tdid', wrap(async (req, res) => {
+
+  const list = await models.todo.findOne({
     where: {
-      uid: req.params.uid,
       tdid: req.params.tdid
     },
-    include: ['todo']
   });
-  res.send(list);
+
+  const uids = await models.list.findAll({
+    where: {
+      tdid: list.tdid
+    },
+    attributes: ['uid']
+  })
+  const dic = {};
+  await uids.forEach((u) => {
+    dic[u.uid] = [];
+  })
+  const users = await models.user.findAll({
+    where: {
+      uid: Object.keys(dic)
+    }
+  })
+  res.send({todo : list, userlist : users});
 }));
 
 // pid에 해당하는 todo 목록 가져오기

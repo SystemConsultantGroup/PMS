@@ -19,7 +19,7 @@
             <td md-cell class="breakall">{{td.updatedAt}}</td>
             <td md-cell class="breakall">{{td.duedate}}</td>
             <td md-cell class="breakall">{{td.done}}</td>
-            <td md-cell><md-button class="md-primary" a ui-sref="pmProjectModify({ modify_id: project.pid })">Edit</md-button>
+            <td md-cell><md-button class="md-primary" a ui-sref="todoModify({ tdid: td.tdid })">Edit</md-button>
               <md-button class="md-accent" ng-click="todo.delete(td.tdid)">Delete</md-button>
             </td>
             </td>

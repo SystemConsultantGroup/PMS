@@ -190,7 +190,7 @@
       })
       .state('todoModify', {
         parent: 'pms',
-        url: '/todo/modify/:pid',
+        url: '/todo/modify/:tdid',
         templateUrl: 'app/PM/todo/todo.modify.html',
         controllerAs: 'TodoController',
         params: { title: 'Todo : Todify Todo' }
