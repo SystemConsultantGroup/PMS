@@ -1,0 +1,10 @@
+<div class="form-group" ng-controller="TodoController as todo">
+    <form ng-submit="todo.add()">
+    <h2>Component</h2><input class="board__input" type="name" ng-model="todo.component" required>
+    <br>
+    <h2>Duedate</h2><input class="board__input" type="date" ng-model="todo.duedate">
+    <br>
+    <br>
+    <md-button class="md-raised" type="submit"><i class="fa fa-plus-square"> Create todo </i></md-button>
+  </form>
+</div>

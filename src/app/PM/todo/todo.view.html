@@ -1,5 +1,5 @@
-<div ng-controller="PMController as pm" ng-init="pm.initView()">
-<h2 style="padding : 0% 50%;">{{pm.project.name}}</h2>
+<div ng-controller="TodoController as todo" ng-init="todo.initView()">
+<h2 style="padding : 0% 50%;">{{todo.project.name}}</h2>
 <br>
 <md-card ng-cloak>
   <md-table-container>
@@ -11,9 +11,9 @@
           <td>Duedate</td> 
         </tr>
         <tr md-row>
-          <td md-cell class="breakall">{{pm.project.startdate}}</td>
+          <td md-cell class="breakall">{{todo.project.startdate}}</td>
           <td>|</td>
-          <td md-cell class="breakall">{{pm.project.duedate}}</td>
+          <td md-cell class="breakall">{{todo.project.duedate}}</td>
         </tr>
           </tbody>
       </table>
@@ -25,7 +25,7 @@
 <md-card>
 <md-table-container>
       <table md-table class="table_notice">
-        <thead md-head md-order="pm.query.order">
+        <thead md-head md-order="todo.query.order">
         <tr md-row>
           <th md-column md-numeric md-order-by="p_id"><span class="title_size">Name</span></th>
           <th md-column md-numeric><span class="title_size">Email Address</span></th>
@@ -34,7 +34,7 @@
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
-            ng-repeat="user in pm.users">
+            ng-repeat="user in todo.users">
             <td md-cell class="breakall"><a>{{user.name}}</a></td>
             <td md-cell class="breakall">{{user.email}}</td>
             <td md-cell class="breakall">{{user.ph}}</td>
@@ -43,13 +43,16 @@
         </tbody>
       </table>
     </md-table-container>
-    <md-table-pagination md-limit="pm.query.limit" md-page="pm.query.page"
-                         md-total="{{pm.projects.length}}" md-page-select
+    <md-table-pagination md-limit="todo.query.limit" md-page="todo.query.page"
+                         md-total="{{todo.projects.length}}" md-page-select
                          md-boundary-links></md-table-pagination>
 </md-card>
+
+
 <br>
 <br>
-<md-button class="md-raised" ui-sref="todo({pid :pm.pid})"><i class="fa fa-users">  Todo Edit</i></md-button>
+<md-button class="md-raised"><i class="fa fa-users">  Todo Page</i></md-button>
+
 <md-card ng-cloak>
   <md-table-container>
     <table md-table class="table_notice">
@@ -63,7 +66,7 @@
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
-            ng-repeat="todo in pm.todoes">
+            ng-repeat="todo in todo.todoes">
             <td md-cell class="breakall"><a>{{todo.component}}</a></td>
             <td md-cell class="breakall">{{todo.updatedAt}}</td>
             <td md-cell class="breakall">{{todo.duedate}}</td>
@@ -74,5 +77,5 @@
       </table>
     </md-table-container>
 </md-card>
-  <md-button class="md-raised" ui-sref="pmProjectModify({pid : pm.pid})"><i class="fa fa-edit"></i> Edit</md-button>
+  <md-button class="md-raised" ui-sref="todoProjectModify({pid : todo.pid})"><i class="fa fa-edit"></i> Edit</md-button>
 </div>

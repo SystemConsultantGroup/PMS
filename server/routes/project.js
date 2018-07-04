@@ -1,3 +1,4 @@
+
 const express = require('express');
 
 const router = express.Router();
@@ -172,9 +173,8 @@ router.put('/:uid/:pid/:tdid', wrap(async (req, res) => {
 }));
 
 // todo 제거(PM과 ADMIN만 가능)
-router.delete('/:pid/:tdid', wrap(async (req, res) => {
-  if (req.session.user.auth === 1) {
-    const destroy = await models.todo.destroy({
+router.delete('/todo/:pid/:tdid', wrap(async (req, res) => {
+ const destroy = await models.todo.destroy({
       where: { tdid: req.params.tdid }
     });
     if (destroy) {
@@ -182,27 +182,43 @@ router.delete('/:pid/:tdid', wrap(async (req, res) => {
         result: true
       });
     }
-  } else if (req.session.user.auth === 2) {
-    const todo = await models.todo.findOne({
-      where: {
-        tdid: req.params.tdid
-      },
-      include: ['project']
-    });
-    if (todo.project.uid === req.session.user.uid) {
-      const destroy = await models.todo.destroy({
-        where: { tdid: req.params.tdid }
-      });
-      if (destroy) {
-        res.send({
-          result: true
-        });
-      }
-    } else {
-      res.send({
-        result: false
-      });
+}));
+
+
+// 본인 소속 프로젝트의 프로젝트 정보와 (본인의 )To Do list 불러옴
+router.get('/todo/:uid/:pid', wrap(async (req, res) => {
+  const tdids = await models.todo.findAll({
+    where: {
+      pid: req.params.pid
     }
+  });
+  let existence = []
+  console.log(existence);
+
+  for (let i = 0; i < tdids.length; i++){
+    const list1 = await models.list.findAll({
+      where: {
+        uid: req.params.uid,
+        tdid: tdids[i].tdid
+      }
+    });
+    if (list1[0] != null){
+      existence.push(list1[0].tdid);
+    }
+    console.log(existence);
+  }
+
+  if (existence[0] != null) {
+    const tdidUser = []
+    for (let j = 0; j < existence.length; j++){
+      const list2 = await models.todo.findAll({
+        where: {
+          tdid: existence[j]
+        }
+      });
+      tdidUser.push(list2[0]);
+    }
+    res.send(tdidUser);
   } else {
     res.send({
       result: false
@@ -211,16 +227,32 @@ router.delete('/:pid/:tdid', wrap(async (req, res) => {
 }));
 
 
+
 // Todo 상세 정보 불러옴(get방식으로)
-router.get('/:uid/:pid/:tdid', wrap(async (req, res) => {
-  const list = await models.list.findAll({
+router.get('/todo/:tdid', wrap(async (req, res) => {
+
+  const list = await models.todo.findOne({
     where: {
-      uid: req.params.uid,
       tdid: req.params.tdid
     },
-    include: ['todo']
   });
-  res.send(list);
+
+  const uids = await models.list.findAll({
+    where: {
+      tdid: list.tdid
+    },
+    attributes: ['uid']
+  })
+  const dic = {};
+  await uids.forEach((u) => {
+    dic[u.uid] = [];
+  })
+  const users = await models.user.findAll({
+    where: {
+      uid: Object.keys(dic)
+    }
+  })
+  res.send({todo : list, userlist : users});
 }));
 
 // pid에 해당하는 todo 목록 가져오기
@@ -256,56 +288,25 @@ router.get('/pmuid/:pid', wrap(async (req, res) => {
 
 // todo 추가
 router.post('/todo', wrap(async (req, res) => {
-  if (req.session.user.auth === 1) {
-    const create = await models.todo.create(req.body);
+  const create = await models.todo.create(req.body);
     if (create) {
       res.send({
         result: true
       });
-    }
-  } else if (req.session.user.auth === 2) {
-    const project = await models.project.findOne({
-      where: {
-        pid: req.body.pid
-      }
-    });
-    if (project.uid === req.session.user.uid) {
-      const create = await models.todo.create(req.body);
-      if (create) {
-        res.send({
-          result: true
-        });
-      }
-    } else {
-      res.send({
-        result: false
-      });
-    }
-  } else {
-    res.send({
-      result: false
-    });
   }
 }));
 
 // 본인 소속 프로젝트의 프로젝트 정보와 To Do list 불러옴
 router.get('/:uid/:pid', wrap(async (req, res) => {
-  const project = await models.assign_r.findAll({
-    where: {
-      uid: req.params.uid,
-      pid: req.params.pid
-    },
-    include: ['project']
-  });
-  const todo = await models.todo.findAll({
+  const project = await models.project.findAll({
     where: {
       pid: req.params.pid
     }
   });
-  if (project && todo) {
-    res.send({ project, todo });
-  }
+  res.send(project);
 }));
+
+
 
 
 

@@ -78,12 +78,12 @@
       $http.get(`/rest/admin/project/${vm.stateParams.pid}`).then((result) => {
         vm.project = result.data;
       });
-      $http.get(`/rest/project/pmid/${vm.stateParams.pid}`).then((result) => {
-        vm.todoes = result.data.todo;
+      $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
+        vm.todoes = result.data;
+        console.log(result.data);
       });
       $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
         vm.users = result.data;
-        console.log(result.data);
       });
     };
 
