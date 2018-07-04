@@ -1,10 +1,10 @@
 (function () {
   angular
     .module('pms')
-    .controller('PMController', PMController);
+    .controller('TodoController', TodoController);
 
   // admin/project 컨트롤러
-  function PMController(
+  function TodoController(
     $log, $http, $scope, $window, $location,
     $sessionStorage, $stateParams
   ) {
@@ -75,23 +75,16 @@
 
     vm.initView = () => {
       vm.pid = vm.stateParams.pid;
-      $http.get(`/rest/admin/project/${vm.stateParams.pid}`).then((result) => {
-        vm.project = result.data;
-      });
-      $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
+      $http.get(`/rest/project/pmid/${vm.stateParams.pid}`).then((result) => {
         vm.todoes = result.data;
-        console.log(result.data);
-      });
-      $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
-        vm.users = result.data;
       });
     };
 
     vm.initMain = () => {
-      $http.get('/rest/session').then((result) => {
-        $http.get(`/rest/project/pm/${result.data.uid}`).then((res) => {
-          vm.projects = res.data;
-        });
+      vm.pid = vm.stateParams.pid;
+      $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
+        vm.todoes = result.data;
+        console.log(result.data);
       });
     };
 
@@ -108,14 +101,12 @@
     }
 
     vm.add = () => {
-      $http.post('/rest/admin/project', {
-        uid: vm.uid,
-        name: vm.name,
-        startdate: vm.startdate,
+      $http.post('/rest/project/todo', {
+        pid: vm.stateParams.pid,
+        component: vm.component,
         duedate: vm.duedate,
-        done: null,
       });
-      $window.location.assign('/admin/project');
+      $location.path(`/todo/view/${vm.stateParams.pid}`);
     };
 
     vm.initModify = () => {
