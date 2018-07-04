@@ -19,9 +19,11 @@
     };
 
     vm.initView = () => {
-      vm.pid = vm.stateParams.pid;
-      $http.get(`/rest/project/pmid/${vm.stateParams.pid}`).then((result) => {
-        vm.todoes = result.data;
+      console.log("asdfasdf");
+      const tdid = vm.stateParams.tdid;
+      $http.get(`/rest/project/todo/${tdid}`).then((result) => {
+        vm.td = result.data;
+        console.log(result.data);
       });
     };
 

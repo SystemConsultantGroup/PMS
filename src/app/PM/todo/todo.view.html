@@ -4,23 +4,28 @@
 <md-card ng-cloak>
   <md-table-container>
     <table md-table class="table_notice">
-      <tbody md-bodylayout="row">
-        <tr>
-          <td>Startdate</td>
-          <td>|</td>
-          <td>Duedate</td> 
-        </tr>
+        <thead md-head>
         <tr md-row>
-          <td md-cell class="breakall">{{todo.project.startdate}}</td>
-          <td>|</td>
-          <td md-cell class="breakall">{{todo.project.duedate}}</td>
+          <th md-column md-numeric><span class="title_size">Component</span></th>
+          <th md-column md-numeric><span class="title_size">Uptodate</span></th>
+          <th md-column><span class="title_size">Duedate</span></th>
+          <th md-column><span class="title_size">Done</span></th>
         </tr>
-          </tbody>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row>
+            <td md-cell class="breakall"><a>{{todo.td.todo.component}}</a></td>
+            <td md-cell class="breakall">{{todo.td.todo.updatedAt}}</td>
+            <td md-cell class="breakall">{{todo.td.todo.duedate}}</td>
+            <td md-cell class="breakall">{{todo.td.todo.done}}</td>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </md-table-container>
 </md-card>
 <br>
-<md-button class="md-raised"><i class="fa fa-users">  User List</i></md-button>
+<md-button class="md-raised"><i class="fa fa-users">  Assgin Dev</i></md-button>
 
 <md-card>
 <md-table-container>
@@ -34,7 +39,7 @@
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
-            ng-repeat="user in todo.users">
+            ng-repeat="user in todo.td.userlist">
             <td md-cell class="breakall"><a>{{user.name}}</a></td>
             <td md-cell class="breakall">{{user.email}}</td>
             <td md-cell class="breakall">{{user.ph}}</td>
@@ -51,31 +56,5 @@
 
 <br>
 <br>
-<md-button class="md-raised"><i class="fa fa-users">  Todo Page</i></md-button>
-
-<md-card ng-cloak>
-  <md-table-container>
-    <table md-table class="table_notice">
-        <thead md-head>
-        <tr md-row>
-          <th md-column md-numeric><span class="title_size">Component</span></th>
-          <th md-column md-numeric><span class="title_size">Uptodate</span></th>
-          <th md-column><span class="title_size">Duedate</span></th>
-          <th md-column><span class="title_size">Done</span></th>
-        </tr>
-        </thead>
-        <tbody md-bodylayout="row">
-          <tr md-row
-            ng-repeat="todo in todo.todoes">
-            <td md-cell class="breakall"><a>{{todo.component}}</a></td>
-            <td md-cell class="breakall">{{todo.updatedAt}}</td>
-            <td md-cell class="breakall">{{todo.duedate}}</td>
-            <td md-cell class="breakall">{{todo.done}}</td>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </md-table-container>
-</md-card>
-  <md-button class="md-raised" ui-sref="todoProjectModify({pid : todo.pid})"><i class="fa fa-edit"></i> Edit</md-button>
+ <md-button class="md-raised" ui-sref="todoModify({tdid : todo.tdid})"><i class="fa fa-edit"></i> Edit</md-button>
 </div>
