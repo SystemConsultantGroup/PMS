@@ -341,13 +341,8 @@ router.get('/:uid/:pid', wrap(async (req, res) => {
     },
     include: ['project']
   });
-  const todo = await models.todo.findAll({
-    where: {
-      pid: req.params.pid
-    }
-  });
-  if (project && todo) {
-    res.send({ project, todo });
+  if (project) {
+    res.send({ project });
   }
 }));
 
