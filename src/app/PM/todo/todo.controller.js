@@ -18,61 +18,6 @@
       page: 1
     };
 
-    // 더미 데이터베이스
-    /* vm.projects =
-    [
-      {
-        pid: 1,
-        name: 'AngularJs 독서',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        pid: 2,
-        name: 'AngularJs 공부하기',
-        startdate: '5/23',
-        duedate: '6/14',
-        done: true,
-      },
-      {
-        pid: 3,
-        name: 'AngularJs 게시판 만들기',
-        startdate: '5/28',
-        duedate: '6/2',
-        done: false,
-      },
-      {
-        pid: 4,
-        name: 'REST DOCUMENT 작성하기',
-        startdate: '5/29',
-        duedate: '6/12',
-        done: false,
-      },
-      {
-        pid: 5,
-        name: 'DB 스키마 만들기',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        pid: 6,
-        name: '레이아웃 작업하기',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        pid: 7,
-        name: 'Config 파일 작성',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: false,
-      },
-    ]; */
-
-
     vm.initView = () => {
       vm.pid = vm.stateParams.pid;
       $http.get(`/rest/project/pmid/${vm.stateParams.pid}`).then((result) => {
@@ -84,7 +29,6 @@
       vm.pid = vm.stateParams.pid;
       $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
         vm.todoes = result.data;
-        console.log(result.data);
       });
     };
 
@@ -114,7 +58,6 @@
       const pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
         vm.mproject = result.data;
-        console.log(vm.mproject.name);
       });
     };
 
@@ -143,12 +86,13 @@
       $location.path(`/pm/project/${vm.stateParams.pid}`);
     };
 
-    vm.delete = (pid) => {
+    vm.delete = (tdid) => {
       const cf = window.confirm('Delete?');
       if (cf) {
-        $http.delete(`/rest/project/${vm.uid}/${pid}`);
+        console.log(vm.pid,tdid);
+        $http.delete(`/rest/project/todo/${vm.pid}/${tdid}`);
         alert('Deleted.');
-        $window.location.assign('/admin/project');
+        window.location.reload();
       }
     };
   }
