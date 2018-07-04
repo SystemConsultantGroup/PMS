@@ -333,7 +333,7 @@ router.post('/todo', wrap(async (req, res) => {
 }));
 
 // 본인 소속 프로젝트의 프로젝트 정보 불러옴
-router.get('/:uid/:pid', wrap(async (req, res) => {
+router.get('/:pid', wrap(async (req, res) => {
   const project = await models.project.findAll({
     where: {
       pid: req.params.pid
