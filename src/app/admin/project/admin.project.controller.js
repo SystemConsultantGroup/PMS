@@ -18,8 +18,6 @@
       page: 1
     };
 
-    vm.initProject = () => {}
-
     $http.get('/rest/session').then((result) => {
       vm.uid = result.data.uid;
     });
@@ -27,16 +25,14 @@
     $http.get('/rest/admin/users').then((res) => {
       vm.restusers = [];
       vm.totalusers = res.data;
+      vm.log(vm.totalusers);
 
       $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
       vm.users = result.data;
       vm.uidlist = [];
-
       for (i in vm.users) {
         vm.uidlist.push(vm.users[i].uid)
       };
-
-
       for (x in vm.totalusers) {
         if (! vm.uidlist.includes(vm.totalusers[x].uid)) {
           vm.restusers.push(vm.totalusers[x]);
@@ -44,15 +40,23 @@
       };
     });
     });
-
-
     vm.initView = () => {
       const pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
         vm.project = result.data;
       });
     };
+    vm.initWrite = () => {
+      vm.pmSelect = [];
+      $http.get('/rest/admin/users').then((res) => {
+      vm.totalusers = res.data;
+      vm.pmSelected = vm.totalusers[0].name;
+      for(let i = 0; vm.totalusers[i] != null; i++){
+        vm.pmSelect.push(vm.totalusers[i].name);
+      }
+    });
 
+    };
 
     $http.get('/rest/session').then((result) => {
       if (result.data.auth === 1) { vm.user = 'admin'; } else if (result.data.auth === 0 && result.data.auth > 1) { vm.user = 'user'; }
@@ -75,14 +79,20 @@
     });
 
     vm.add = () => {
+      for(let i = 0; vm.totalusers[i] != null; i++){
+        if(vm.pmSelected == vm.totalusers[i].name){
+          vm.uidSelected = vm.totalusers[i].uid;
+          break;
+        }
+      }
       $http.post('/rest/admin/project', {
-        uid: vm.uid,
+        uid: vm.uidSelected,
         name: vm.name,
         startdate: vm.startdate,
         duedate: vm.duedate,
         done: null,
       });
-      $window.location.assign('/admin/project');
+      $state.go('adminProject');
     };
 
     vm.initModify = () => {
