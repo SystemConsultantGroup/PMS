@@ -1,4 +1,4 @@
-<div class="form-group" ng-controller="PMController as pm">
+<div class="form-group" ng-controller="PMController as pm" ng-init="pm.getpid()">
     <form ng-submit="pm.add()">
     <h2>Name</h2><input class="board__input" type="name" ng-model="pm.name" required>
     <br>
