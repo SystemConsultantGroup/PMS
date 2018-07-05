@@ -46,35 +46,40 @@ router.get('/:uid', wrap(async (req, res) => {
 }));
 
 // 프로젝트 수행원 추가, 역할 부여(PM과 ADMIN만 가능)
+// project의 uid의 값을 바꾼다 또한 auth의 값이 도 바꿀 수 있게 하자
+// session의 auth가 1이나 2인 경우에만 수정할 수 있게 한다. 
 router.post('/:uid/:pid', wrap(async (req, res) => {
-  if (req.session.user.auth === 1) {
+  if (req.session.user.auth === 1 || req.session.user.auth === 2) {
     const create = await models.assign_r.create({
       uid: req.params.uid,
       pid: req.params.pid,
       role: req.body.role
     });
-    if (create) {
-      res.send({
-        result: true
-      });
-    }
-  } else if (req.session.user.auth === 2) {
-    const project = await models.project.findOne({
+
+    // 값 변경하기
+    models.project.update(
+      {
+        uid: req.params.uid
+      },
+      {
       where: {
         pid: req.params.pid
       }
     });
-    if (req.session.user.uid === project.uid) {
-      const create = await models.assign_r.create({
-        uid: req.params.uid,
-        pid: req.params.pid,
-        role: req.body.role
-      });
-      if (create) {
-        res.send({
-          result: true
-        });
+
+    models.user.update({
+      auth: req.body.auth
+    },
+    {
+      where: {
+        uid: req.params.uid
       }
+    });
+
+    if ( create != null ) {
+      res.send({
+        result: true
+      });
     } else {
       res.send({
         result: false
