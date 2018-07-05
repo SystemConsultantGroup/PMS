@@ -1,13 +1,12 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-
 <div ng-controller="MainController as main">
-  <h2 style="font-size: 23pt; color: #ffc000">TO DO LIST</h2>
-  <h2 style="font-size: 23pt; color: #ffffff"> TOTAL REQUESTS: <strong>{{main.datas.length}}</strong>개 
+  <md-card>
+    <h2 style="font-size: 23pt">&nbsp;Total Projects: <strong>{{main.datas.length}}</strong>
     <br>
-    REMAINED REQUESTS: <strong>{{main.remainingTodos()}}</strong>개
-  </h2>
+    </h2>
+  </md-card>
 
 <md-card ng-cloak>
 

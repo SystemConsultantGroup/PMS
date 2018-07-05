@@ -8,22 +8,15 @@
     const vm = this;
     vm.lists = [];
 
-
     // /////// 소속 프로젝트 불러오기 //////////
 
-
     $http.get('/rest/session').then((result) => {
-      vm.uid = result.data.name;
+      vm.uid = result.data.uid;
       $http.get(`/rest/project/${vm.uid}`).then((res) => {
         vm.datas = res.data;
-        for (i in res.data) {
-          if (res.data) {
-            vm.lists.push(res.data[i]);
-          }
-        }
+        vm.log(vm.datas);
       });
     });
-
 
     vm.log = $log.log;
     vm.session = $sessionStorage.getObject('session');
@@ -32,17 +25,6 @@
       limit: 7,
       page: 1
     };
-
-
-    vm.delete = (pid) => {
-      const cf = window.confirm('Delete?');
-      if (cf) {
-        $http.delete(`/${vm.session.uid}/project/${pid}`);
-        alert('Article has been deleted.');
-        $location.reload();
-      }
-    };
-
 
     // 사용자 구분
     /* $http.get('/session').then(successCallback, errorCallback);
@@ -62,14 +44,5 @@
       }
       vm.datas = response.data;
     }); */
-
-    vm.remainingTodos = () => {
-      const count = vm.lists.reduce((accumulator, currentValue) => {
-        if (currentValue.done === null) return accumulator + 1;
-        return accumulator;
-      }, 0);
-
-      return count;
-    };
   }
 }());
