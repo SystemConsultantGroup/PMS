@@ -18,6 +18,11 @@
           <input type="date" class="" ng-model="adminproject.duedate" value={{adminproject.project.duedate.slice(0,10)}}>
           <hr>
         </div>
+        <div>
+          <h2>PM</h2>
+          <select ng-model="adminproject.pmSelected" ng-options="user for user in adminproject.pmSelect">
+          </select>
+        </div>
         <md-button type="submit" class="md-raised"><i class="fa fa-edit">  Edit Project</i></md-button>
       </md-card>
     </form>
