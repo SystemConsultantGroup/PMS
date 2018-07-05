@@ -156,6 +156,13 @@
         params: { title: 'PM : Modify Project' }
       // 프로젝트 수정
       })
+      .state('pmProjectUsers', {
+        parent: 'pms',
+        url: '/pm/project/users/:pid',
+        templateUrl: 'app/PM/project/pm.project.users.html',
+        controllerAs: 'PMController',
+        params: { title: 'PM : Add Users' }
+      })
       .state('userAccount', {
         parent: 'pms',
         url: '/account',
@@ -182,7 +189,7 @@
       })
       .state('todoView', {
         parent: 'pms',
-        url: '/todo/view/:tdid',
+        url: '/todo/view/:pid/:tdid',
         templateUrl: 'app/PM/todo/todo.view.html',
         controllerAs: 'TodoController',
         params: { title: 'Todo : View Page' }
@@ -203,6 +210,13 @@
         controllerAs: 'TodoController',
         params: { title: 'Todo : Todify Todo' }
       // 프로젝트 수정
+      })
+      .state('todoUsers', {
+        parent: 'pms',
+        url: '/todo/users/:pid/:tdid',
+        templateUrl: 'app/PM/todo/todo.users.html',
+        controllerAs: 'TodoController',
+        params: { title: 'Todo : Add Users' }
       });
 
     // $urlRouterProvider.otherwise('/login');

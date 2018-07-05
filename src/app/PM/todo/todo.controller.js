@@ -13,18 +13,41 @@
     vm.stateParams = $stateParams;
     vm.session = $sessionStorage.getObject('session');
     vm.query = {
-      order: 'pid',
+      order: 'tdid',
       limit: 10,
       page: 1
     };
 
     vm.initView = () => {
       const tdid = vm.stateParams.tdid;
+      const pid = vm.stateParams.pid;
       $http.get(`/rest/project/todo/${tdid}`).then((result) => {
         vm.td = result.data;
       });
     };
-
+    vm.initProject = () => {
+      vm.tdid = vm.stateParams.tdid;
+      vm.pid = vm.stateParams.pid;
+      console.log(vm.stateParams.pid);
+      $http.get(`/rest/project/pmuid/${vm.pid}`).then((res) => {
+        vm.restusers = [];
+        vm.totalusers = res.data;
+        $http.get(`/rest/project/todo/${vm.stateParams.tdid}`).then((result) => {
+            vm.users = result.data.userlist;
+            vm.uidlist = [];
+            console.log(result.data.userlist);
+            for (i in vm.sers) {
+              vm.uidlist.push(vm.users[i].uid)
+            };
+            for (x in vm.totalusers) {
+              if (! vm.uidlist.includes(vm.totalusers[x].uid)) {
+                vm.restusers.push(vm.totalusers[x]);
+              }
+            };
+          });
+        });
+    };
+      
     vm.initMain = () => {
       vm.pid = vm.stateParams.pid;
       $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
@@ -53,14 +76,29 @@
       });
       $location.path(`/todo/${vm.stateParams.pid}`);
     };
-
+    vm.useradd = (uid, tdid, name) => {
+      $http.post(`/rest/project/todo/${uid}/${tdid}`, {
+        uid: uid,
+        tdid: tdid
+      });
+      alert(`${name} joined`);
+      $window.location.reload();
+    };
     vm.initModify = () => {
       const tdid = vm.stateParams.tdid;
-      $http.get(`/rest/project/todo/${tdid}`).then((result) => {
+      $http.get(`/rest/project/todo/${vm.stateParams.tdid}`).then((result) => {
         vm.mtodo = result.data;
       });
     };
-
+    vm.deleteUser = (uid) => {
+      const tdid = vm.stateParams.tdid;
+      const cf = window.confirm('Delete?');
+      if (cf) {
+        $http.delete(`/rest/project/todo/user/${tdid}/${uid}`);
+        alert('Deleted.');
+        $window.location.reload();
+      }
+    }
 
     // 글 수정
 

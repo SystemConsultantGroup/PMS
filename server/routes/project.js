@@ -167,7 +167,24 @@ router.delete('/user/:pid/:uid', wrap(async (req, res) => {
       });
     }
 }));
-
+//delete the user of the todo
+router.delete('/todo/user/:tdid/:uid', wrap(async (req, res) => {
+ const destroy = await models.list.destroy({
+      where: { 
+        uid: req.params.uid,
+        tdid: req.params.tdid 
+      }
+    });
+    if (destroy) {
+      res.send({
+        result: true
+      });
+    } else {
+      res.send({
+        result: false
+      });
+    }
+}));
 // 본인 소속 프로젝트의 프로젝트 정보와 (본인의 )To Do list 불러옴
 router.get('/todo/:uid/:pid', wrap(async (req, res) => {
   const tdids = await models.todo.findAll({
@@ -286,7 +303,19 @@ router.post('/todo', wrap(async (req, res) => {
     });
   }
 }));
-
+// todo에 user추가
+router.post('/todo/:uid/:tdid', wrap(async (req, res) => {
+  const create = await models.list.create(req.body);
+    if (create) {
+      res.send({
+        result: true
+      });
+  } else {
+    res.send({
+      result: false
+    });
+  }
+}));
 // 본인 소속 프로젝트의 프로젝트 정보와 To Do list 불러옴
 router.get('/:uid/:pid', wrap(async (req, res) => {
   const project = await models.project.findAll({

@@ -33,7 +33,6 @@
       });
       $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
         vm.todoes = result.data;
-        console.log(result.data);
       });
       $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
         vm.users = result.data;
@@ -47,7 +46,31 @@
         });
       });
     };
+    vm.initProject = () => {
+      vm.pid = vm.stateParams.pid;
+      $http.get('/rest/admin/users').then((res) => {
+        vm.restusers = [];
+        vm.totalusers = res.data;
 
+        $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
+            vm.users = result.data;
+            vm.uidlist = [];
+
+            for (i in vm.users) {
+              vm.uidlist.push(vm.users[i].uid)
+            };
+
+
+            for (x in vm.totalusers) {
+              if (! vm.uidlist.includes(vm.totalusers[x].uid)) {
+                vm.restusers.push(vm.totalusers[x]);
+              }
+            };
+          });
+        });
+      console.log(vm.restusers);
+    };
+      
     $http.get('/rest/session').then(successCallback, errorCallback);
 
     function successCallback(response) {
@@ -68,9 +91,15 @@
         duedate: vm.duedate,
         done: null,
       });
-      $window.location.assign('/admin/project');
+      $window.location.assign('/pm/project');
     };
-
+    vm.useradd = (uid, pid, name) => {
+      $http.post(`/rest/project/${uid}/${pid}`, {
+        role: 'joined'
+      });
+      alert(`${name} joined`);
+      $window.location.reload()
+    };
     vm.initModify = () => {
       const pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
