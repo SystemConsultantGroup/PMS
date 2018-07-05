@@ -34,12 +34,12 @@
         <tbody md-bodylayout="row">
           <tr md-row
             ng-repeat="project in adminproject.projects | filter: filter.search | orderBy: adminproject.query.order | limitTo: adminproject.query.limit : (adminproject.query.page -1) * adminproject.query.limit">
-            <td md-cell class="breakall"><md-button a ui-sref="adminProjectView({ view_id: project.pid })">{{project.name}}</md-button></td>
+            <td md-cell class="breakall"><md-button a ui-sref="adminProjectView({ pid: project.pid })">{{project.name}}</md-button></td>
             <td md-cell class="breakall">{{project.startdate.slice(0,10)}}</td>
             <td md-cell class="breakall">{{project.duedate.slice(0,10)}}</td>
             <td md-cell class="breakall">{{project.done.slice(0,10)}}</td>
 
-            <td md-cell><md-button class="md-primary" a ui-sref="adminProjectModify({ modify_id: project.pid })">Edit</md-button>
+            <td md-cell><md-button class="md-primary" a ui-sref="adminProjectModify({ pid: project.pid })">Edit</md-button>
               <md-button class="md-accent" ng-click="adminproject.delete(project.pid)">Delete</md-button>
             </td>
           </tr>
