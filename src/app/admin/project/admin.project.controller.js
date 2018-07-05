@@ -25,20 +25,18 @@
     $http.get('/rest/admin/users').then((res) => {
       vm.restusers = [];
       vm.totalusers = res.data;
-      vm.log(vm.totalusers);
-
       $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
-      vm.users = result.data;
-      vm.uidlist = [];
-      for (i in vm.users) {
-        vm.uidlist.push(vm.users[i].uid)
-      };
-      for (x in vm.totalusers) {
-        if (! vm.uidlist.includes(vm.totalusers[x].uid)) {
-          vm.restusers.push(vm.totalusers[x]);
+        vm.users = result.data;
+        vm.uidlist = [];
+        for (i in vm.users) {
+          vm.uidlist.push(vm.users[i].uid);
+        };
+        for (x in vm.totalusers) {
+          if (!vm.uidlist.includes(vm.totalusers[x].uid)) {
+            vm.restusers.push(vm.totalusers[x]);
+          }
         }
-      };
-    });
+      });
     });
     vm.initView = () => {
       const pid = vm.stateParams.pid;
@@ -49,15 +47,13 @@
     vm.initWrite = () => {
       vm.pmSelect = [];
       $http.get('/rest/admin/users').then((res) => {
-      vm.totalusers = res.data;
-      vm.pmSelected = vm.totalusers[0].name;
-      for(let i = 0; vm.totalusers[i] != null; i++){
-        vm.pmSelect.push(vm.totalusers[i].name);
-      }
-    });
-
+        vm.totalusers = res.data;
+        vm.pmSelected = vm.totalusers[0].name;
+        for (let i = 0; vm.totalusers[i] != null; i += 1) {
+          vm.pmSelect.push(vm.totalusers[i].name);
+        }
+      });
     };
-
     $http.get('/rest/session').then((result) => {
       if (result.data.auth === 1) { vm.user = 'admin'; } else if (result.data.auth === 0 && result.data.auth > 1) { vm.user = 'user'; }
     });
@@ -79,8 +75,8 @@
     });
 
     vm.add = () => {
-      for(let i = 0; vm.totalusers[i] != null; i++){
-        if(vm.pmSelected == vm.totalusers[i].name){
+      for (let i = 0; vm.totalusers[i] != null; i += 1) {
+        if (vm.pmSelected === vm.totalusers[i].name) {
           vm.uidSelected = vm.totalusers[i].uid;
           break;
         }
@@ -122,7 +118,7 @@
         alert('Deleted.');
         $window.location.reload();
       }
-    }
+    };
     vm.delete = (pid) => {
       const cf = window.confirm('Delete?');
       if (cf) {
@@ -137,8 +133,7 @@
         role: 'joined'
       });
       alert(`${name} joined`);
-      $window.location.reload()
+      $window.location.reload();
     };
-
   }
 }());
