@@ -1,4 +1,5 @@
 <div class="form-group" ng-controller="AdminProjectController as adminproject">
+    <div ng-init="adminproject.initWrite()">
     <form ng-submit="adminproject.add()">
         <br>
         <div>
@@ -12,8 +13,14 @@
         <div>
             <h2>Duedate</h2><input class="board__input" type="date" ng-model="adminproject.duedate">
         </div>
+        <div>
+            <h2>PM</h2>
+            <select ng-model="adminproject.pmSelected" ng-options="user for user in adminproject.pmSelect">
+            </select>
+        </div>
         <br>
         <br>
         <md-button class="md-raised" type="submit"><i class="fa fa-plus-square"> Create Project </i></md-button>
     </form>
+</div>
 </div>
