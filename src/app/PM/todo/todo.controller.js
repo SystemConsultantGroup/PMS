@@ -36,8 +36,9 @@
             vm.users = result.data.userlist;
             vm.uidlist = [];
             console.log(result.data.userlist);
-            for (i in vm.sers) {
-              vm.uidlist.push(vm.users[i].uid)
+            for (i in vm.users) {
+              vm.uidlist.push(vm.users[i].uid);
+              console.log(vm.uidlist);
             };
             for (x in vm.totalusers) {
               if (! vm.uidlist.includes(vm.totalusers[x].uid)) {
