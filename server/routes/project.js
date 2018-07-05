@@ -46,27 +46,42 @@ router.get('/:uid', wrap(async (req, res) => {
 }));
 
 // 프로젝트 수행원 추가, 역할 부여(PM과 ADMIN만 가능)
-// project의 uid의 값을 바꾼다 또한 auth의 값이 도 바꿀 수 있게 하자
-// session의 auth가 1이나 2인 경우에만 수정할 수 있게 한다. 
+// 기능 1. user랑 project 연결 (그 유저는 그대로 developer, auth는 9로 보내주어야 한다.)
+// 기능 2. 유저를 pm으로 설정하고 싶다면 -> 그 유저의 auth 값을 2로 바꾼다 
+
 router.post('/:uid/:pid', wrap(async (req, res) => {
   if (req.session.user.auth === 1 || req.session.user.auth === 2) {
+    // assign_r에 uid, pid 리스트 만듦
     const create = await models.assign_r.create({
       uid: req.params.uid,
       pid: req.params.pid,
       role: req.body.role
     });
 
-    // 값 변경하기
-    models.user.update({
-      auth: req.body.auth
-    },
-    {
-      where: {
-        uid: req.params.uid
-      }
-    });
+    // user를 pm으로 설정하고 싶을때( post로 auth에 2를 보내주어야 함
+    // 여기서 === 이면 실행이 안됨(뭐지)
+    if ( req.body.auth == 2 ) {
 
-    if ( create != null ) {
+      const projectUp = await models.project.update({
+        uid: req.params.uid
+      }, {
+        where: {
+          pid: req.params.pid
+        }
+       }
+     );
+
+      const userUp = await models.user.update({
+        auth: req.body.auth
+      },
+      {
+        where: {
+          uid: req.params.uid
+        }
+      });
+    }
+
+    if (create != null) {
       res.send({
         result: true
       });
