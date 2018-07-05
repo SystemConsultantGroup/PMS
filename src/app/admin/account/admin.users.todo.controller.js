@@ -52,7 +52,7 @@
         email: vm.user.email,
         ph: vm.user.ph
       });
-      $location.path('/admin/users');
+      $state.go('adminUsers');
     };
   }
 }());

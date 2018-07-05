@@ -6,7 +6,7 @@
   // admin/users 컨트롤러
   function AdminUsersModifyController(
     $log, $http, $window, $sessionStorage, $location,
-    $stateParams
+    $stateParams, $state
   ) {
     const vm = this;
 
@@ -52,7 +52,7 @@
         email: vm.user.email,
         ph: vm.user.ph
       });
-      $location.path('/admin/users');
+      $state.go('adminUsers');
     };
   }
 }());
