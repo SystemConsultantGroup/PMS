@@ -3,27 +3,23 @@
     <form ng-submit="todo.modify()">
       <md-card>
         <div>
-          <h2>Name</h2>
-          <input type="text" class="minput" ng-model="todo.name" placeholder="{{todo.mtodo.todo.component}}">
-          <hr class="title_line">
-        </div>
-        <div>
-          <h2>Startdate</h2>
-          <input type="date" class="" ng-model="todo.startdate" placeholder="{{todo.mtodo.startdate}}" value="{{todo.mtodo.startdate.slice(0,10)}}">
+          <h2>Component</h2>
+          <input type="text" class="minput" ng-model="todo.component" placeholder="{{todo.mtodo.todo.component}}">
           <hr class="title_line">
         </div>
         <div>
           <h2>Duedate</h2>
-          <input type="date" class="" ng-model="todo.duedate" value="{{todo.mtodo.duedate.slice(0,10)}}">
+          <input type="date" class="" ng-model="todo.duedate" value="{{todo.mtodo.todo.duedate.slice(0,10)}}">
           <hr class="title_line">
         </div>
         <div>
           <h2>Done</h2>
-          <input type="date" class="" ng-model="todo.done" value="{{todo.mtodo.done.slice(0,10)}}">
+          {{todo.mtodo.todo.done}}
+          <md-button ng-click="todo.cancleDone()">Cancle</md-button>
           <hr class="title_line">
         </div>
-        <md-button type="submit" class="md-raised"><i class="fa fa-edit">  Edit Project</i></md-button>
       </md-card>
+      <md-button type="submit" class="md-raised"><i class="fa fa-edit">  Edit Todo</i></md-button>
     </form>
   </div>
 </div>

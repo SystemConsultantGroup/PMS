@@ -22,9 +22,7 @@
       const tdid = vm.stateParams.tdid;
       $http.get(`/rest/project/todo/${tdid}`).then((result) => {
         vm.td = result.data;
-        console.log(result.data);
       });
-      console.log(tdid);
     };
 
     vm.initMain = () => {
@@ -60,7 +58,6 @@
       const tdid = vm.stateParams.tdid;
       $http.get(`/rest/project/todo/${tdid}`).then((result) => {
         vm.mtodo = result.data;
-        console.log(result.data);
       });
     };
 
@@ -68,25 +65,21 @@
     // 글 수정
 
     vm.modify = () => {
-      if(vm.name === null){
-        vm.name = vm.mproject.name;
+      if(vm.component === null){
+        vm.compoent = vm.mtodo.todo.component;
       }
       if(vm.duedate === null){
-        vm.duedate = vm.mproject.duedate;
+        vm.duedate = vm.mtodo.todo.duedate;
       }
-      if(vm.startdate === null){
-        vm.startdate = vm.mproject.startdate;
-      }
-      if(vm.done == null){
-        vm.done = vm.mproject.done;
-      }
-      $http.put(`/rest/admin/project/${vm.stateParams.pid}`, {
-        name: vm.name,
-        startdate: vm.startdate,
+      $http.put(`/rest/project/todo/${vm.mtodo.todo.tdid}`, {
+        tdid: vm.mtodo.todo.tdid,
+        pid: vm.mtodo.todo.pid,
+        component: vm.component,
         duedate: vm.duedate,
-        done: vm.done,
+        done: vm.mtodo.todo.done,
       });
-      $location.path(`/pm/project/${vm.stateParams.pid}`);
+      $location.path(`/todo/${vm.mtodo.todo.pid}`);
+      console.log(vm.component,vm.duedate,vm.mtodo.todo.done,vm.mtodo.todo);
     };
     vm.todoDone = (td) => {
       $http.put(`/rest/project/todo/done/${td.body.tdid}`, {
@@ -99,10 +92,12 @@
       $window.location.reload();
       //console.log(vm.convert(new Date()));
     }
+    vm.cancleDone = () => {
+      vm.mtodo.todo.done = null;
+    }
     vm.delete = (tdid) => {
       const cf = window.confirm('Delete?');
       if (cf) {
-        console.log(vm.pid,tdid);
         $http.delete(`/rest/project/todo/${vm.pid}/${tdid}`);
         alert('Deleted.');
         $window.location.reload();
