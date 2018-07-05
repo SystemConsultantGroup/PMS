@@ -57,16 +57,6 @@ router.post('/:uid/:pid', wrap(async (req, res) => {
     });
 
     // 값 변경하기
-    models.project.update(
-      {
-        uid: req.params.uid
-      },
-      {
-      where: {
-        pid: req.params.pid
-      }
-    });
-
     models.user.update({
       auth: req.body.auth
     },
