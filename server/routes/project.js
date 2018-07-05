@@ -46,6 +46,7 @@ router.get('/:uid', wrap(async (req, res) => {
 }));
 
 // 프로젝트 수행원 추가, 역할 부여(PM과 ADMIN만 가능)
+
 // 기능 1. user랑 project 연결 (그 유저는 그대로 developer, auth는 9로 보내주어야 한다.)
 // 기능 2. 유저를 pm으로 설정하고 싶다면 -> 그 유저의 auth 값을 2로 바꾼다 
 
@@ -99,33 +100,15 @@ router.post('/:uid/:pid', wrap(async (req, res) => {
 
 // 해당 프로젝트 제거(PM과 ADMIN만 가능)
 router.delete('/:uid/:pid', wrap(async (req, res) => {
-  if (req.session.user.auth === 1) {
+  if (req.session.user.auth === 1 || req.params.user.auth === 2) {
     const destroy = await models.project.destroy({
-      where: { pid: req.params.pid }
+      where: { 
+        pid: req.params.pid 
+      }
     });
     if (destroy) {
       res.send({
         result: true
-      });
-    }
-  } else if (req.session.user.auth === 2) {
-    const project = await models.project.findOne({
-      where: {
-        pid: req.params.pid
-      }
-    });
-    if (req.session.user.uid === project.uid) {
-      const destroy = await models.project.destroy({
-        where: { pid: req.params.pid }
-      });
-      if (destroy) {
-        res.send({
-          result: true
-        });
-      }
-    } else {
-      res.send({
-        result: false
       });
     }
   } else {
@@ -154,6 +137,7 @@ router.delete('/todo/:pid/:tdid', wrap(async (req, res) => {
  const destroy = await models.todo.destroy({
       where: { tdid: req.params.tdid }
     });
+
     if (destroy) {
       res.send({
         result: true
@@ -164,42 +148,7 @@ router.delete('/todo/:pid/:tdid', wrap(async (req, res) => {
       });
     }
 }));
-//delete the user of the project
-router.delete('/user/:pid/:uid', wrap(async (req, res) => {
- const destroy = await models.assign_r.destroy({
-      where: { 
-        uid: req.params.uid,
-        pid: req.params.pid 
-      }
-    });
-    if (destroy) {
-      res.send({
-        result: true
-      });
-    } else {
-      res.send({
-        result: false
-      });
-    }
-}));
-//delete the user of the todo
-router.delete('/todo/user/:tdid/:uid', wrap(async (req, res) => {
- const destroy = await models.list.destroy({
-      where: { 
-        uid: req.params.uid,
-        tdid: req.params.tdid 
-      }
-    });
-    if (destroy) {
-      res.send({
-        result: true
-      });
-    } else {
-      res.send({
-        result: false
-      });
-    }
-}));
+
 // 본인 소속 프로젝트의 프로젝트 정보와 (본인의 )To Do list 불러옴
 router.get('/todo/:uid/:pid', wrap(async (req, res) => {
   const tdids = await models.todo.findAll({
@@ -318,28 +267,29 @@ router.post('/todo', wrap(async (req, res) => {
     });
   }
 }));
-// todo에 user추가
-router.post('/todo/:uid/:tdid', wrap(async (req, res) => {
-  const create = await models.list.create(req.body);
-    if (create) {
-      res.send({
-        result: true
-      });
-  } else {
-    res.send({
-      result: false
-    });
-  }
-}));
-// 본인 소속 프로젝트의 프로젝트 정보와 To Do list 불러옴
+
+// 본인 소속 프로젝트의 프로젝트 정보를 불러옴
 router.get('/:uid/:pid', wrap(async (req, res) => {
-  const project = await models.project.findAll({
+  const existence2 = await models.assign_r.findAll({
     where: {
+      uid: req.params.uid,
       pid: req.params.pid
     }
   });
-  res.send(project);
-}));
+  console.log(existence2)
+  if (existence2[0] != null ){
+    const project = await models.project.findAll({
+      where: {
+        pid: req.params.pid
+      }
+    });
+    res.send(project);
+  } else {
+    res.send("There's no in assing_r ");
+  }
+ }));
+  /// uid
+
 
 router.put('/todo/done/:tdid',wrap(async (req,res) => {
   const update = await models.todo.update(req.body, {
