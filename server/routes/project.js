@@ -318,7 +318,22 @@ router.get('/:uid/:pid', wrap(async (req, res) => {
   res.send(project);
 }));
 
-
+router.put('/todo/done/:tdid',wrap(async (req,res) => {
+  const update = await models.todo.update(req.body, {
+      where: {
+        tdid: req.params.tdid
+      }
+    });
+    if (update) {
+      res.send({
+        result: true
+      });
+    } else {
+      res.send({
+        result: false
+      });
+    }
+}));
 
 
 

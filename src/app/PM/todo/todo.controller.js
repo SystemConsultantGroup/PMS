@@ -88,15 +88,35 @@
       });
       $location.path(`/pm/project/${vm.stateParams.pid}`);
     };
-
+    vm.todoDone = (td) => {
+      $http.put(`/rest/project/todo/done/${td.body.tdid}`, {
+        tdid: td.body.tdid,
+        pid: td.body.pid,
+        component: td.body.component,
+        duedate: td.body.duedate,
+        done: vm.convert(new Date()),
+      });
+      $window.location.reload();
+      //console.log(vm.convert(new Date()));
+    }
     vm.delete = (tdid) => {
       const cf = window.confirm('Delete?');
       if (cf) {
         console.log(vm.pid,tdid);
         $http.delete(`/rest/project/todo/${vm.pid}/${tdid}`);
         alert('Deleted.');
-        window.location.reload();
+        $window.location.reload();
       }
     };
+    vm.convert = (date) => {
+      const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+
+      const offset = date.getTimezoneOffset() / 60;
+      const hours = date.getHours();
+
+      newDate.setHours(hours - offset);
+
+      return newDate;   
+    }
   }
 }());
