@@ -159,7 +159,24 @@ router.delete('/todo/:pid/:tdid', wrap(async (req, res) => {
       });
     }
 }));
-
+//delete the user of the project
+router.delete('/user/:pid/:uid', wrap(async (req, res) => {
+ const destroy = await models.assign_r.destroy({
+      where: { 
+        uid: req.params.uid,
+        pid: req.params.pid 
+      }
+    });
+    if (destroy) {
+      res.send({
+        result: true
+      });
+    } else {
+      res.send({
+        result: false
+      });
+    }
+}));
 
 // 본인 소속 프로젝트의 프로젝트 정보와 (본인의 )To Do list 불러옴
 router.get('/todo/:uid/:pid', wrap(async (req, res) => {

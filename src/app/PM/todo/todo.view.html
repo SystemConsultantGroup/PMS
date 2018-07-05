@@ -6,7 +6,6 @@
         <thead md-head>
         <tr md-row>
           <th md-column md-numeric><span class="title_size">Component</span></th>
-          <th md-column md-numeric><span class="title_size">Uptodate</span></th>
           <th md-column><span class="title_size">Duedate</span></th>
           <th md-column><span class="title_size">Done</span></th>
         </tr>
@@ -15,7 +14,8 @@
           <tr md-row>
             <td md-cell class="breakall"><a>{{todo.td.todo.component}}</a></td>
             <td md-cell class="breakall">{{todo.td.todo.duedate}}</td>
-            <td md-cell class="breakall">{{todo.td.todo.done}}</td>
+            <td md-cell class="breakall" ng-if="todo.td.todo.done==null">Doing</td>
+            <td md-cell class="breakall" ng-if="todo.td.todo.done!=null">{{todo.td.todo.done}}</td>
             </td>
           </tr>
         </tbody>

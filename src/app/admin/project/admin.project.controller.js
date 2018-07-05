@@ -104,7 +104,15 @@
       });
       $location.path('/admin/project');
     };
-
+    vm.deleteUser = (uid) => {
+      const pid = vm.stateParams.pid;
+      const cf = window.confirm('Delete?');
+      if (cf) {
+        $http.delete(`/rest/project/user/${pid}/${uid}`);
+        alert('Deleted.');
+        $window.location.reload();
+      }
+    }
     vm.delete = (pid) => {
       const cf = window.confirm('Delete?');
       if (cf) {
