@@ -84,6 +84,7 @@
     }
 
     vm.add = () => {
+      console.log("fdsasadfsfadfsa");
       $http.post('/rest/admin/project', {
         uid: vm.uid,
         name: vm.name,
@@ -138,7 +139,7 @@
       if (cf) {
         $http.delete(`/rest/project/${vm.uid}/${pid}`);
         alert('Deleted.');
-        $window.location.assign('/admin/project');
+        $window.location.reload();
       }
     };
   }

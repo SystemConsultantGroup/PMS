@@ -6,7 +6,7 @@
   // admin/project 컨트롤러
   function AdminProjectController(
     $log, $http, $scope, $window, $location,
-    $sessionStorage, $stateParams
+    $sessionStorage, $stateParams, $state
   ) {
     const vm = this;
     vm.log = $log.log;
@@ -24,7 +24,24 @@
 
     $http.get('/rest/admin/users').then((res) => {
       vm.restusers = [];
+      vm.pmSelect = [];
       vm.totalusers = res.data;
+      $http.get(`/rest/admin/project/${vm.stateParams.pid}`).then((proj) => {
+        vm.project = proj.data;
+        for (let i = 0; vm.totalusers[i] != null; i += 1) {
+          if (vm.project.uid === vm.totalusers[i].uid) {
+            vm.pm = vm.totalusers[i];
+            break;
+          }
+        }      
+        if(vm.pm == null)
+          vm.pmSelected = vm.totalusers[0].name;
+        else
+          vm.pmSelected = vm.pm.name;
+        for (let i = 0; vm.totalusers[i] != null; i += 1) {
+          vm.pmSelect.push(vm.totalusers[i].name);
+        }
+      });
       $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
         vm.users = result.data;
         vm.uidlist = [];
@@ -38,21 +55,15 @@
         }
       });
     });
+
     vm.initView = () => {
       const pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
         vm.project = result.data;
       });
     };
-    vm.initWrite = () => {
-      vm.pmSelect = [];
-      $http.get('/rest/admin/users').then((res) => {
-        vm.totalusers = res.data;
-        vm.pmSelected = vm.totalusers[0].name;
-        for (let i = 0; vm.totalusers[i] != null; i += 1) {
-          vm.pmSelect.push(vm.totalusers[i].name);
-        }
-      });
+    vm.initSelect = () => {
+      
     };
     $http.get('/rest/session').then((result) => {
       if (result.data.auth === 1) { vm.user = 'admin'; } else if (result.data.auth === 0 && result.data.auth > 1) { vm.user = 'user'; }
@@ -94,21 +105,19 @@
     vm.initModify = () => {
       const pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
-        vm.project = result.data;
+        vm.projectt = result.data;
       });
     };
-
-
-    // 글 수정
-
+    // 프로젝트 수정
     vm.modify = () => {
       $http.put(`/rest/admin/project/${vm.stateParams.pid}`, {
-        name: vm.name,
-        startdate: vm.startdate,
-        duedate: vm.duedate,
-        done: vm.done,
+        uid: vm.project.pmSelected,
+        name: vm.project.name,
+        startdate: vm.project.startdate,
+        duedate: vm.project.duedate,
+        done: vm.project.done,
       });
-      $location.path('/admin/project');
+      $state.go('adminProject');
     };
     vm.deleteUser = (uid) => {
       const pid = vm.stateParams.pid;
@@ -124,7 +133,7 @@
       if (cf) {
         $http.delete(`/rest/project/${vm.uid}/${pid}`);
         alert('Deleted.');
-        $window.location.assign('/admin/project');
+        $state.go('adminProject');
       }
     };
 

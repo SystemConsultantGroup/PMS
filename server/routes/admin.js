@@ -27,8 +27,7 @@ router.get('/project', wrap(async (req, res) => {
 
 // add project
 router.post('/project', wrap(async (req, res) => {
-  if (req.session.user.auth === 1) {
-    const create = await models.project.create(req.body);
+  const create = await models.project.create(req.body);
     if (create) {
       res.send({
         result: true
@@ -38,7 +37,6 @@ router.post('/project', wrap(async (req, res) => {
         result: false
       });
     }
-  }
 }));
 
 // get (선택한) 프로젝트 이름, startdate, duedate, done 리스트 불러옴
@@ -49,7 +47,7 @@ router.get('/project/:pid', wrap(async (req, res) => {
         pid: req.params.pid
       },
       attributes: [
-        'pid', 'name', 'startdate', 'duedate', 'done'
+        'pid', 'uid', 'name', 'startdate', 'duedate', 'done'
       ]
     });
     if (projects) {
