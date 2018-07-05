@@ -22,6 +22,7 @@
       if (vm.act === 'none') vm.act = 'block';
       else if (vm.act === 'block') vm.act = 'none';
     };
+
     vm.init = () => {
       $http.get('/rest/session').then((result) => {
         vm.auth = result.data.auth;
