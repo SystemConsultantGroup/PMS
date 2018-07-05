@@ -21,11 +21,11 @@
             <td md-cell class="breakall" ng-if="td.done!=null">{{td.done}}</td>
             <td md-cell class="breakall" ng-if="td.done==null""><md-button ng-click="todo.todoDone({body : td})">Done!</md-button></td>
             <td md-cell><md-button class="md-primary" ui-sref="todoModify({ tdid: td.tdid })">Edit</md-button>
-            </td>
+            <md-button class="md-accent" ng-click="todo.delete(td.tdid)">Delete</md-button>
             </td>
           </tr>
         </tbody>
       </table>
     </md-table-container>
 </md-card>
-</div>
+</div> 
