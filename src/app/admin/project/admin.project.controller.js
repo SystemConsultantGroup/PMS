@@ -55,7 +55,13 @@
         }
       });
     });
-
+    vm.initProject = () => {
+      vm.pid = vm.stateParams.pid;
+      $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
+        vm.todoes = result.data;
+        console.log(result.data);
+      });
+    };
     vm.initView = () => {
       const pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${pid}`).then((result) => {
