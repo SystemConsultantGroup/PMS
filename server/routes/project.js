@@ -118,6 +118,58 @@ router.delete('/:uid/:pid', wrap(async (req, res) => {
   }
 }));
 
+//delete the user of the project	
+router.delete('/user/:pid/:uid', wrap(async (req, res) => {	
+   const destroy = await models.assign_r.destroy({	
+        where: { 	
+          uid: req.params.uid,	
+          pid: req.params.pid 	
+        }	
+      });	
+      if (destroy) {	
+        res.send({	
+          result: true	
+        });	
+      } else {	
+        res.send({	
+          result: false	
+        });	
+      }	
+  }));	
+  
+//delete the user of the todo	
+router.delete('/todo/user/:tdid/:uid', wrap(async (req, res) => {	
+  const destroy = await models.list.destroy({	
+        where: { 	
+          uid: req.params.uid,	
+          tdid: req.params.tdid 	
+        }	
+      });	
+      if (destroy) {	
+        res.send({	
+          result: true	
+        });	
+      } else {	
+        res.send({	
+          result: false	
+        });	
+      }	
+  }));
+
+  // todo에 user추가	
+router.post('/todo/:uid/:tdid', wrap(async (req, res) => {
+    const create = await models.list.create(req.body);	
+      if (create) {	
+        res.send({	
+          result: true	
+        });	
+    } else {	
+      res.send({	
+        result: false	
+      });	
+    }	
+  }));
+
 // 해당 to do 수정(PM과 ADMIN만 가능)
 router.put('/todo/:tdid', wrap(async (req, res) => {
   const update = await models.todo.update(req.body, {
