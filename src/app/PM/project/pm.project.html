@@ -1,5 +1,5 @@
 <div ng-controller="PMController as pm" ng-init="pm.initMain()">
-  <md-button class="md-raised"><a ui-sref="pmProjectWrite"><i class="fa fa-plus-square"></i> New Project </a></md-button>
+  <md-button class="md-raised"><a ui-sref="pmProjectWrite()"><i class="fa fa-plus-square"></i> New Project </a></md-button>
 
 <md-card ng-cloak>
 
@@ -38,7 +38,7 @@
             <td md-cell class="breakall">{{project.duedate.slice(0,10)}}</td>
             <td md-cell class="breakall">{{project.done.slice(0,10)}}</td>
 
-            <td md-cell><md-button class="md-primary" a ui-sref="pmProjectModify({ modify_id: project.pid })">Edit</md-button>
+            <td md-cell><md-button class="md-primary" a ui-sref="pmProjectModify({ pid: project.pid })">Edit</md-button>
               <md-button class="md-accent" ng-click="pm.delete(project.pid)">Delete</md-button>
             </td>
           </tr>
