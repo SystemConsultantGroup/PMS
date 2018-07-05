@@ -52,11 +52,11 @@
                     <li class="board">
                       <a ui-sref='main'>
                         <i class="fa fa-star"></i>
-                        <span class="title">My Project</span>
+                        <span class="title">Project : dev</span>
                       </a>
                     </li>
                     <li class="board" ng-click="layout.change()">
-                      <a ui-sref="pmProject"><i class="fa fa-table"></i> Project <span class="fa fa-chevron-down"></span></a>
+                      <a ui-sref="pmProject"><i class="fa fa-table"></i> Project : pm <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu" ng-style="{'display' : layout.act}">
                         <li ng-repeat="i in layout.side"><a ui-sref="{{i.link}}">{{i.title}}</a></li>
                       </ul>
