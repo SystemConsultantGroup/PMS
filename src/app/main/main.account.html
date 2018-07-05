@@ -3,18 +3,18 @@
     <form ng-submit="AC.modify()">
       <md-card>
         <div>
-          <h3 style="text-align: center">User: {{AC.user.uid}}</h3>
+          <h3 style="text-align: center">User: {{AC.user.name}}</h3>
         </div>
         <div>
-          <h2>Name</h2>
-          <input type="text" class="" ng-model="AC.user.name" value="{{AC.user.name}}">
+          <h2>ID</h2>
+          <input type="text" class="" ng-model="AC.user.uid" value="{{AC.user.uid}}">
           <hr>
         </div>
         <div>
           <h2>Password</h2>
           <div ng-if="AC.pwshow==='none'">Previous Password
             <input style="border:1px solid black" ng-model="AC.check">
-            <span ng-click="AC.changePW()" style="border:1px solid black">Confirm</span>
+            <span ng-click="AC.changePW()" style="border:1px solid black;cursor: pointer;">Confirm</span>
           </div>
           <div ng-style="{'display' : AC.pwshow}">New Password
             <input style = "border:1px solid black;" type="text" class="" ng-model="AC.npw">
