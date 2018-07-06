@@ -31,11 +31,17 @@
         $http.get(`/rest/project/${uid}/${pid}`).then((res) => {
           vm.project = res.data[0];
         });
+        $http.get(`/rest/user/${result.data.uid}`).then((res) => {
+          vm.pminf = res.data;
+        });
         $http.get(`/rest/project/pmpid/${pid}`).then((result) => {
           vm.todoess = result.data;
         });
         $http.get(`/rest/project/todo/${uid}/${pid}`).then((res) => {
           vm.todoes = res.data;
+        });
+        $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
+        vm.users = result.data;
         });
       });
     };

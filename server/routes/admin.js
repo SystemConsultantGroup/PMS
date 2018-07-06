@@ -5,11 +5,12 @@ const router = express.Router();
 
 // const viewPath = config.path;
 // const path = require('path');
-const models = require('../models');
-const wrap = require('express-async-wrap');
 
-let sequelize = require("sequelize");
-let Op = sequelize.Op;
+const wrap = require('express-async-wrap');
+const sequelize = require('sequelize');
+const models = require('../models');
+
+const Op = sequelize.Op;
 
 // get project list
 router.get('/project', wrap(async (req, res) => {
@@ -134,20 +135,20 @@ router.put('/user/:uid', wrap(async (req, res) => {
 // auth가 0이 아닌 유저들을 불러온다
 router.get('/users', wrap(async (req, res) => {
   const users = await models.user.findAll({
-      where: {
-        auth: {
-          [Op.ne]: 0
-        }
-      },
-      attributes: ['uid', 'name', 'auth']
+    where: {
+      auth: {
+        [Op.ne]: 0
+      }
+    },
+    attributes: ['uid', 'name', 'auth']
+  });
+  if (users) {
+    res.send(users);
+  } else {
+    res.send({
+      result: false
     });
-    if (users) {
-      res.send(users);
-    } else {
-      res.send({
-        result: false
-      });
-    }
+  }
 }));
 
 // auth 정보 수정
@@ -162,7 +163,7 @@ router.put('/users', wrap(async (req, res) => {
       res.send({
         result: true
       });
-    } else{ 
+    } else {
       res.send({
         result: false
       });
@@ -185,7 +186,7 @@ router.get('/user/:uid', wrap(async (req, res) => {
     if (user && project) {
       res.send({ user, project });
     } else {
-      res.send ({
+      res.send({
         result: false
       });
     }
@@ -209,7 +210,7 @@ router.delete('/user/:uid', wrap(async (req, res) => {
     res.send({
       result: false
     });
-  }  
+  }
 }));
 
 // 선택한 프로젝트의 (해당 유저 소속) To Do list 불러옴
