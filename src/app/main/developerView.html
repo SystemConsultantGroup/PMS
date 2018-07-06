@@ -11,9 +11,10 @@
 					<td>Duedate</td> 
 				</tr>
 				<tr md-row>
-					<td md-cell class="breakall">{{dv.project.startdate}}</td>
+					<td md-cell class="breakall">{{dv.strconvert(dv.project.startdate).slice(0,10)}}</td>
 					<td>|</td>
-					<td md-cell class="breakall">{{dv.project.duedate}}</td>
+					<td md-cell class="breakall">{{dv.strconvert(dv.project.duedate).slice(0,10)}}</td>
+          <td md-cell class="breakall" ng-if="project.done!=null">{{dv.strconvert(project.done).slice(0,10)}}</td>
 				</tr>
         	</tbody>
     	</table>

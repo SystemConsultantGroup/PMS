@@ -39,6 +39,25 @@
         });
       });
     };
+    vm.strconvert = (strdate) => {
+      const date = new Date(strdate);
+      return date.format();   
+    };
+    Date.prototype.format = function() {
+      const mm = this.getMonth() + 1; // getMonth() is zero-based
+      const dd = this.getDate();
+      const hh = this.getHours();
+      const m = this.getMinutes();
+      const ss = this.getSeconds();
+      return [this.getFullYear(),
+              (mm>9 ? '' : '0') + mm,
+              (dd>9 ? '' : '0') + dd
+             ].join('-')+"/"+[
+              (hh>9 ? '' : '0') + hh,
+              (m>9 ? '' : '0') + m,
+              (ss>9 ? '' : '0') + ss
+             ].join(":");
+    };
     $http.get('/rest/session').then(successCallback, errorCallback);
     function successCallback(response) {
       if (response.data.auth === 1) vm.state = 'admin';

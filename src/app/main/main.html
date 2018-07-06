@@ -33,9 +33,9 @@
           <tr md-row
             ng-repeat="project in main.datas | filter: filter.search | orderBy: main.query.order | limitTo: main.query.limit : (main.query.page -1) * main.query.limit">
             <td md-cell class="breakall"><md-button a ui-sref="userProjectView({ pid: project.pid })">{{project.name}}</md-button></td>
-            <td md-cell class="breakall">{{project.startdate.slice(0,10)}}</td>
-            <td md-cell class="breakall">{{project.duedate.slice(0,10)}}</td>
-            <td md-cell class="breakall">{{project.done.slice(0,10)}}</td>
+            <td md-cell class="breakall">{{main.strconvert(project.startdate).slice(0,10)}}</td>
+            <td md-cell class="breakall">{{main.strconvert(project.duedate).slice(0,10)}}</td>
+            <td md-cell class="breakall">{{main.strconvert(project.done).slice(0,10)}}</td>
           </tr>
         </tbody>
       </table>
