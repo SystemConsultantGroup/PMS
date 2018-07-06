@@ -60,7 +60,6 @@
       vm.pid = vm.stateParams.pid;
       $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
         vm.todoes = result.data;
-        console.log(result.data);
       });
     };
     vm.initView = () => {
@@ -106,7 +105,7 @@
         duedate: vm.duedate,
         done: null,
       });
-      $state.go('adminProject');
+      $state.go('adminProject', {}, {reload: true});
     };
 
     // 프로젝트 수정
@@ -124,7 +123,7 @@
         duedate: vm.project.duedate,
         done: vm.project.done,
       });
-      $state.go('adminProject');
+      $state.go('adminProject', {}, {reload: true});
     };
     vm.deleteUser = (uid) => {
       const pid = vm.stateParams.pid;
@@ -140,7 +139,7 @@
       if (cf) {
         $http.delete(`/rest/project/${vm.uid}/${pid}`);
         alert('Deleted.');
-        $state.go('adminProject');
+        $state.go('adminProject', {}, {reload: true});
       }
     };
 
@@ -149,7 +148,7 @@
         role: 'joined'
       });
       alert(`${name} joined`);
-      $window.location.reload();
+      $state.reload();
     };
   }
 }());
