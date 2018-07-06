@@ -82,7 +82,7 @@
     function errorCallback(error) {
       vm.log(error, 'can not get data.');
     }
-    vm.getpid = async () => {
+    vm.getpid = () => {
       $http.get('/rest/session').then((result) => {
         vm.uid = result.data.uid;
       });
