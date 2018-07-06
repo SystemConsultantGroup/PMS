@@ -125,6 +125,16 @@
       });
       $state.go('adminProject', {}, {reload: true});
     };
+    vm.projectDone = (p) => {
+      $http.put(`/rest/admin/project/${p.body.pid}`, {
+        pid: p.body.pid,
+        uid: p.body.uid,
+        name: p.body.name,
+        duedate: p.body.duedate,
+        done: new Date(),
+      });
+      $window.location.reload();
+    }
     vm.deleteUser = (uid) => {
       const pid = vm.stateParams.pid;
       const cf = window.confirm('Delete?');
