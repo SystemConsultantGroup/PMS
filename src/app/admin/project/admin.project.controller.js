@@ -1,7 +1,8 @@
 (function () {
   angular
     .module('pms')
-    .controller('AdminProjectController', AdminProjectController);
+    .controller('AdminProjectController', ['$log', '$http', '$scope', '$window', '$location',
+    '$sessionStorage', '$stateParams', '$state', AdminProjectController]);
 
   // admin/project 컨트롤러
   function AdminProjectController(
@@ -116,8 +117,14 @@
     };
     // 프로젝트 수정
     vm.modify = () => {
+      for (let i = 0; vm.totalusers[i] != null; i += 1) {
+        if (vm.pmSelected === vm.totalusers[i].name) {
+          vm.uidSelected = vm.totalusers[i].uid;
+          break;
+        }
+      }
       $http.put(`/rest/admin/project/${vm.stateParams.pid}`, {
-        uid: vm.project.pmSelected,
+        uid: vm.uidSelected,
         name: vm.project.name,
         startdate: vm.project.startdate,
         duedate: vm.project.duedate,

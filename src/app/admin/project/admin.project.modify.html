@@ -4,8 +4,7 @@
       <md-card>
         <div>
           <h2>Name</h2>
-          {{adminproject.project.name}} =>
-          <input type="text" value="{{adminproject.project.name}}" ng-model="adminproject.name">
+          <input type="text" value="{{adminproject.project.name}}" ng-model="adminproject.project.name">
           <hr>
         </div>
         <div>
@@ -23,7 +22,7 @@
           <select ng-model="adminproject.pmSelected" ng-options="user for user in adminproject.pmSelect">
           </select>
         </div>
-        <md-button type="submit" class="md-raised"><i class="fa fa-edit">  Edit Project</i></md-button>
+        <md-button type="submit" class="md-raised"><i class="fa fa-edit">Edit Project</i></md-button>
       </md-card>
     </form>
   </div>
