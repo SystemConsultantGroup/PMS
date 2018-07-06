@@ -111,22 +111,41 @@
         console.log(vm.mproject.name);
       });
     };
-
+    vm.projectDone = (p) => {
+      $http.put(`/rest/admin/project/${p.body.pid}`, {
+        pid: p.body.pid,
+        uid: p.body.uid,
+        name: p.body.name,
+        duedate: p.body.duedate,
+        done: vm.convert(new Date()),
+      });
+      $window.location.reload();
+      //console.log(vm.convert(new Date()));
+    }
 
     // 글 수정
+    vm.convert = (date) => {
+      const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
 
+      const offset = date.getTimezoneOffset() / 60;
+      const hours = date.getHours();
+
+      newDate.setHours(hours - offset);
+
+      return newDate;   
+    }
     vm.modify = () => {
       if(vm.name === null){
         vm.name = vm.mproject.name;
       }
       if(vm.duedate === null){
-        vm.duedate = vm.mproject.duedate;
+        vm.duedate = new Date(vm.mproject.duedate);
       }
       if(vm.startdate === null){
-        vm.startdate = vm.mproject.startdate;
+        vm.startdate = new Date(vm.mproject.startdate);
       }
       if(vm.done == null){
-        vm.done = vm.mproject.done;
+        vm.done = new Date(vm.mproject.done);
       }
       $http.put(`/rest/admin/project/${vm.stateParams.pid}`, {
         name: vm.name,

@@ -108,7 +108,7 @@
         vm.compoent = vm.mtodo.todo.component;
       }
       if(vm.duedate === null){
-        vm.duedate = vm.mtodo.todo.duedate;
+        vm.duedate = new Date(vm.mtodo.todo.duedate);
       }
       $http.put(`/rest/project/todo/${vm.mtodo.todo.tdid}`, {
         tdid: vm.mtodo.todo.tdid,

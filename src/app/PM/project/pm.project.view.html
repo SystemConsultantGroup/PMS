@@ -67,8 +67,8 @@
             <td md-cell class="breakall"><a>{{todo.component}}</a></td>
             <td md-cell class="breakall">{{todo.updatedAt}}</td>
             <td md-cell class="breakall">{{todo.duedate}}</td>
-            <td md-cell class="breakall">{{todo.done}}</td>
-            </td>
+            <td md-cell class="breakall" ng-if="todo.done!=null">{{todo.done}}</td>
+            <td md-cell class="breakall" ng-if="todo.done==null">Doing</td>
           </tr>
         </tbody>
       </table>

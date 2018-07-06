@@ -14,6 +14,11 @@
         </div>
         <div>
           <h2>Done</h2>
+          Doing
+          <hr class="title_line">
+        </div>
+        <div ng-if="todo.mtodo.todo.done!=null">
+          <h2>Done</h2>
           {{todo.mtodo.todo.done}}
           <md-button ng-click="todo.cancleDone()">Cancle</md-button>
           <hr class="title_line">
