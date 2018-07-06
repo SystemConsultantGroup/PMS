@@ -15,6 +15,7 @@
         <thead md-head md-order="adminproject.query.order">
         <tr md-row>
           <th md-column md-numeric md-order-by="pid"><span class="title_size">Project</span></th>
+          <th md-column md-numeric md-order-by="uid"><span class="title_size">Project Manager</span></th>
           <th md-column md-numeric md-order-by="startdate"><span class="title_size">Startdate</span></th>
           <th md-column md-numeric md-order-by="duedate"><span class="title_size">Duedate</span></th>
           <th md-column md-order-by="done"><span class="title_size">Done</span></th>
@@ -23,6 +24,8 @@
         <tbody md-bodylayout="row">
           <tr>
               <td><input type="text" class="text_input" ng-model="adminproject.name"></td>
+              <td><select ng-model="adminproject.pmSelected" ng-options="user for user in adminproject.pmSelect">
+              </select></td>
               <td><input type="date" class="text_input" ng-model="adminproject.startdate"></td>
               <td><input type="date" class="text_input" ng-model="adminproject.duedate"></td>
               <td></td>
@@ -33,10 +36,11 @@
           <tr md-row
             ng-repeat="project in adminproject.projects | filter: filter.search | orderBy: adminproject.query.order | limitTo: adminproject.query.limit : (adminproject.query.page -1) * adminproject.query.limit">
             <td md-cell class="breakall"><md-button a ui-sref="adminProjectView({ pid: project.pid })">{{project.name}}</md-button></td>
-            <td md-cell class="breakall">{{project.startdate.slice(0,10)}}</td>
-            <td md-cell class="breakall">{{project.duedate.slice(0,10)}}</td>
-            <td md-cell class="breakall">{{project.done.slice(0,10)}}</td>
-
+            <td md-cell class="breakall">{{project.uid}}</td>
+            <td md-cell class="breakall">{{adminproject.strconvert(project.startdate).slice(0,10)}}</td>
+            <td md-cell class="breakall">{{adminproject.strconvert(project.duedate).slice(0,10)}}</td>
+            <td md-cell class="breakall" ng-if="project.done!=null">{{adminproject.strconvert(project.done).slice(0,10)}}</td>
+            <td md-cell class="breakall" ng-if="project.done==null"></td>
             <td md-cell><md-button class="md-primary" a ui-sref="adminProjectModify({ pid: project.pid })">Edit</md-button>
               <md-button class="md-accent" ng-click="adminproject.delete(project.pid)">Delete</md-button>
             </td>
