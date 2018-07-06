@@ -28,6 +28,8 @@ router.post('/login', wrap(async (req, res) => {
     delete req.session.user.pw;
     req.session.user.result = true; // 로그인 성공 시 true
     res.send(req.session.user);
+  } else {
+    res.send({result: false });
   }
 }));
 

@@ -50,13 +50,18 @@ min-width:60px;
 }
 
 .table_notice > thead > tr > th:nth-child(4){
-    width:58px;
+    width:120px;
     min-width:60px;
 }
 
 .table_notice > thead > tr > th:nth-child(5){
-    width:100px;
-    min-width:80px;
+    width:120px;
+    min-width:60px;
+}
+
+.table_notice > tbody > tr > td:nth-child(5){
+    width:120px;
+    min-width:60px;
 }
 
 .table_notice > thead > tr > th:nth-child(6){

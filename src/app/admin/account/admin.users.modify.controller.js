@@ -4,7 +4,10 @@
     .controller('AdminUsersModifyController', AdminUsersModifyController);
 
   // admin/users 컨트롤러
-  function AdminUsersModifyController($log, $http, $window, $sessionStorage, $location, $stateParams) {
+  function AdminUsersModifyController(
+    $log, $http, $window, $sessionStorage, $location,
+    $stateParams, $state
+  ) {
     const vm = this;
 
     vm.log = $log.log;
@@ -33,12 +36,10 @@
         // 유저 데이터 불러오기
         $http.get(`/rest/admin/user/${vm.stateParams.modify_id}`).then((response) => {
           if (response.data.error) {
-            alert('글이 존재하지 않습니다.');
+            alert('This user does not exist.');
           }
           vm.user = response.data.user;
           vm.proj = response.data.project;
-          console.log(response.data);
-          console.log(vm.proj);
         });
       }
     };
@@ -51,7 +52,7 @@
         email: vm.user.email,
         ph: vm.user.ph
       });
-      $location.path('/admin/users');
+      $state.go('adminUsers');
     };
   }
 }());

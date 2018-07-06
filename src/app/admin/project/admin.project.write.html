@@ -1,12 +1,26 @@
 <div class="form-group" ng-controller="AdminProjectController as adminproject">
+    <div ng-init="adminproject.initWrite()">
     <form ng-submit="adminproject.add()">
-    <h2>Name</h2><input class="board__input" type="name" ng-model="name">
-    <br>
-    <h2>Startdate</h2><input class="board__input" type="date" ng-model="startdate">
-    <br>
-    <h2>Duedate</h2><input class="board__input" type="date" ng-model="duedate">
-    <br>
-    <br>
-    <md-button class="md-raised" type="submit"><i class="fa fa-plus-square"> Create Project </i></md-button>
-  </form>
+        <br>
+        <div>
+            <h2>Name</h2><input class="board__input" type="text" ng-model="adminproject.name">
+        </div>
+        <br>
+        <div>
+            <h2>Startdate</h2><input class="board__input" type="date" ng-model="adminproject.startdate">
+        </div>
+        <br>
+        <div>
+            <h2>Duedate</h2><input class="board__input" type="date" ng-model="adminproject.duedate">
+        </div>
+        <div>
+            <h2>PM</h2>
+            <select ng-model="adminproject.pmSelected" ng-options="user for user in adminproject.pmSelect">
+            </select>
+        </div>
+        <br>
+        <br>
+        <md-button class="md-raised" type="submit"><i class="fa fa-plus-square"> Create Project </i></md-button>
+    </form>
+</div>
 </div>

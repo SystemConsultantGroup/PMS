@@ -1,31 +1,31 @@
-<div ng-controller="AdminProjectController as adminproject" ng-init="initView()">
-<h2>{{project.name}}</h2>
+<div ng-controller="PMController as pm" ng-init="pm.initView()">
+<h2>{{pm.project.name}}</h2>
 <br>
 <md-card ng-cloak>
-	<md-table-container>
-		<table md-table class="table_notice">
-			<tbody md-bodylayout="row">
-				<tr>
-					<td>Startdate</td>
-					<td>|</td>
-					<td>Duedate</td> 
-				</tr>
-				<tr md-row>
-					<td md-cell class="breakall">{{project.startdate}}</td>
-					<td>|</td>
-					<td md-cell class="breakall">{{project.duedate}}</td>
-				</tr>
-        	</tbody>
-    	</table>
+  <md-table-container>
+    <table md-table class="table_notice">
+      <tbody md-bodylayout="row">
+        <tr>
+          <td>Startdate</td>
+          <td>|</td>
+          <td>Duedate</td> 
+        </tr>
+        <tr md-row>
+          <td md-cell class="breakall">{{pm.project.startdate}}</td>
+          <td>|</td>
+          <td md-cell class="breakall">{{pm.project.duedate}}</td>
+        </tr>
+          </tbody>
+      </table>
     </md-table-container>
 </md-card>
 <br>
-<md-button class="md-raised"><i class="fa fa-users" ng-click="layout.toggleLeft()">  User List</i></md-button>
+<md-button class="md-raised" ui-sref="pmProjectUsers({pid: pm.pid})"><i class="fa fa-users">  Add User</i></md-button>
 
 <md-card>
 <md-table-container>
       <table md-table class="table_notice">
-        <thead md-head md-order="adminproject.query.order">
+        <thead md-head md-order="pm.query.order">
         <tr md-row>
           <th md-column md-numeric md-order-by="p_id"><span class="title_size">Name</span></th>
           <th md-column md-numeric><span class="title_size">Email Address</span></th>
@@ -34,24 +34,45 @@
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
-            ng-repeat="user in adminproject.users | filter: filter.search | orderBy: adminproject.query.order | limitTo: adminproject.query.limit : (adminproject.query.page -1) * adminproject.query.limit">
-            <td md-cell class="breakall"><a href="/admin/project/{{project.pid}}">{{user.name}}</a></td>
+            ng-repeat="user in pm.users">
+            <td md-cell class="breakall"><a>{{user.name}}</a></td>
             <td md-cell class="breakall">{{user.email}}</td>
             <td md-cell class="breakall">{{user.ph}}</td>
+            <td md-cell class="breakall"><md-button class="md-raised" ng-click="pm.deleteUser(user.uid)"><i class="fa fa-trash"></i> Delete</md-button></td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <md-table-pagination md-limit="pm.query.limit" md-page="pm.query.page"
+                         md-total="{{pm.projects.length}}" md-page-select
+                         md-boundary-links></md-table-pagination>
+</md-card>
+<br>
+<br>
+<md-button class="md-raised" ui-sref="todo({pid :pm.pid})"><i class="fa fa-users">  Todo Edit</i></md-button>
+<md-card ng-cloak>
+  <md-table-container>
+    <table md-table class="table_notice">
+        <thead md-head>
+        <tr md-row>
+          <th md-column md-numeric><span class="title_size">Component</span></th>
+          <th md-column md-numeric><span class="title_size">Uptodate</span></th>
+          <th md-column><span class="title_size">Duedate</span></th>
+          <th md-column><span class="title_size">Done</span></th>
+        </tr>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row
+            ng-repeat="todo in pm.todoes">
+            <td md-cell class="breakall"><a>{{todo.component}}</a></td>
+            <td md-cell class="breakall">{{todo.updatedAt}}</td>
+            <td md-cell class="breakall">{{todo.duedate}}</td>
+            <td md-cell class="breakall">{{todo.done}}</td>
             </td>
           </tr>
         </tbody>
       </table>
     </md-table-container>
-    <md-table-pagination md-limit="adminproject.query.limit" md-page="adminproject.query.page"
-                         md-total="{{adminproject.projects.length}}" md-page-select
-                         md-boundary-links></md-table-pagination>
 </md-card>
-
-
-<br>
-<br>
-  <md-button class="md-raised"><a href="/admin/project/modify/{{project.pid}}"><i class="fa fa-edit"></i> Edit </a></md-button>
-  <md-button class="md-raised" ng-click="delete(project.pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
-
+  <md-button class="md-raised" ui-sref="pmProjectModify({pid : pm.pid})"><i class="fa fa-edit"></i> Edit</md-button>
 </div>

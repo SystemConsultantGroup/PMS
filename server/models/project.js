@@ -3,7 +3,7 @@ module.exports = function (sequelize, DataTypes) {
     pid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false,
+      autoIncrement: true,
       comment: '프로젝트 id'
     },
     name: {

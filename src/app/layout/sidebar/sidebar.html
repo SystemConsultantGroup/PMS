@@ -3,7 +3,7 @@
 
 
 <body class="nav-md" ng-controller="LayoutController as layout">
-    <div class="container body">
+    <div class="container body" ng-init = "layout.init()">
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
@@ -21,30 +21,69 @@
     
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>{{data.u_name}}</h2>
+                <h2>{{layout.name}}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
 
-            <br />
+            <br /> 
 
-						<!-- sidebar menu -->
+            <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a href="/main"><i class="fa fa-home"></i> Home <span class="fa"></span></a></li>
-                  <li ng-click="layout.change()"><a><i class="fa fa-table"></i> Projects <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu" ng-style="{'display' : layout.act}">
-                      <li ng-repeat="i in layout.admin"><a href="{{i.link}}">{{i.title}}</a></li>
-                    </ul>
-                  </li>
+                  <!-- Admin sidebar -->
+                  <div ng-if="layout.auth==1" class="nav side-menu">
+                    <li class="board" >
+                      <a ui-sref='adminProject'>
+                        <i class="fa fa-table"></i>
+                          <span class="title">Project</span>
+                      </a>
+                    </li>
+                    <li class="board" ng-click="layout.change()">
+                      <a><i class="fa fa-user"></i> User <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu" ng-style="{'display' : layout.act}">
+                        <li ng-repeat="i in layout.admin"><a ui-sref="{{i.link}}">{{i.title}}</a></li>
+                      </ul>
+                    </li>
+                  </div>
+                  <!-- PM sidebar -->
+                  <div ng-if="layout.auth==2" class="nav side-menu">
+                    <li class="board">
+                      <a ui-sref='main'>
+                        <i class="fa fa-star"></i>
+                        <span class="title">Project : dev</span>
+                      </a>
+                    </li>
+                    <li class="board" ng-click="layout.change()">
+                      <a ui-sref="pmProject"><i class="fa fa-table"></i> Project : pm <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu" ng-style="{'display' : layout.act}">
+                        <li ng-repeat="i in layout.side"><a ui-sref="{{i.link}}">{{i.title}}</a></li>
+                      </ul>
+                    </li>
+                  </div>
+                  <!-- Developer sidebar -->
+                  <div ng-if="layout.auth>2" class="nav side-menu">
+                    <li class="board">
+                      <a ui-sref='main'>
+                        <i class="fa fa-home"></i>
+                        <span class="title">Home</span>
+                      </a>
+                    </li>
+                    <li class="board" ng-click="layout.change()">
+                      <a><i class="fa fa-table"></i> Project <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu" ng-style="{'display' : layout.act}">
+                        <li ng-repeat="i in layout.side"><a ui-sref="{{i.link}}">{{i.title}}</a></li>
+                      </ul>
+                    </li>
+                  </div>
                 </ul>
               </div>
 
               <div class="menu_section">
-              	<ul class="nav side-menu">
-                	<li><a><i class="fa fa-cog"></i> Account <span class="fa"></span></a></li>
-              	</ul>
+                <ul class="nav side-menu">
+                  <li><a ui-sref="userAccount()"><i class="fa fa-cog"></i> Account <span class="fa"></span></a></li>
+                </ul>
               </div>
             </div>
             <!-- /sidebar menu -->

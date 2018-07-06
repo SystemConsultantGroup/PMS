@@ -4,7 +4,10 @@
     .controller('AdminUsersTodoController', AdminUsersTodoController);
 
   // admin/user/todo/uid 컨트롤러
-  function AdminUsersTodoController($log, $http, $window, $sessionStorage, $location, $stateParams) {
+  function AdminUsersTodoController(
+    $log, $http, $window, $sessionStorage, $location,
+    $stateParams
+  ) {
     const vm = this;
 
     vm.log = $log.log;
@@ -35,7 +38,7 @@
       // 유저 데이터 불러오기
       $http.get(`/rest/admin/user/${vm.uid}/${vm.pid}`).then((response) => {
         if (response.data.error) {
-          alert('글이 존재하지 않습니다.');
+          alert('This article does not exist.');
         }
         vm.todos = response.data;
       });
@@ -49,7 +52,7 @@
         email: vm.user.email,
         ph: vm.user.ph
       });
-      $location.path('/admin/users');
+      $state.go('adminUsers');
     };
   }
 }());
