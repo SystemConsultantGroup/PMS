@@ -30,6 +30,9 @@
       vm.pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${vm.stateParams.pid}`).then((result) => {
         vm.project = result.data;
+        $http.get(`/rest/user/${result.data.uid}`).then((res) => {
+          vm.pminf = res.data;
+        });
       });
       $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
         vm.todoes = result.data;
