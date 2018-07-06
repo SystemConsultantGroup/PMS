@@ -126,7 +126,7 @@
         pid: td.body.pid,
         component: td.body.component,
         duedate: td.body.duedate,
-        done: vm.convert(new Date()),
+        done: new Date(),
       });
       $window.location.reload();
       //console.log(vm.convert(new Date()));
@@ -142,15 +142,10 @@
         $window.location.reload();
       }
     };
-    vm.convert = (date) => {
-      const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
-
-      const offset = date.getTimezoneOffset() / 60;
-      const hours = date.getHours();
-
-      newDate.setHours(hours - offset);
-
-      return newDate;   
-    }
+    vm.strconvert = (strdate) => {
+      const date = new Date(strdate);
+      date.setHours(date.getHours()+9);
+      return date.toISOString();   
+    };
   }
 }());

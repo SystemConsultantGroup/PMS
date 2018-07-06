@@ -117,28 +117,23 @@
         uid: p.body.uid,
         name: p.body.name,
         duedate: p.body.duedate,
-        done: vm.convert(new Date()),
+        done: new Date(),
       });
       $window.location.reload();
       //console.log(vm.convert(new Date()));
     }
 
-    // 글 수정
-    vm.convert = (date) => {
-      const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
 
-      const offset = date.getTimezoneOffset() / 60;
-      const hours = date.getHours();
-
-      newDate.setHours(hours - offset);
-
-      return newDate;   
-    };
     vm.strconvert = (strdate) => {
       const date = new Date(strdate);
       date.setHours(date.getHours()+9);
-      return date.toISOString();   
+      try{
+        return date.toISOString();
+      }catch{
+        
+      }   
     };
+
     vm.modify = () => {
       if(vm.name === null){
         vm.name = vm.mproject.name;

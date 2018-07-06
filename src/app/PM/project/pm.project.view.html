@@ -11,9 +11,9 @@
           <td>Duedate</td> 
         </tr>
         <tr md-row>
-          <td md-cell class="breakall">{{pm.project.startdate}}</td>
+          <td md-cell class="breakall">{{pm.strconvert(pm.project.startdate).slice(0,10)}}</td>
           <td>|</td>
-          <td md-cell class="breakall">{{pm.project.duedate}}</td>
+          <td md-cell class="breakall">{{pm.strconvert(pm.project.duedate).slice(0,10)}}</td>
         </tr>
           </tbody>
       </table>
@@ -65,9 +65,9 @@
           <tr md-row
             ng-repeat="todo in pm.todoes">
             <td md-cell class="breakall"><a>{{todo.component}}</a></td>
-            <td md-cell class="breakall">{{todo.updatedAt}}</td>
-            <td md-cell class="breakall">{{todo.duedate}}</td>
-            <td md-cell class="breakall" ng-if="todo.done!=null">{{todo.done}}</td>
+            <td md-cell class="breakall">{{pm.strconvert(todo.updatedAt).slice(0,19)}}</td>
+            <td md-cell class="breakall">{{pm.strconvert(todo.duedate).slice(0,19)}}</td>
+            <td md-cell class="breakall" ng-if="todo.done!=null">{{pm.strconvert(todo.done).slice(0,19)}}</td>
             <td md-cell class="breakall" ng-if="todo.done==null">Doing</td>
           </tr>
         </tbody>

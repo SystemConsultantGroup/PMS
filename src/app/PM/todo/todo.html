@@ -16,9 +16,9 @@
           <tr md-row
             ng-repeat="td in todo.todoes">
             <td md-cell class="breakall"><a ui-sref="todoView({pid: td.pid, tdid : td.tdid})">{{td.component}}</a></td>
-            <td md-cell class="breakall">{{td.updatedAt}}</td>
-            <td md-cell class="breakall">{{td.duedate}}</td>
-            <td md-cell class="breakall" ng-if="td.done!=null">{{td.done}}</td>
+            <td md-cell class="breakall">{{todo.strconvert(td.updatedAt).slice(0,19)}}</td>
+            <td md-cell class="breakall">{{todo.strconvert(td.duedate).slice(0,19)}}</td>
+            <td md-cell class="breakall" ng-if="td.done!=null">{{todo.strconvert(td.done).slice(0,19)}}</td>
             <td md-cell class="breakall" ng-if="td.done==null""><md-button ng-click="todo.todoDone({body : td})">Done!</md-button></td>
             <td md-cell><md-button class="md-primary" ui-sref="todoModify({ tdid: td.tdid })">Edit</md-button>
             <md-button class="md-accent" ng-click="todo.delete(td.tdid)">Delete</md-button>
