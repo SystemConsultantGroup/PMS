@@ -133,7 +133,12 @@
       newDate.setHours(hours - offset);
 
       return newDate;   
-    }
+    };
+    vm.strconvert = (strdate) => {
+      const date = new Date(strdate);
+      date.setHours(date.getHours()+9);
+      return date.toISOString();   
+    };
     vm.modify = () => {
       if(vm.name === null){
         vm.name = vm.mproject.name;
