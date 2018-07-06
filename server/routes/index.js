@@ -1,12 +1,14 @@
 const express = require('express');
 
 const router = express.Router();
-const config = require('../config/config.json')[process.env.NODE_ENV || 'development'];
 
 const viewPath = config.path;
 const path = require('path');
-const models = require('../models');
 const wrap = require('express-async-wrap');
+
+const config = require('../config/config.json')[process.env.NODE_ENV || 'development'];
+const models = require('../models');
+
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -29,7 +31,7 @@ router.post('/login', wrap(async (req, res) => {
     req.session.user.result = true; // 로그인 성공 시 true
     res.send(req.session.user);
   } else {
-    res.send({result: false });
+    res.send({ result: false });
   }
 }));
 

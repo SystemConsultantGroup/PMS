@@ -1,6 +1,23 @@
 <div ng-controller="AdminProjectController as adminproject" ng-init="adminproject.initProject()"> 
 <div ng-init="adminproject.initView()">
-<h2>{{adminproject.project.name}}</h2>
+<md-card ng-cloak>
+  <md-table-container>
+    <table md-table class="table_notice">
+      <tbody md-bodylayout="row">
+        <tr>
+          <td>&nbsp; &nbsp;&nbsp;Project Name</td>
+          <td>|</td>
+          <td>Project Manager</td> 
+        </tr>
+        <tr md-row>
+          <td md-cell class="breakall">{{adminproject.project.name}}</td>
+          <td>|</td>
+          <td md-cell class="breakall">{{adminproject.pm.name}}</td>
+        </tr>
+          </tbody>
+      </table>
+    </md-table-container>
+</md-card>
 <br>
 <md-card ng-cloak>
 	<md-table-container>
@@ -66,9 +83,9 @@
           <tr md-row
             ng-repeat="todo in adminproject.todoes">
             <td md-cell class="breakall"><a>{{todo.component}}</a></td>
-            <td md-cell class="breakall">{{todo.updatedAt}}</td>
-            <td md-cell class="breakall">{{todo.duedate}}</td>
-            <td md-cell class="breakall">{{todo.done}}</td>
+            <td md-cell class="breakall">{{adminproject.strconvert(todo.updatedAt).slice(0,10)}}</td>
+            <td md-cell class="breakall">{{adminproject.strconvert(todo.duedate).slice(0,10)}}</td>
+            <td md-cell class="breakall" ng-if="todo.done!=null">{{adminproject.strconvert(todo.done).slice(0,10)}}</td>
             </td>
           </tr>
         </tbody>

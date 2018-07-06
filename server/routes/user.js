@@ -5,8 +5,8 @@ const router = express.Router();
 
 // const viewPath = config.path;
 // const path = require('path');
-const models = require('../models');
 const wrap = require('express-async-wrap');
+const models = require('../models');
 
 // add user
 router.post('/', wrap(async (req, res) => {
@@ -87,4 +87,3 @@ router.get('/:uid', wrap(async (req, res) => {
 }));
 
 module.exports = router;
-
