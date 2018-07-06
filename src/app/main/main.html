@@ -35,7 +35,7 @@
             <td md-cell class="breakall"><md-button a ui-sref="userProjectView({ pid: project.pid })">{{project.name}}</md-button></td>
             <td md-cell class="breakall">{{main.strconvert(project.startdate).slice(0,10)}}</td>
             <td md-cell class="breakall">{{main.strconvert(project.duedate).slice(0,10)}}</td>
-            <td md-cell class="breakall">{{main.strconvert(project.done).slice(0,10)}}</td>
+            <td md-cell class="breakall" ng-if="project.done!=null">{{main.strconvert(project.done).slice(0,10)}}</td>
           </tr>
         </tbody>
       </table>
