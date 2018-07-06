@@ -28,15 +28,20 @@ router.get('/project', wrap(async (req, res) => {
 // add project
 router.post('/project', wrap(async (req, res) => {
   const create = await models.project.create(req.body);
-    if (create) {
-      res.send({
-        result: true
-      });
-    } else {
-      res.send({
-        result: false
-      });
+  const update = await models.user.update({ auth: 2 }, {
+    where: {
+      uid: req.body.uid
     }
+  });
+  if (create && update) {
+    res.send({
+      result: true
+    });
+  } else {
+    res.send({
+      result: false
+    });
+  }
 }));
 
 // get (선택한) 프로젝트 이름, startdate, duedate, done 리스트 불러옴
@@ -68,7 +73,12 @@ router.put('/project/:pid', wrap(async (req, res) => {
         pid: req.params.pid
       }
     });
-    if (update) {
+    const updateAuth = await models.user.update({ auth: 2 }, {
+      where: {
+        uid: req.body.uid
+      }
+    });
+    if (update && updateAuth) {
       res.send({
         result: true
       });

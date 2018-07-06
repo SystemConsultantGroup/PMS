@@ -109,12 +109,6 @@
       $state.go('adminProject');
     };
 
-    vm.initModify = () => {
-      const pid = vm.stateParams.pid;
-      $http.get(`/rest/admin/project/${pid}`).then((result) => {
-        vm.projectt = result.data;
-      });
-    };
     // 프로젝트 수정
     vm.modify = () => {
       for (let i = 0; vm.totalusers[i] != null; i += 1) {
