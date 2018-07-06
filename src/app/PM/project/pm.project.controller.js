@@ -127,11 +127,7 @@
     vm.strconvert = (strdate) => {
       const date = new Date(strdate);
       date.setHours(date.getHours()+9);
-      try{
-        return date.toISOString();
-      }catch{
-        
-      }   
+      return date.toISOString();   
     };
 
     vm.modify = () => {
