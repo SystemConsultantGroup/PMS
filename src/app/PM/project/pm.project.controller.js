@@ -126,10 +126,23 @@
 
     vm.strconvert = (strdate) => {
       const date = new Date(strdate);
-      date.setHours(date.getHours()+9);
-      return date.toISOString();   
+      return date.format();   
     };
-
+    Date.prototype.format = function() {
+      const mm = this.getMonth() + 1; // getMonth() is zero-based
+      const dd = this.getDate();
+      const hh = this.getHours();
+      const m = this.getMinutes();
+      const ss = this.getSeconds();
+      return [this.getFullYear(),
+              (mm>9 ? '' : '0') + mm,
+              (dd>9 ? '' : '0') + dd
+             ].join('-')+"/"+[
+              (hh>9 ? '' : '0') + hh,
+              (m>9 ? '' : '0') + m,
+              (ss>9 ? '' : '0') + ss
+             ].join(":");
+    };
     vm.modify = () => {
       if(vm.name === null){
         vm.name = vm.mproject.name;
