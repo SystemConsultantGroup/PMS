@@ -77,12 +77,13 @@
       // vm.$log.log(response);
       if (response.data.auth === 1) vm.state = 'admin';
       else if (response.data.auth === 0 && response.data.auth > 1) vm.state = 'user';
-    }
+    };
 
     function errorCallback(error) {
       vm.log(error, 'can not get data.');
-    }
-    vm.getpid = async () => {
+    };
+
+    vm.getpid = () => {
       $http.get('/rest/session').then((result) => {
         vm.uid = result.data.uid;
       });
