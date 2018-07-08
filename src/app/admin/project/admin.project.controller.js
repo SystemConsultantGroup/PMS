@@ -91,6 +91,15 @@
       vm.projects = response.data;
     });
 
+    vm.pminf = (uid) => {
+      for (i in vm.totalusers) {
+        if(vm.totalusers[i].uid === uid) {
+          vm.pmname = vm.totalusers[i].name;
+        };
+      };
+      return vm.pmname;
+    };
+
     vm.add = () => {
       for (let i = 0; vm.totalusers[i] != null; i += 1) {
         if (vm.pmSelected === vm.totalusers[i].name) {

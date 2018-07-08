@@ -36,7 +36,7 @@
           <tr md-row
             ng-repeat="project in adminproject.projects | filter: filter.search | orderBy: adminproject.query.order | limitTo: adminproject.query.limit : (adminproject.query.page -1) * adminproject.query.limit">
             <td md-cell class="breakall"><md-button a ui-sref="adminProjectView({ pid: project.pid })">{{project.name}}</md-button></td>
-            <td md-cell class="breakall">{{project.uid}}</td>
+            <td md-cell class="breakall">{{adminproject.pminf(project.uid)}}</td>
             <td md-cell class="breakall">{{adminproject.strconvert(project.startdate).slice(0,10)}}</td>
             <td md-cell class="breakall">{{adminproject.strconvert(project.duedate).slice(0,10)}}</td>
             <td md-cell class="breakall" ng-if="project.done!=null">{{adminproject.strconvert(project.done).slice(0,10)}}</td>
