@@ -89,7 +89,7 @@ router.post('/:uid/:pid', wrap(async (req, res) => {
 
 // 해당 프로젝트 제거(PM과 ADMIN만 가능)
 router.delete('/:uid/:pid', wrap(async (req, res) => {
-  if (req.session.user.auth === 1 || req.params.user.auth === 2) {
+  if (req.session.user.auth === 1 || req.session.user.auth === 2) {
     const destroy = await models.project.destroy({
       where: {
         pid: req.params.pid
