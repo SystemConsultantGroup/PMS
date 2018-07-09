@@ -105,7 +105,7 @@
         url: '/admin/user/todo/:todo_id/:todo_pid/:todo_proj',
         templateUrl: 'app/admin/account/admin.users.todo.html',
         controllerAs: 'AdminUsersTodoController',
-        params: { title: 'User Todo Information' }
+        params: { title: 'Admin : User Todo Information' }
       // 유저 투두 상세 정보
       })
       .state('adminUserApprove', {
@@ -113,7 +113,7 @@
         url: '/admin/users/approve',
         templateUrl: 'app/admin/account/admin.users.approve.html',
         controllerAs: 'AdminApproveController',
-        params: { title: 'User Approval' }
+        params: { title: 'Admin : User Approval' }
       // 유저 승인 페이지
       })
       .state('/project', {

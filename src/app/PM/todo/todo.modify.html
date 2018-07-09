@@ -12,9 +12,14 @@
           <input type="date" class="" ng-model="todo.duedate" value="{{todo.mtodo.todo.duedate.slice(0,10)}}">
           <hr class="title_line">
         </div>
-        <div>
+        <div ng-if="todo.mtodo.todo.done==null">
           <h2>Done</h2>
-          {{todo.mtodo.todo.done}}
+          Doing
+          <hr class="title_line">
+        </div>
+        <div ng-if="todo.mtodo.todo.done!=null">
+          <h2>Done</h2>
+          {{todo.strconvert(todo.mtodo.todo.done).slice(0,19)}}
           <md-button ng-click="todo.cancleDone()">Cancle</md-button>
           <hr class="title_line">
         </div>

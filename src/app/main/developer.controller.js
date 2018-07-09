@@ -19,52 +19,62 @@
     };
 
     vm.initView = () => {
-      const pid = vm.stateParams.pid;
-      $http.get(`/rest/project/${uid}/${pid}`).then((result) => {
+      $http.get(`/rest/project/${uid}/${vm.stateParams.pid}`).then((result) => {
         vm.project = result.data;
       });
     };
     vm.initMain = () => {
       $http.get('/rest/session').then((result) => {
-        const pid = vm.stateParams.pid;
-        const uid = result.data.uid;
-        $http.get(`/rest/project/${uid}/${pid}`).then((res) => {
-          vm.project = res.data[0];
+        $http.get(`/rest/project/${result.data.uid}/${vm.stateParams.pid}`).then((res) => {
+          [vm.project] = res.data;
         });
-        $http.get(`/rest/project/pmpid/${pid}`).then((result) => {
-          vm.todoess = result.data;
+        $http.get(`/rest/user/${result.data.uid}`).then((res) => {
+          vm.pminf = res.data;
         });
-        $http.get(`/rest/project/todo/${uid}/${pid}`).then((res) => {
+        $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((todo) => {
+          vm.todoess = todo.data;
+        });
+        $http.get(`/rest/project/todo/${result.data.uid}/${vm.stateParams.pid}`).then((res) => {
           vm.todoes = res.data;
+        });
+        $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((user) => {
+          vm.users = user.data;
         });
       });
     };
-
-
     vm.todoDone = (td) => {
       $http.put(`/rest/project/todo/done/${td.body.tdid}`, {
         tdid: td.body.tdid,
         pid: td.body.pid,
         component: td.body.component,
         duedate: td.body.duedate,
-        done: vm.convert(new Date()),
+        done: new Date(),
       });
       $window.location.reload();
-      //console.log(vm.convert(new Date()));
+      // console.log(vm.convert(new Date()));
     };
-
-    vm.convert = (date) => {
-      const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
-
-      const offset = date.getTimezoneOffset() / 60;
-      const hours = date.getHours();
-
-      newDate.setHours(hours - offset);
-
-      return newDate;   
+    vm.cancleDone = (td) => {
+      td.body.done = null;
     };
-
-
+    vm.strconvert = (strdate) => {
+      const date = new Date(strdate);
+      return date.format();
+    };
+    Date.prototype.format = function () {
+      const mm = this.getMonth() + 1; // getMonth() is zero-based
+      const dd = this.getDate();
+      const hh = this.getHours();
+      const m = this.getMinutes();
+      const ss = this.getSeconds();
+      return `${[this.getFullYear(),
+        (mm > 9 ? '' : '0') + mm,
+        (dd > 9 ? '' : '0') + dd
+      ].join('-')}/${[
+        (hh > 9 ? '' : '0') + hh,
+        (m > 9 ? '' : '0') + m,
+        (ss > 9 ? '' : '0') + ss
+      ].join(':')}`;
+    };
     $http.get('/rest/session').then(successCallback, errorCallback);
     function successCallback(response) {
       if (response.data.auth === 1) vm.state = 'admin';

@@ -19,36 +19,33 @@
     };
 
     vm.initView = () => {
-      const tdid = vm.stateParams.tdid;
-      const pid = vm.stateParams.pid;
-      $http.get(`/rest/project/todo/${tdid}`).then((result) => {
+      $http.get(`/rest/project/todo/${vm.stateParams.tdid}`).then((result) => {
         vm.td = result.data;
       });
     };
     vm.initProject = () => {
       vm.tdid = vm.stateParams.tdid;
       vm.pid = vm.stateParams.pid;
-      console.log(vm.stateParams.pid);
       $http.get(`/rest/project/pmuid/${vm.pid}`).then((res) => {
         vm.restusers = [];
         vm.totalusers = res.data;
         $http.get(`/rest/project/todo/${vm.stateParams.tdid}`).then((result) => {
-            vm.users = result.data.userlist;
-            vm.uidlist = [];
-            console.log(result.data.userlist);
-            for (i in vm.users) {
-              vm.uidlist.push(vm.users[i].uid);
-              console.log(vm.uidlist);
-            };
-            for (x in vm.totalusers) {
-              if (! vm.uidlist.includes(vm.totalusers[x].uid)) {
-                vm.restusers.push(vm.totalusers[x]);
-              }
-            };
-          });
+          vm.users = result.data.userlist;
+          vm.uidlist = [];
+          console.log(result.data.userlist);
+          for (let i = 0; i !== vm.users.length; i += 1) {
+            vm.uidlist.push(vm.users[i].uid);
+            console.log(vm.uidlist);
+          }
+          for (let x = 0; x !== vm.totalusers.length; x += 1) {
+            if (!vm.uidlist.includes(vm.totalusers[x].uid)) {
+              vm.restusers.push(vm.totalusers[x]);
+            }
+          }
         });
+      });
     };
-      
+
     vm.initMain = () => {
       vm.pid = vm.stateParams.pid;
       $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
@@ -79,36 +76,34 @@
     };
     vm.useradd = (uid, tdid, name) => {
       $http.post(`/rest/project/todo/${uid}/${tdid}`, {
-        uid: uid,
-        tdid: tdid
+        uid,
+        tdid
       });
       alert(`${name} joined`);
       $window.location.reload();
     };
     vm.initModify = () => {
-      const tdid = vm.stateParams.tdid;
       $http.get(`/rest/project/todo/${vm.stateParams.tdid}`).then((result) => {
         vm.mtodo = result.data;
       });
     };
     vm.deleteUser = (uid) => {
-      const tdid = vm.stateParams.tdid;
       const cf = window.confirm('Delete?');
       if (cf) {
-        $http.delete(`/rest/project/todo/user/${tdid}/${uid}`);
+        $http.delete(`/rest/project/todo/user/${vm.stateParams.tdid}/${uid}`);
         alert('Deleted.');
         $window.location.reload();
       }
-    }
+    };
 
     // 글 수정
 
     vm.modify = () => {
-      if(vm.component === null){
+      if (vm.component === null) {
         vm.compoent = vm.mtodo.todo.component;
       }
-      if(vm.duedate === null){
-        vm.duedate = vm.mtodo.todo.duedate;
+      if (vm.duedate === null) {
+        vm.duedate = new Date(vm.mtodo.todo.duedate);
       }
       $http.put(`/rest/project/todo/${vm.mtodo.todo.tdid}`, {
         tdid: vm.mtodo.todo.tdid,
@@ -118,7 +113,7 @@
         done: vm.mtodo.todo.done,
       });
       $location.path(`/todo/${vm.mtodo.todo.pid}`);
-      console.log(vm.component,vm.duedate,vm.mtodo.todo.done,vm.mtodo.todo);
+      console.log(vm.component, vm.duedate, vm.mtodo.todo.done, vm.mtodo.todo);
     };
     vm.todoDone = (td) => {
       $http.put(`/rest/project/todo/done/${td.body.tdid}`, {
@@ -126,14 +121,14 @@
         pid: td.body.pid,
         component: td.body.component,
         duedate: td.body.duedate,
-        done: vm.convert(new Date()),
+        done: new Date(),
       });
       $window.location.reload();
-      //console.log(vm.convert(new Date()));
-    }
+      // console.log(vm.convert(new Date()));
+    };
     vm.cancleDone = () => {
       vm.mtodo.todo.done = null;
-    }
+    };
     vm.delete = (tdid) => {
       const cf = window.confirm('Delete?');
       if (cf) {
@@ -142,15 +137,24 @@
         $window.location.reload();
       }
     };
-    vm.convert = (date) => {
-      const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
-
-      const offset = date.getTimezoneOffset() / 60;
-      const hours = date.getHours();
-
-      newDate.setHours(hours - offset);
-
-      return newDate;   
-    }
+    vm.strconvert = (strdate) => {
+      const date = new Date(strdate);
+      return date.format();
+    };
+    Date.prototype.format = function () {
+      const mm = this.getMonth() + 1; // getMonth() is zero-based
+      const dd = this.getDate();
+      const hh = this.getHours();
+      const m = this.getMinutes();
+      const ss = this.getSeconds();
+      return `${[this.getFullYear(),
+        (mm > 9 ? '' : '0') + mm,
+        (dd > 9 ? '' : '0') + dd
+      ].join('-')}/${[
+        (hh > 9 ? '' : '0') + hh,
+        (m > 9 ? '' : '0') + m,
+        (ss > 9 ? '' : '0') + ss
+      ].join(':')}`;
+    };
   }
 }());

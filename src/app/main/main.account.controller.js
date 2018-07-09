@@ -1,10 +1,13 @@
 (function () {
   angular
     .module('pms')
-    .controller('AccountController', AccountController);
+    .controller('AccountController', ['$log', '$sha', '$http', '$window', '$sessionStorage', '$location', '$stateParams', '$state', AccountController]);
 
   // admin/users 컨트롤러
-  function AccountController($log, $sha, $http, $window, $sessionStorage, $location, $stateParams) {
+  function AccountController(
+    $log, $sha, $http, $window, $sessionStorage, $location,
+    $stateParams, $state
+  ) {
     const vm = this;
 
     vm.log = $log.log;
@@ -36,10 +39,22 @@
             alert('해당 유저가 존재하지 않습니다.');
           }
           vm.user = res.data;
-          console.log(vm.user);
         });
       });
     };
+
+    vm.go = () => {
+      $http.get('/rest/session').then((response) => {
+        if (response.data.auth === 1) {
+          $state.go('adminProject', {}, { reload: true });
+        } else if (response.data.auth === 2) {
+          $state.go('pmProject', {}, { reload: true });
+        } else {
+          $state.go('main', {}, { reload: true });
+        }
+      });
+    };
+
     // 유저 수정
     vm.modify = () => {
       console.log(vm.npw);

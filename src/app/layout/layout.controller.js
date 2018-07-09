@@ -4,17 +4,13 @@
     .controller('LayoutController', LayoutController);
 
   /** @ngInject */
-
-  function LayoutController($log, $state, $stateParams, $mdSidenav, $http, $sessionStorage) {
+  function LayoutController($log, $state, $stateParams, $mdSidenav, $http) {
     const vm = this;
-    const session = $sessionStorage.getObject('session');
     /* 교수 정보 */
     vm.state = $state;
     vm.stateParams = $stateParams;
     vm.log = $log.log;
     vm.act = 'none';
-    if(session) vm.name = session.name;
-
     vm.toggleLeft = () => {
       $mdSidenav('left').toggle();
     };
@@ -120,6 +116,5 @@
         }
       }
     };
-
   }
 }());

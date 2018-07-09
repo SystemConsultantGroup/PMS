@@ -26,8 +26,6 @@
       page: 1
     };
 
-
-
     vm.delete = (pid) => {
       const cf = window.confirm('Delete?');
       if (cf) {
@@ -48,7 +46,6 @@
     function errorCallback(error) {
       vm.$log.log(error, 'can not get data.');
     }
-
     // 글 목록 가져오기
     $http.get('/main/1/main_post').then(function(response) {
       for(var i=0; i<response.data.length; i++) {
@@ -81,31 +78,26 @@
       });
     };
 
-
-    vm.Done = (td) => {
-      $http.put(`/rest/project/todo/done/${td.body.tdid}`, {
-        tdid: td.body.tdid,
-        pid: td.body.pid,
-        component: td.body.component,
-        duedate: td.body.duedate,
-        done: vm.convert(new Date()),
-      });
-      $window.location.reload();
-      //console.log(vm.convert(new Date()));
+    vm.strconvert = (strdate) => {
+      const date = new Date(strdate);
+      return date.format();
     };
 
-
-    vm.convert = (date) => {
-      const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
-
-      const offset = date.getTimezoneOffset() / 60;
-      const hours = date.getHours();
-
-      newDate.setHours(hours - offset);
-
-      return newDate;   
+    Date.prototype.format = function () {
+      const mm = this.getMonth() + 1; // getMonth() is zero-based
+      const dd = this.getDate();
+      const hh = this.getHours();
+      const m = this.getMinutes();
+      const ss = this.getSeconds();
+      return `${[this.getFullYear(),
+        (mm > 9 ? '' : '0') + mm,
+        (dd > 9 ? '' : '0') + dd
+      ].join('-')}/${[
+        (hh > 9 ? '' : '0') + hh,
+        (m > 9 ? '' : '0') + m,
+        (ss > 9 ? '' : '0') + ss
+      ].join(':')}`;
     };
-
     $http.get('/rest/session').then(successCallback, errorCallback);
 
     function successCallback(response) {
@@ -119,4 +111,3 @@
     }
   }
 }());
-
