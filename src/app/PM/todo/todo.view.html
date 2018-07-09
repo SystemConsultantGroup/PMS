@@ -13,7 +13,7 @@
         <tbody md-bodylayout="row">
           <tr md-row>
             <td md-cell class="breakall"><a>{{todo.td.todo.component}}</a></td>
-            <td md-cell class="breakall">{{todo.td.todo.duedate}}</td>
+            <td md-cell class="breakall">{{todo.strconvert(todo.td.todo.duedate).slice(0,10)}}</td>
             <td md-cell class="breakall" ng-if="todo.td.todo.done==null">Doing</td>
             <td md-cell class="breakall" ng-if="todo.td.todo.done!=null">{{todo.td.todo.done}}</td>
             </td>

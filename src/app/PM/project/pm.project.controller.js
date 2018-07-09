@@ -18,14 +18,13 @@
       page: 1
     };
     vm.deleteUser = (uid) => {
-      const pid = vm.stateParams.pid;
       const cf = window.confirm('Delete?');
       if (cf) {
-        $http.delete(`/rest/project/user/${pid}/${uid}`);
+        $http.delete(`/rest/project/user/${vm.stateParams.pid}/${uid}`);
         alert('Deleted.');
         $window.location.reload();
       }
-    }
+    };
     vm.initView = () => {
       vm.pid = vm.stateParams.pid;
       $http.get(`/rest/admin/project/${vm.stateParams.pid}`).then((result) => {
@@ -56,24 +55,24 @@
         vm.totalusers = res.data;
 
         $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
-            vm.users = result.data;
-            vm.uidlist = [];
+          vm.users = result.data;
+          vm.uidlist = [];
 
-            for (i in vm.users) {
-              vm.uidlist.push(vm.users[i].uid)
-            };
+          for (let i = 0; i !== vm.users.length; i += 1) {
+            vm.uidlist.push(vm.users[i].uid);
+          }
 
 
-            for (x in vm.totalusers) {
-              if (! vm.uidlist.includes(vm.totalusers[x].uid)) {
-                vm.restusers.push(vm.totalusers[x]);
-              }
-            };
-          });
+          for (let x = 0; x !== vm.totalusers.length; x += 1) {
+            if (!vm.uidlist.includes(vm.totalusers[x].uid)) {
+              vm.restusers.push(vm.totalusers[x]);
+            }
+          }
         });
+      });
       console.log(vm.restusers);
     };
-      
+
     $http.get('/rest/session').then(successCallback, errorCallback);
 
     function successCallback(response) {
@@ -85,11 +84,11 @@
     function errorCallback(error) {
       vm.log(error, 'can not get data.');
     }
-    vm.getpid = () => {
-      $http.get('/rest/session').then((result) => {
-        vm.uid = result.data.uid;
-      });
-    };
+
+    $http.get('/rest/session').then((result) => {
+      vm.uid = result.data.uid;
+    });
+
     vm.add = () => {
       $http.post('/rest/admin/project', {
         uid: vm.uid,
@@ -105,11 +104,10 @@
         role: 'joined'
       });
       alert(`${name} joined`);
-      $window.location.reload()
+      $window.location.reload();
     };
     vm.initModify = () => {
-      const pid = vm.stateParams.pid;
-      $http.get(`/rest/admin/project/${pid}`).then((result) => {
+      $http.get(`/rest/admin/project/${vm.stateParams.pid}`).then((result) => {
         vm.mproject = result.data;
         console.log(vm.mproject.name);
       });
@@ -123,40 +121,40 @@
         done: new Date(),
       });
       $window.location.reload();
-      //console.log(vm.convert(new Date()));
-    }
+      // console.log(vm.convert(new Date()));
+    };
 
 
     vm.strconvert = (strdate) => {
       const date = new Date(strdate);
-      return date.format();   
+      return date.format();
     };
-    Date.prototype.format = function() {
+    Date.prototype.format = function () {
       const mm = this.getMonth() + 1; // getMonth() is zero-based
       const dd = this.getDate();
       const hh = this.getHours();
       const m = this.getMinutes();
       const ss = this.getSeconds();
-      return [this.getFullYear(),
-              (mm>9 ? '' : '0') + mm,
-              (dd>9 ? '' : '0') + dd
-             ].join('-')+"/"+[
-              (hh>9 ? '' : '0') + hh,
-              (m>9 ? '' : '0') + m,
-              (ss>9 ? '' : '0') + ss
-             ].join(":");
+      return `${[this.getFullYear(),
+        (mm > 9 ? '' : '0') + mm,
+        (dd > 9 ? '' : '0') + dd
+      ].join('-')}/${[
+        (hh > 9 ? '' : '0') + hh,
+        (m > 9 ? '' : '0') + m,
+        (ss > 9 ? '' : '0') + ss
+      ].join(':')}`;
     };
     vm.modify = () => {
-      if(vm.name === null){
+      if (vm.name === null) {
         vm.name = vm.mproject.name;
       }
-      if(vm.duedate === null){
+      if (vm.duedate === null) {
         vm.duedate = new Date(vm.mproject.duedate);
       }
-      if(vm.startdate === null){
+      if (vm.startdate === null) {
         vm.startdate = new Date(vm.mproject.startdate);
       }
-      if(vm.done == null){
+      if (vm.done == null) {
         vm.done = new Date(vm.mproject.done);
       }
       $http.put(`/rest/admin/project/${vm.stateParams.pid}`, {

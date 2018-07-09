@@ -82,12 +82,14 @@
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
-            ng-repeat="todo in dv.todoes">
-            <td md-cell class="breakall"><a>{{todo.component}}</a></td>
-            <td md-cell class="breakall">{{todo.updatedAt}}</td>
-            <td md-cell class="breakall">{{todo.duedate}}</td>
-            <td md-cell class="breakall">{{todo.done}}</td>
-            </td>
+            ng-repeat="td in dv.todoes">
+            <td md-cell class="breakall" ng-if="td.component!==undefined"><a>{{td.component}}</a></td><td ng-if="td.component===undefined"></td>
+            <td md-cell class="breakall" ng-if="td.updatedAt!==undefined">{{dv.strconvert(td.updatedAt).slice(0,10)}}</td>
+            <td ng-if="td.updatedAt===undefined"></td>
+            <td md-cell class="breakall" ng-if="td.duedate!==undefined">{{dv.strconvert(td.duedate).slice(0,10)}}</td>
+            <td ng-if=td.duedate===undefined></td>
+            <td md-cell class="breakall" ng-if="td.done!==null&&td.done!==undefined">{{dv.strconvert(td.done).slice(0,19)}}</td>
+            <td md-cell class="breakall" ng-if="td.done===null&&td.done!==undefined"><md-button ng-click="dv.todoDone({body : td})">Done!</md-button></td>
           </tr>
         </tbody>
       </table>

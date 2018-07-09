@@ -1,10 +1,10 @@
 (function () {
   angular
     .module('pms')
-    .controller('AdminUsersController', AdminUsersController);
+    .controller('AdminUsersController', ['$log', '$http', '$window', '$sessionStorage', '$state', AdminUsersController]);
 
   // admin/users 컨트롤러
-  function AdminUsersController($log, $http, $window, $sessionStorage) {
+  function AdminUsersController($log, $http, $window, $sessionStorage, $state) {
     const vm = this;
 
     vm.log = $log.log;
@@ -37,6 +37,7 @@
         $http.delete(`/rest/admin/user/${uid}`);
         alert('The user has been deleted.');
       }
+      $state.go('adminUsers', {}, { reload: true });
     };
   }
 }());
