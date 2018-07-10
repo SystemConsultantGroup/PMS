@@ -26,8 +26,11 @@
             $state.go('adminProject');
           } else if (result.data.auth === 2) {
             $state.go('pmProject');
-          } else {
+          } else if (result.data.auth === 9) {
             $state.go('main');
+          } else {
+            $state.go('login');
+            alert("Requesting for Admmission");
           }
           $sessionStorage.putObject('session', result.data);
         } else if (vm.uid === undefined || vm.uid === null || vm.uid === '') alert('Please enter your ID');
