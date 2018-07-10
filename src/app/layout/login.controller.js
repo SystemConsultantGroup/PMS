@@ -30,7 +30,7 @@
             $state.go('main');
           } else {
             $state.go('login');
-            alert("Requesting for Admmission");
+            alert('Waiting for Permission');
           }
           $sessionStorage.putObject('session', result.data);
         } else if (vm.uid === undefined || vm.uid === null || vm.uid === '') alert('Please enter your ID');
