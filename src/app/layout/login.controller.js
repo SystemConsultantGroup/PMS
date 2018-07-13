@@ -32,7 +32,6 @@
             $sessionStorage.putObject('session', result.data);
             $state.go('main');
           } else {
-            $state.go('login');
             alert('Waiting for Permission');
           }
         } else if (vm.uid === undefined || vm.uid === null || vm.uid === '') alert('Please enter your ID');
