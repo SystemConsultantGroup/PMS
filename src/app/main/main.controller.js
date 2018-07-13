@@ -17,7 +17,9 @@
         vm.datas = res.data;
       });
     });
-
+    $http.get('/rest/admin/users').then((res) => {
+      vm.totalusers = res.data;
+    });
     vm.log = $log.log;
     vm.session = $sessionStorage.getObject('session');
     vm.query = {
@@ -34,26 +36,14 @@
         $location.reload();
       }
     };
-
-
-    // 사용자 구분
-    /* $http.get('/session').then(successCallback, errorCallback);
-    function successCallback(response){
-      //vm.$log.log(response);
-      if(response.data.auth===10) vm.state = "admin";
-      else if(response.data.auth<10 && response.data.auth >= 0) vm.state = "user";
-    }
-    function errorCallback(error) {
-      vm.$log.log(error, 'can not get data.');
-    }
-    // 글 목록 가져오기
-    $http.get('/main/1/main_post').then(function(response) {
-      for(var i=0; i<response.data.length; i++) {
-        response.data[i].updatedAt = response.data[i].updatedAt.split("T")[0];
+    vm.pminf = (uid) => {
+      for (let i = 0; i !== vm.totalusers.length; i += 1) {
+        if (vm.totalusers[i].uid === uid) {
+          vm.pmname = vm.totalusers[i].name;
+        }
       }
-      vm.datas = response.data;
-    }); */
-
+      return vm.pmname;
+    };
     vm.remainingTodos = () => {
       const count = vm.lists.reduce((accumulator, currentValue) => {
         if (currentValue.done === null) return accumulator + 1;
