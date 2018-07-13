@@ -29,9 +29,9 @@
 					<td>Duedate</td> 
 				</tr>
 				<tr md-row>
-					<td md-cell class="breakall">{{adminproject.project.startdate.slice(0,10)}}</td>
+					<td md-cell class="breakall">{{adminproject.strconvert(adminproject.project.startdate).slice(0,10)}}</td>
 					<td>|</td>
-					<td md-cell class="breakall">{{adminproject.project.duedate.slice(0,10)}}</td>
+					<td md-cell class="breakall">{{adminproject.strconvert(adminproject.project.duedate).slice(0,10)}}</td>
 				</tr>
         	</tbody>
     	</table>

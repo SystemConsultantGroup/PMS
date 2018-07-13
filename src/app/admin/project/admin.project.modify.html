@@ -9,12 +9,12 @@
         </div>
         <div>
           <h2>Startdate</h2>
-          <input type="date" class="" ng-model="adminproject.project.startdate" value={{adminproject.project.startdate.slice(0,10)}}>
+          <input type="date" class="" ng-model="adminproject.project.startdate" value={{adminproject.strconvert(adminproject.project.startdate).slice(0,10)}}>
           <hr>
         </div>
         <div>
           <h2>Duedate</h2>
-          <input type="date" class="" ng-model="adminproject.project.duedate" value={{adminproject.project.duedate.slice(0,10)}}>
+          <input type="date" class="" ng-model="adminproject.project.duedate" value={{adminproject.strconvert(adminproject.project.duedate).slice(0,10)}}>
           <hr>
         </div>
         <div>
