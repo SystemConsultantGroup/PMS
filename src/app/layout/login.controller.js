@@ -7,6 +7,13 @@
   function LoginController($log, $window, $sessionStorage, $document, $http, $state, $sha) {
     const vm = this;
     vm.log = $log.log;
+    vm.uidlist = [];
+
+    $http.get('/rest/admin/users').then((result) => {
+      for (let x = 0; x !== result.data.length; x += 1) {
+        vm.uidlist.push(result.data[x].uid);
+      }
+    });
 
     vm.login = () => {
       // 백엔드에 인증 시도
@@ -15,11 +22,17 @@
         pw: $sha.hash(vm.pw)
       }).then((result) => {
         if (result.data.result) {
-          $window.location.assign('/main');
-        } else if (vm.uid == null) alert('Please enter valid ID.');
-        else alert('Please check your ID/PW.');
-
-        $sessionStorage.putObject('session', result.data);
+          if (result.data.auth === 1) {
+            $state.go('adminProject');
+          } else if (result.data.auth === 2) {
+            $state.go('pmProject');
+          } else {
+            $state.go('main');
+          }
+          $sessionStorage.putObject('session', result.data);
+        } else if (vm.uid === undefined || vm.uid === null || vm.uid === '') alert('Please enter your ID');
+        else if (vm.pw === undefined || vm.pw === null || vm.pw === '') alert('Please enter your Password');
+        else alert('Please check your ID and Password');
       });
     };
 
@@ -54,14 +67,18 @@
     };
 
     vm.register = () => {
-      $http.post('/rest/user', {
-        name: vm.name,
-        uid: vm.uid,
-        pw: $sha.hash(vm.pw),
-        email: vm.email,
-        ph: vm.ph
-      });
-      $window.location.assign('/login');
+      if (!vm.uidlist.includes(vm.uid)) {
+        $http.post('/rest/user/', {
+          name: vm.name,
+          uid: vm.uid,
+          pw: $sha.hash(vm.pw),
+          email: vm.email,
+          ph: vm.ph
+        });
+        $window.location.assign('/login');
+      } else {
+        alert('ID Already Exits');
+      }
     };
   }
 }());

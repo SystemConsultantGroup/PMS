@@ -1,0 +1,56 @@
+<div ng-controller="TodoController as todo" ng-init="todo.initView()">
+<br>
+<md-card ng-cloak>
+  <md-table-container>
+    <table md-table class="table_notice">
+        <thead md-head>
+        <tr md-row>
+          <th md-column md-numeric><span class="title_size">Component</span></th>
+          <th md-column><span class="title_size">Duedate</span></th>
+          <th md-column><span class="title_size">Done</span></th>
+        </tr>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row>
+            <td md-cell class="breakall"><a>{{todo.td.todo.component}}</a></td>
+            <td md-cell class="breakall">{{todo.strconvert(todo.td.todo.duedate).slice(0,10)}}</td>
+            <td md-cell class="breakall" ng-if="todo.td.todo.done==null">Doing</td>
+            <td md-cell class="breakall" ng-if="todo.td.todo.done!=null">{{todo.td.todo.done}}</td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+</md-card>
+<br>
+<md-button class="md-raised" ui-sref="todoUsers({pid: todo.td.todo.pid, tdid: todo.td.todo.tdid})"><i class="fa fa-users">  Assgin Dev</i></md-button>
+
+<md-card>
+<md-table-container>
+      <table md-table class="table_notice">
+        <thead md-head md-order="todo.query.order">
+        <tr md-row>
+          <th md-column md-numeric md-order-by="p_id"><span class="title_size">Name</span></th>
+          <th md-column md-numeric><span class="title_size">Email Address</span></th>
+          <th md-column md-order-by="duedate"><span class="title_size">Phone Number</span></th>
+        </tr>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row
+            ng-repeat="user in todo.td.userlist">
+            <td md-cell class="breakall"><a>{{user.name}}</a></td>
+            <td md-cell class="breakall">{{user.email}}</td>
+            <td md-cell class="breakall">{{user.ph}}</td>
+            <td md-cell class="breakall"><md-button class="md-raised" ng-click="todo.deleteUser(user.uid)"><i class="fa fa-trash"></i> Delete</md-button></td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <md-table-pagination md-limit="todo.query.limit" md-page="todo.query.page"
+                         md-total="{{todo.projects.length}}" md-page-select
+                         md-boundary-links></md-table-pagination>
+</md-card>
+<br>
+<br>
+ <md-button class="md-raised" ui-sref="todoModify({tdid : todo.td.todo.tdid})"><i class="fa fa-edit"></i> Edit</md-button>
+</div>

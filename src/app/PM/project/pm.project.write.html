@@ -1,10 +1,10 @@
-<div class="form-group" ng-controller="PMController as pm">
+<div class="form-group" ng-controller="PMController as pm" ng-init="pm.getpid()">
     <form ng-submit="pm.add()">
-    <h2>Name</h2><input class="board__input" type="name" ng-model="name">
+    <h2>Name</h2><input class="board__input" type="name" ng-model="pm.name" required>
     <br>
-    <h2>Startdate</h2><input class="board__input" type="date" ng-model="startdate">
+    <h2>Startdate</h2><input class="board__input" type="date" ng-model="pm.startdate">
     <br>
-    <h2>Duedate</h2><input class="board__input" type="date" ng-model="duedate">
+    <h2>Duedate</h2><input class="board__input" type="date" ng-model="pm.duedate">
     <br>
     <br>
     <md-button class="md-raised" type="submit"><i class="fa fa-plus-square"> Create Project </i></md-button>

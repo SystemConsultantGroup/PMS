@@ -1,5 +1,23 @@
-<div ng-controller="AdminProjectController as adminproject" ng-init="initView()">
-<h2>{{project.name}}</h2>
+<div ng-controller="AdminProjectController as adminproject" ng-init="adminproject.initProject()"> 
+<div ng-init="adminproject.initView()">
+<md-card ng-cloak>
+  <md-table-container>
+    <table md-table class="table_notice">
+      <tbody md-bodylayout="row">
+        <tr>
+          <td>&nbsp; &nbsp;&nbsp;Project Name</td>
+          <td>|</td>
+          <td>Project Manager</td> 
+        </tr>
+        <tr md-row>
+          <td md-cell class="breakall">{{adminproject.project.name}}</td>
+          <td>|</td>
+          <td md-cell class="breakall">{{adminproject.pm.name}}</td>
+        </tr>
+          </tbody>
+      </table>
+    </md-table-container>
+</md-card>
 <br>
 <md-card ng-cloak>
 	<md-table-container>
@@ -11,16 +29,16 @@
 					<td>Duedate</td> 
 				</tr>
 				<tr md-row>
-					<td md-cell class="breakall">{{project.startdate}}</td>
+					<td md-cell class="breakall">{{adminproject.project.startdate.slice(0,10)}}</td>
 					<td>|</td>
-					<td md-cell class="breakall">{{project.duedate}}</td>
+					<td md-cell class="breakall">{{adminproject.project.duedate.slice(0,10)}}</td>
 				</tr>
         	</tbody>
     	</table>
     </md-table-container>
 </md-card>
 <br>
-<md-button class="md-raised"><i class="fa fa-users" ng-click="layout.toggleLeft()">  User List</i></md-button>
+<md-button class="md-raised" a ui-sref="adminProjectUsers({ pid: adminproject.project.pid })"><i class="fa fa-users">Add Users</i></md-button>
 
 <md-card>
 <md-table-container>
@@ -34,11 +52,11 @@
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
-            ng-repeat="user in adminproject.users | filter: filter.search | orderBy: adminproject.query.order | limitTo: adminproject.query.limit : (adminproject.query.page -1) * adminproject.query.limit">
-            <td md-cell class="breakall"><a href="/admin/project/{{project.pid}}">{{user.name}}</a></td>
+            ng-repeat="user in adminproject.users">
+            <td md-cell class="breakall">{{user.name}}</td>
             <td md-cell class="breakall">{{user.email}}</td>
             <td md-cell class="breakall">{{user.ph}}</td>
-            </td>
+            <td md-cell class="breakall"><md-button class="md-raised" ng-click="adminproject.deleteUser(user.uid)"><i class="fa fa-trash"></i> Delete</md-button></td>
           </tr>
         </tbody>
       </table>
@@ -47,11 +65,36 @@
                          md-total="{{adminproject.projects.length}}" md-page-select
                          md-boundary-links></md-table-pagination>
 </md-card>
-
-
 <br>
 <br>
-  <md-button class="md-raised"><a href="/admin/project/modify/{{project.pid}}"><i class="fa fa-edit"></i> Edit </a></md-button>
-  <md-button class="md-raised" ng-click="delete(project.pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
-
+<md-button class="md-raised" ui-sref="todo({pid :adminproject.pid})"><i class="fa fa-users">  Todo Edit</i></md-button>
+<md-card ng-cloak>
+  <md-table-container>
+    <table md-table class="table_notice">
+        <thead md-head>
+        <tr md-row>
+          <th md-column md-numeric><span class="title_size">Component</span></th>
+          <th md-column md-numeric><span class="title_size">Uptodate</span></th>
+          <th md-column><span class="title_size">Duedate</span></th>
+          <th md-column><span class="title_size">Done</span></th>
+        </tr>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row
+            ng-repeat="todo in adminproject.todoes">
+            <td md-cell class="breakall"><a>{{todo.component}}</a></td>
+            <td md-cell class="breakall">{{adminproject.strconvert(todo.updatedAt).slice(0,10)}}</td>
+            <td md-cell class="breakall">{{adminproject.strconvert(todo.duedate).slice(0,10)}}</td>
+            <td md-cell class="breakall" ng-if="todo.done!=null">{{adminproject.strconvert(todo.done).slice(0,10)}}</td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+</md-card>
+<br>
+<br>
+  <md-button class="md-raised" a ui-sref="adminProjectModify({ pid: adminproject.project.pid })"><i class="fa fa-edit"></i> Edit </md-button>
+  <md-button class="md-raised" ng-click="adminproject.delete(adminproject.project.pid)"><a><i class="fa fa-trash"></i> Delete</a></md-button>
+</div>
 </div>

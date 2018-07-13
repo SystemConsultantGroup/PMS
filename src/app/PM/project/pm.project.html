@@ -1,40 +1,51 @@
-<div ng-controller="PMController as pm">
-  <md-button class="md-raised"><a href="/pm/project/write"><i class="fa fa-plus-square"></i> New Project </a></md-button>
+<div ng-controller="PMController as pm" ng-init="pm.initMain()" ng-init="pm.getpid()">
+  <md-button class="md-raised"><a ui-sref="pmProjectWrite()"><i class="fa fa-plus-square"></i> New Project </a></md-button>
+
 <md-card ng-cloak>
 
     <md-card>
       <md-input-container md-no-float class="md-block">
         <ng-md-icon icon="search" style="margin-left:5px"></ng-md-icon>
-        <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="검색">
+        <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="Search">
       </md-input-container>
     </md-card>
 
+    <form ng-submit="pm.add()">
     <md-table-container>
       <table md-table class="table_notice">
         <thead md-head md-order="pm.query.order">
         <tr md-row>
-          <th md-column md-numeric md-order-by="p_id"><span class="title_size">완료 여부</span></th>
-          <th md-column md-numeric md-order-by="p_id"><span class="title_size">Project</span></th>
-          <th md-column md-numeric><span class="title_size">작성일</span></th>
-          <th md-column md-order-by="duedate"><span class="title_size">마감일</span></th>
+          <th md-column md-numeric md-order-by="pid"><span class="title_size">Project</span></th>
+          <th md-column md-numeric md-order-by="startdate"><span class="title_size">Startdate</span></th>
+          <th md-column md-numeric md-order-by="duedate"><span class="title_size">Duedate</span></th>
+          <th md-column md-order-by="done"><span class="title_size">Done</span></th>
         </tr>
         </thead>
         <tbody md-bodylayout="row">
+          <tr>
+              <td><input type="text" class="text_input" ng-model="pm.name"></td>
+              <td><input type="date" class="text_input" ng-model="pm.startdate"></td>
+              <td><input type="date" class="text_input" ng-model="pm.duedate"></td>
+              <td></td>
+              <td><md-button class="" type="submit"><i class="fa fa-plus-square">CREATE</i></md-button></td>
+          </tr>
+        </tbody>
+        <tbody md-bodylayout="row">
           <tr md-row
             ng-repeat="project in pm.projects | filter: filter.search | orderBy: pm.query.order | limitTo: pm.query.limit : (pm.query.page -1) * pm.query.limit">
-            <td md-cell class="breakall"><input type="checkbox" ng-model="project.done" checked="checked">
-            </td>
-            <td md-cell class="breakall"><a href="/admin/project/{{project.pid}}">{{project.name}}</a></td>
-            <td md-cell class="breakall">{{project.startdate}}</td>
-            <td md-cell class="breakall">{{project.duedate}}</td>
-
-            <td md-cell><md-button class="md-primary"><a href="/admin/project/modify/{{project.pid}}">수정</a></md-button>
-              <md-button class="md-accent" ng-click="pm.delete(project.pid)">삭제</md-button>
+            <td md-cell class="breakall"><md-button a ui-sref="pmProjectView({ pid: project.pid })">{{project.name}}</md-button></td>
+            <td md-cell class="breakall">{{pm.strconvert(project.startdate).slice(0,10)}}</td>
+            <td md-cell class="breakall">{{pm.strconvert(project.duedate).slice(0,10)}}</td>
+            <td md-cell class="breakall" ng-if="project.done!=null">{{pm.strconvert(project.done).slice(0,10)}}</td>
+            <td md-cell class="breakall" ng-if="project.done==null"><md-button ng-click="pm.projectDone({body : project})">Done!</md-button></td>
+            <td md-cell class="breakall"><md-button class="md-primary" a ui-sref="pmProjectModify({ pid: project.pid })">Edit</md-button>
+              <md-button class="md-accent" ng-click="pm.delete(project.pid)">Delete</md-button>
             </td>
           </tr>
         </tbody>
       </table>
     </md-table-container>
+    </form>
     <md-table-pagination md-limit="pm.query.limit" md-page="pm.query.page"
                          md-total="{{pm.projects.length}}" md-page-select
                          md-boundary-links></md-table-pagination>

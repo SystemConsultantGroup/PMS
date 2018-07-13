@@ -1,0 +1,99 @@
+<div ng-controller="developerController as dv" ng-init="dv.initMain()">
+<md-card ng-cloak>
+  <md-table-container>
+    <table md-table class="table_notice">
+      <tbody md-bodylayout="row">
+        <tr>
+          <td>Project Name</td>
+          <td>|</td>
+          <td>PM</td> 
+        </tr>
+        <tr md-row>
+          <td md-cell class="breakall">{{dv.project.name}}</td>
+          <td>|</td>
+          <td md-cell class="breakall">{{dv.pminf.name}}</td>
+        </tr>
+          </tbody>
+      </table>
+    </md-table-container>
+</md-card>
+<br>
+<br>
+<md-card ng-cloak>
+	<md-table-container>
+		<table md-table class="table_notice">
+			<tbody md-bodylayout="row">
+				<tr>
+					<td>Startdate</td>
+					<td>|</td>
+					<td>Duedate</td> 
+				</tr>
+				<tr md-row>
+					<td md-cell class="breakall">{{dv.strconvert(dv.project.startdate).slice(0,10)}}</td>
+					<td>|</td>
+					<td md-cell class="breakall">{{dv.strconvert(dv.project.duedate).slice(0,10)}}</td>
+          <td md-cell class="breakall" ng-if="project.done!=null">{{dv.strconvert(project.done).slice(0,10)}}</td>
+				</tr>
+        	</tbody>
+    	</table>
+    </md-table-container>
+</md-card>
+<br>
+<md-button class="md-raised"><i class="fa fa-users">  Users </i></md-button>
+
+<md-card>
+<md-table-container>
+      <table md-table class="table_notice">
+        <thead md-head md-order="dv.query.order">
+        <tr md-row>
+          <th md-column md-numeric md-order-by="p_id"><span class="title_size">Name</span></th>
+          <th md-column md-numeric><span class="title_size">Email Address</span></th>
+          <th md-column md-order-by="duedate"><span class="title_size">Phone Number</span></th>
+        </tr>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row
+            ng-repeat="user in dv.users">
+            <td md-cell class="breakall"><a>{{user.name}}</a></td>
+            <td md-cell class="breakall">{{user.email}}</td>
+            <td md-cell class="breakall">{{user.ph}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <md-table-pagination md-limit="dv.query.limit" md-page="dv.query.page"
+                         md-total="{{dv.projects.length}}" md-page-select
+                         md-boundary-links></md-table-pagination>
+</md-card>
+<br>
+<br>
+<md-button class="md-raised"><i class="fa fa-users">  Todos </i></md-button>
+</md-card>
+<md-card ng-cloak>
+  <md-table-container>
+    <table md-table class="table_notice">
+        <thead md-head>
+        <tr md-row>
+          <th md-column md-numeric><span class="title_size">Component</span></th>
+          <th md-column md-numeric><span class="title_size">Uptodate</span></th>
+          <th md-column><span class="title_size">Duedate</span></th>
+          <th md-column><span class="title_size">Done</span></th>
+        </tr>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row
+            ng-repeat="td in dv.todoes">
+            <td md-cell class="breakall" ng-if="td.component!==undefined"><a>{{td.component}}</a></td>
+            <td ng-if="td.component===undefined"></td>
+            <td md-cell class="breakall" ng-if="td.updatedAt!==undefined">{{dv.strconvert(td.updatedAt).slice(0,10)}}</td>
+            <td ng-if="td.updatedAt===undefined"></td>
+            <td md-cell class="breakall" ng-if="td.duedate!==undefined">{{dv.strconvert(td.duedate).slice(0,10)}}</td>
+            <td ng-if=td.duedate===undefined></td>
+            <td md-cell class="breakall" ng-if="td.done!==null&&td.done!==undefined">{{dv.strconvert(td.done).slice(0,19)}}</td>
+            <td md-cell class="breakall" ng-if="td.done===null&&td.done!==undefined"><md-button ng-click="dv.todoDone({body : td})">Done!</md-button></td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+</md-card>
+</div>

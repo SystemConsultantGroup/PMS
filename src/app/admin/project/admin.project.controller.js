@@ -1,95 +1,85 @@
 (function () {
   angular
     .module('pms')
-    .controller('AdminProjectController', AdminProjectController);
+    .controller('AdminProjectController', ['$log', '$http', '$scope', '$window', '$location',
+      '$sessionStorage', '$stateParams', '$state', AdminProjectController]);
 
   // admin/project 컨트롤러
   function AdminProjectController(
     $log, $http, $scope, $window, $location,
-    $sessionStorage
+    $sessionStorage, $stateParams, $state
   ) {
     const vm = this;
     vm.log = $log.log;
+    vm.stateParams = $stateParams;
     vm.session = $sessionStorage.getObject('session');
     vm.query = {
       order: 'pid',
-      limit: 7,
+      limit: 10,
       page: 1
     };
 
-    // 더미 데이터베이스
-    /* vm.projects =
-    [
-      {
-        pid: 1,
-        name: 'AngularJs 독서',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        pid: 2,
-        name: 'AngularJs 공부하기',
-        startdate: '5/23',
-        duedate: '6/14',
-        done: true,
-      },
-      {
-        pid: 3,
-        name: 'AngularJs 게시판 만들기',
-        startdate: '5/28',
-        duedate: '6/2',
-        done: false,
-      },
-      {
-        pid: 4,
-        name: 'REST DOCUMENT 작성하기',
-        startdate: '5/29',
-        duedate: '6/12',
-        done: false,
-      },
-      {
-        pid: 5,
-        name: 'DB 스키마 만들기',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        pid: 6,
-        name: '레이아웃 작업하기',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: true,
-      },
-      {
-        pid: 7,
-        name: 'Config 파일 작성',
-        startdate: '5/21',
-        duedate: '6/11',
-        done: false,
-      },
-    ]; */
+    $http.get('/rest/session').then((result) => {
+      vm.uid = result.data.uid;
+    });
 
-    vm.initView = function () {
-      $http.get('/rest/admin/project/{pid}').success((data) => {
-        vm.project = data;
+    $http.get('/rest/admin/users').then((res) => {
+      vm.restusers = [];
+      vm.pmSelect = [];
+      vm.totalusers = res.data;
+      $http.get(`/rest/admin/project/${vm.stateParams.pid}`).then((proj) => {
+        vm.project = proj.data;
+        for (let i = 0; i !== vm.totalusers.length; i += 1) {
+          if (vm.project.uid === vm.totalusers[i].uid) {
+            vm.pm = vm.totalusers[i];
+            break;
+          }
+        }
+        if (vm.pm == null) {
+          vm.pmSelected = vm.totalusers[0].name;
+        } else {
+          vm.pmSelected = vm.pm.name;
+        }
+        for (let i = 0; i !== vm.totalusers.length; i += 1) {
+          vm.pmSelect.push(vm.totalusers[i].name);
+        }
+      });
+      $http.get(`/rest/project/pmuid/${vm.stateParams.pid}`).then((result) => {
+        vm.users = result.data;
+        vm.uidlist = [];
+        for (let i = 0; i !== vm.users.length; i += 1) {
+          vm.uidlist.push(vm.users[i].uid);
+        }
+        for (let x = 0; x !== vm.totalusers.length; x += 1) {
+          if (!vm.uidlist.includes(vm.totalusers[x].uid)) {
+            vm.restusers.push(vm.totalusers[x]);
+          }
+        }
+      });
+    });
+    vm.initProject = () => {
+      vm.pid = vm.stateParams.pid;
+      $http.get(`/rest/project/pmpid/${vm.stateParams.pid}`).then((result) => {
+        vm.todoes = result.data;
       });
     };
 
-    vm.delete = (pid) => {
-      const cf = window.confirm('삭제하시겠습니까?');
-      if (cf) {
-        vm.pid = pid;
-        $http.delete('/rest/{vm.session.uid}/project/{pid}');
-        alert('게시글이 삭제되었습니다.');
-        vm.location.reload();
-      }
+    vm.initView = () => {
+      $http.get(`/rest/admin/project/${vm.stateParams.pid}`).then((result) => {
+        vm.project = result.data;
+      });
     };
 
+    vm.initSelect = () => {
+
+    };
 
     $http.get('/rest/session').then((result) => {
-      if (result.data.auth === 1) { vm.user = 'admin'; } else if (result.data.auth === 0 && result.data.auth > 1) { vm.user = 'user'; }
+      if (result.data.auth === 1) {
+        vm.user = 'admin';
+      } else if (result.data.auth === 0 && result.data.auth > 1) {
+        vm.user = 'user';
+      }
     });
 
     $http.get('/rest/session').then(successCallback, errorCallback);
@@ -108,38 +98,101 @@
       vm.projects = response.data;
     });
 
+    vm.pminf = (uid) => {
+      for (let i = 0; i !== vm.totalusers.length; i += 1) {
+        if (vm.totalusers[i].uid === uid) {
+          vm.pmname = vm.totalusers[i].name;
+        }
+      }
+      return vm.pmname;
+    };
+
     vm.add = () => {
+      for (let i = 0; i !== vm.totalusers.length; i += 1) {
+        if (vm.pmSelected === vm.totalusers[i].name) {
+          vm.uidSelected = vm.totalusers[i].uid;
+          break;
+        }
+      }
       $http.post('/rest/admin/project', {
+        uid: vm.uidSelected,
         name: vm.name,
         startdate: vm.startdate,
         duedate: vm.duedate,
-        done: vm.done,
+        done: null,
       });
-      $window.location.path('/admin/project');
+      $state.go('adminProject', {}, { reload: true });
     };
 
-    vm.initModify = () => {
-      if (vm.pid != null) {
-        // 글 데이터 불러오기
-        $http.get('/rest/admin/project/{vm.pid}').then((response) => {
-          if (response.data.error) {
-            alert('글이 존재하지 않습니다.');
-          }
-        });
+    // 프로젝트 수정
+    vm.modify = () => {
+      for (let i = 0; i !== vm.totalusers.length; i += 1) {
+        if (vm.pmSelected === vm.totalusers[i].name) {
+          vm.uidSelected = vm.totalusers[i].uid;
+          break;
+        }
+      }
+      $http.put(`/rest/admin/project/${vm.stateParams.pid}`, {
+        uid: vm.uidSelected,
+        name: vm.project.name,
+        startdate: vm.project.startdate,
+        duedate: vm.project.duedate,
+        done: vm.project.done,
+      });
+      $state.go('adminProject', {}, { reload: true });
+    };
+    vm.projectDone = (p) => {
+      $http.put(`/rest/admin/project/${p.body.pid}`, {
+        pid: p.body.pid,
+        uid: p.body.uid,
+        name: p.body.name,
+        duedate: p.body.duedate,
+        done: new Date(),
+      });
+      $window.location.reload();
+    };
+    vm.deleteUser = (uid) => {
+      const cf = window.confirm('Delete?');
+      if (cf) {
+        $http.delete(`/rest/project/user/${vm.stateParams.pid}/${uid}`);
+        alert('Deleted.');
+        $window.location.reload();
+      }
+    };
+    vm.delete = (pid) => {
+      const cf = window.confirm('Delete?');
+      if (cf) {
+        $http.delete(`/rest/project/${vm.uid}/${pid}`);
+        alert('Deleted.');
+        $state.go('adminProject', {}, { reload: true });
       }
     };
 
-
-    // 글 수정
-
-    vm.modify = () => {
-      $http.put('/rest/admin/project/{vm.pid}', {
-        name: vm.name,
-        startdate: vm.name,
-        duedate: vm.duedate,
-        done: vm.done,
+    vm.useradd = (uid, pid, name) => {
+      $http.post(`/rest/project/${uid}/${pid}`, {
+        role: 'joined'
       });
-      $location.path('/admin/project');
+      alert(`${name} joined`);
+      $state.reload();
+    };
+    vm.strconvert = (strdate) => {
+      const date = new Date(strdate);
+      return date.format();
+    };
+    Date.prototype.format = function () {
+      const mm = this.getMonth() + 1; // getMonth() is zero-based
+      const dd = this.getDate();
+      const hh = this.getHours();
+      const m = this.getMinutes();
+      const ss = this.getSeconds();
+      return `${[this.getFullYear(),
+        (mm > 9 ? '' : '0') + mm,
+        (dd > 9 ? '' : '0') + dd
+      ].join('-')}/${[
+        (hh > 9 ? '' : '0') + hh,
+        (m > 9 ? '' : '0') + m,
+        (ss > 9 ? '' : '0') + ss
+      ].join(':')}`;
     };
   }
 }());

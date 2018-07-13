@@ -5,8 +5,12 @@ const router = express.Router();
 
 // const viewPath = config.path;
 // const path = require('path');
-const models = require('../models');
+
 const wrap = require('express-async-wrap');
+const sequelize = require('sequelize');
+const models = require('../models');
+
+const Op = sequelize.Op;
 
 // get project list
 router.get('/project', wrap(async (req, res) => {
@@ -14,17 +18,94 @@ router.get('/project', wrap(async (req, res) => {
     const projects = await models.project.findAll();
     if (projects) {
       res.send(projects);
+    } else {
+      res.send({
+        result: false
+      });
     }
   }
 }));
 
 // add project
 router.post('/project', wrap(async (req, res) => {
-  if (req.session.user.auth === 1) {
-    const create = await models.project.create(req.body);
-    if (create) {
+  const create = await models.project.create(req.body);
+  const update = await models.user.update({ auth: 2 }, {
+    where: {
+      uid: req.body.uid
+    }
+  });
+  if (create && update) {
+    res.send({
+      result: true
+    });
+  } else {
+    res.send({
+      result: false
+    });
+  }
+}));
+
+// get (선택한) 프로젝트 이름, startdate, duedate, done 리스트 불러옴
+router.get('/project/:pid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1 || req.session.user.auth === 2) {
+    const projects = await models.project.findOne({
+      where: {
+        pid: req.params.pid
+      },
+      attributes: [
+        'pid', 'uid', 'name', 'startdate', 'duedate', 'done'
+      ]
+    });
+    if (projects) {
+      res.send(projects);
+    } else {
+      res.send({
+        result: false
+      });
+    }
+  }
+}));
+
+// put (선택한) 프로젝트 이름, startdate, duedate, done 정보 수정
+router.put('/project/:pid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1 || req.session.user.auth === 2) {
+    const update = await models.project.update(req.body, {
+      where: {
+        pid: req.params.pid
+      }
+    });
+    const updateAuth = await models.user.update({ auth: 2 }, {
+      where: {
+        uid: req.body.uid
+      }
+    });
+    if (update && updateAuth) {
       res.send({
         result: true
+      });
+    } else {
+      res.send({
+        result: false
+      });
+    }
+  }
+}));
+
+// delete (선택한) 프로젝트 정보 삭제
+router.delete('/project/:pid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const destroy = await models.project.destroy({
+      where: {
+        pid: req.params.pid
+      }
+    });
+    if (destroy) {
+      res.send({
+        result: true
+      });
+    } else {
+      res.send({
+        result: false
       });
     }
   }
@@ -42,19 +123,31 @@ router.put('/user/:uid', wrap(async (req, res) => {
       res.send({
         result: true
       });
+    } else {
+      res.send({
+        result: false
+      });
     }
   }
 }));
 
 // 전체 수행원의 이름, auth 정보 불러옴
+// auth가 0이 아닌 유저들을 불러온다
 router.get('/users', wrap(async (req, res) => {
-  if (req.session.user.auth === 1) {
-    const users = await models.user.findAll({
-      attributes: ['uid', 'name', 'auth']
+  const users = await models.user.findAll({
+    where: {
+      auth: {
+        [Op.ne]: 0
+      }
+    },
+    attributes: ['uid', 'name', 'auth']
+  });
+  if (users) {
+    res.send(users);
+  } else {
+    res.send({
+      result: false
     });
-    if (users) {
-      res.send(users);
-    }
   }
 }));
 
@@ -69,6 +162,10 @@ router.put('/users', wrap(async (req, res) => {
     if (update) {
       res.send({
         result: true
+      });
+    } else {
+      res.send({
+        result: false
       });
     }
   }
@@ -88,7 +185,15 @@ router.get('/user/:uid', wrap(async (req, res) => {
     });
     if (user && project) {
       res.send({ user, project });
+    } else {
+      res.send({
+        result: false
+      });
     }
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 
@@ -100,6 +205,10 @@ router.delete('/user/:uid', wrap(async (req, res) => {
   if (destroy) {
     res.send({
       result: true
+    });
+  } else {
+    res.send({
+      result: false
     });
   }
 }));
@@ -121,19 +230,58 @@ router.get('/user/:uid/:pid', wrap(async (req, res) => {
       });
       if (todo) {
         res.send(todo);
+      } else {
+        res.send({
+          result: false
+        });
       }
+    } else {
+      res.send({
+        result: false
+      });
     }
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 
-// 회원가입 승인 auth를 0에서 9로 바꿈
-router.post('/register', wrap(async (req, res) => {
-  if (req.session.user.auth === 0) {
+// auth가 0인 사람들만 불러옴(전체 수행원의 이름, auth 정보)
+router.get('/users/default', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
+    const users = await models.user.findAll({
+      where: {
+        auth: 0
+      },
+      attributes: ['uid', 'name', 'auth']
+    });
+    if (users) {
+      res.send(users);
+    } else {
+      res.send({
+        result: false
+      });
+    }
+  } else {
+    res.send({
+      result: false
+    });
+  }
+}));
+
+// put 회원가입 승인 auth를 0에서 9로 바꿈
+router.put('/users/approve/:uid', wrap(async (req, res) => {
+  if (req.session.user.auth === 1) {
     const userAuth = await models.user.update(
-      { auth: req.body.auth = 9 },
-      { where: { uid: req.body.uid } }
+      { auth: req.params.auth = 9 },
+      { where: { uid: req.params.uid } }
     );
     res.send(userAuth);
+  } else {
+    res.send({
+      result: false
+    });
   }
 }));
 

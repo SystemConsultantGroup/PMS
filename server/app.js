@@ -84,14 +84,12 @@ const admin = require('./routes/admin');
 const user = require('./routes/user');
 const project = require('./routes/project');
 
-/* 개발을 위해 잠시 주석처리
 app.use('/*', function (req, res, next) {
-    if(!req.baseUrl.includes('login') && req.session.user == null)
-        res.redirect('/login');
-    else
-        next();
-})
-*/
+  if(!(req.baseUrl.includes('login') || req.baseUrl.includes('user')) && (req.session.user == null || req.session.user.auth==0))
+    res.redirect('/login');
+  else
+    next();
+});
 
 // 라우팅
 app.use('/rest/', index);

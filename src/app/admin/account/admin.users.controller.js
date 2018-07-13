@@ -1,10 +1,10 @@
 (function () {
   angular
     .module('pms')
-    .controller('AdminUsersController', AdminUsersController);
+    .controller('AdminUsersController', ['$log', '$http', '$window', '$sessionStorage', '$state', AdminUsersController]);
 
   // admin/users 컨트롤러
-  function AdminUsersController($log, $http, $window, $sessionStorage) {
+  function AdminUsersController($log, $http, $window, $sessionStorage, $state) {
     const vm = this;
 
     vm.log = $log.log;
@@ -32,11 +32,12 @@
       vm.users = res.data;
     });
     vm.delete = (uid) => {
-      const cf = window.confirm('삭제하시겠습니까?');
+      const cf = window.confirm('Are you sure you want to delete?');
       if (cf) {
         $http.delete(`/rest/admin/user/${uid}`);
-        alert('해당 유저가 삭제되었습니다.');
+        alert('The user has been deleted.');
       }
+      $state.go('adminUsers', {}, { reload: true });
     };
   }
 }());

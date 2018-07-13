@@ -1,6 +1,7 @@
-<div ng-controller="AdminUsersController as adminUsers">
+<div ng-controller="TodoController as todo" ng-init="todo.initProject()"> 
+<div>
   <md-card>
-    <h2 style="font-size: 23pt;">&nbsp;Total Users: <strong>{{adminUsers.users.length}}</strong>명 
+    <h2 style="font-size: 23pt;">&nbsp;Remaining Developers: <strong>{{todo.restusers.length}}</strong>명 
     <br>
     </h2>
   </md-card>
@@ -11,10 +12,10 @@
         <input style="max-width:90%" ng-model="filter.search" type="text" placeholder="검색">
       </md-input-container>
     </md-card>
-
+    
     <md-table-container>
       <table md-table class="table_notice">
-        <thead md-head md-order="adminUsers.query.order">
+        <thead md-head md-order="todo.query.order">
         <tr md-row>
           <th md-column md-numeric md-order-by="uid" colspan="2"><span class="title_size">ID</span></th>
           <th md-column md-numeric md-order-by="name"><span class="title_size">User Name</span></th>
@@ -23,13 +24,12 @@
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
-            ng-repeat="user in adminUsers.users | filter: filter.search | orderBy: adminUsers.query.order | limitTo: adminUsers.query.limit : (adminUsers.query.page -1) * adminUsers.query.limit">
-            
+            ng-repeat="user in todo.restusers | filter: filter.search | orderBy: todo.query.order | limitTo: todo.query.limit : (todo.query.page -1) * todo.query.limit">
             <td md-cell class="breakall" colspan="2">{{user.uid}}</td>
             <td md-cell class="breakall">{{user.name}}</td>
             <td md-cell class="breakall">
               <div ng-switch="{{user.auth}}">
-                <div ng-switch-when="9">
+                <div ng-switch-when="0">
                   Developer
                 </div>
               </div>
@@ -44,13 +44,16 @@
                 </div>
               </div>
             </td>
-            <td md-cell><md-button class="md-primary" a ui-sref="adminUserModify({ modify_id: user.uid })">View</md-button>
-              <md-button class="md-accent" ng-click="adminUsers.delete(user.uid)">Delete</md-button>
+            <td md-cell><form ng-submit="todo.useradd(user.uid, todo.tdid, user.name)"><md-button class="md-primary" type="submit">Add</md-button></form>
             </td>
           </tr>
         </tbody>
       </table>
     </md-table-container>
-    <md-table-pagination md-limit="adminUsers.query.limit" md-page="adminUsers.query.page" md-total="{{adminUsers.users.length}}" md-page-select md-boundary-links></md-table-pagination>
+    
+    <md-table-pagination md-limit="todo.query.limit" md-page="todo.query.page" md-total="{{todo.restusers.length}}" md-page-select md-boundary-links></md-table-pagination>
   </md-card>
+
+  <md-button class="md-raised" a ui-sref="todoView({pid: todo.pid, tdid:todo.tdid})">Back</md-button>
+</div>
 </div>

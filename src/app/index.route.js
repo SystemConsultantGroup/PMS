@@ -27,8 +27,8 @@
         url: '/main',
         templateUrl: 'app/main/main.html',
         controllerAs: 'MainController',
-        params: { title: 'Main Page'} 
-        //메인 페이지
+        params: { title: 'Main Page' }
+        // 메인 페이지
       })
       .state('login', {
         url: '/login',
@@ -75,7 +75,15 @@
         controllerAs: 'AdminProjectController',
         params: { title: 'Admin : Modify Project' }
       })
-      //프로젝트 수정
+      // 프로젝트 수정
+      .state('adminProjectUsers', {
+        parent: 'pms',
+        url: '/admin/project/users/:pid',
+        templateUrl: 'app/admin/project/admin.project.users.html',
+        controllerAs: 'AdminProjectController',
+        params: { title: 'Admin : Add Users' }
+      })
+      // 수행원 추가
       .state('adminUsers', {
         parent: 'pms',
         url: '/admin/users',
@@ -97,8 +105,16 @@
         url: '/admin/user/todo/:todo_id/:todo_pid/:todo_proj',
         templateUrl: 'app/admin/account/admin.users.todo.html',
         controllerAs: 'AdminUsersTodoController',
-        params: { title: 'User Todo Information' }
+        params: { title: 'Admin : User Todo Information' }
       // 유저 투두 상세 정보
+      })
+      .state('adminUserApprove', {
+        parent: 'pms',
+        url: '/admin/users/approve',
+        templateUrl: 'app/admin/account/admin.users.approve.html',
+        controllerAs: 'AdminApproveController',
+        params: { title: 'Admin : User Approval' }
+      // 유저 승인 페이지
       })
       .state('/project', {
         parent: 'pms',
@@ -139,6 +155,68 @@
         controllerAs: 'PMController',
         params: { title: 'PM : Modify Project' }
       // 프로젝트 수정
+      })
+      .state('pmProjectUsers', {
+        parent: 'pms',
+        url: '/pm/project/users/:pid',
+        templateUrl: 'app/PM/project/pm.project.users.html',
+        controllerAs: 'PMController',
+        params: { title: 'PM : Add Users' }
+      })
+      .state('userAccount', {
+        parent: 'pms',
+        url: '/account',
+        templateUrl: 'app/main/main.account.html',
+        controllerAs: 'AccountController',
+        params: { title: 'Account' }
+      // 프로젝트 수정
+      })
+      .state('userProjectView', {
+        parent: 'pms',
+        url: '/user/project/:pid',
+        templateUrl: 'app/main/developerView.html',
+        controllerAs: 'developController',
+        params: { title: 'Developer Project View' }
+        // 일반 유저 프로젝트 뷰
+      })
+      .state('todo', {
+        parent: 'pms',
+        url: '/todo/:pid',
+        templateUrl: 'app/PM/todo/todo.html',
+        controllerAs: 'TodoController',
+        params: { title: 'Todo : Main Page' }
+      // PM 페이지
+      })
+      .state('todoView', {
+        parent: 'pms',
+        url: '/todo/view/:pid/:tdid',
+        templateUrl: 'app/PM/todo/todo.view.html',
+        controllerAs: 'TodoController',
+        params: { title: 'Todo : View Page' }
+      })
+      // 프로젝트 페이지
+      .state('todoWrite', {
+        parent: 'pms',
+        url: '/todo/write/:pid',
+        templateUrl: 'app/PM/todo/todo.write.html',
+        controllerAs: 'TodoController',
+        params: { title: 'PM : Add Todo' }
+      // 프로젝트 추가
+      })
+      .state('todoModify', {
+        parent: 'pms',
+        url: '/todo/modify/:tdid',
+        templateUrl: 'app/PM/todo/todo.modify.html',
+        controllerAs: 'TodoController',
+        params: { title: 'Todo : Todify Todo' }
+      // 프로젝트 수정
+      })
+      .state('todoUsers', {
+        parent: 'pms',
+        url: '/todo/users/:pid/:tdid',
+        templateUrl: 'app/PM/todo/todo.users.html',
+        controllerAs: 'TodoController',
+        params: { title: 'Todo : Add Users' }
       });
 
     // $urlRouterProvider.otherwise('/login');

@@ -1,0 +1,30 @@
+<div ng-controller="TodoController as todo" ng-init="todo.initModify()">
+  <div>
+    <form ng-submit="todo.modify()">
+      <md-card>
+        <div>
+          <h2>Component</h2>
+          <input type="text" class="minput" ng-model="todo.component" placeholder="{{todo.mtodo.todo.component}}">
+          <hr class="title_line">
+        </div>
+        <div>
+          <h2>Duedate</h2>
+          <input type="date" class="" ng-model="todo.duedate" value="{{todo.mtodo.todo.duedate.slice(0,10)}}">
+          <hr class="title_line">
+        </div>
+        <div ng-if="todo.mtodo.todo.done==null">
+          <h2>Done</h2>
+          Doing
+          <hr class="title_line">
+        </div>
+        <div ng-if="todo.mtodo.todo.done!=null">
+          <h2>Done</h2>
+          {{todo.strconvert(todo.mtodo.todo.done).slice(0,19)}}
+          <md-button ng-click="todo.cancleDone()">Cancle</md-button>
+          <hr class="title_line">
+        </div>
+      </md-card>
+      <md-button type="submit" class="md-raised"><i class="fa fa-edit">  Edit Todo</i></md-button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div ng-controller="TodoController as todo" ng-init="todo.initMain()">
+  <md-button class="md-raised"><a ui-sref="todoWrite({pid: todo.pid})"><i class="fa fa-plus-square"></i> New Todo </a></md-button>
+
+<md-card ng-cloak>
+  <md-table-container>
+    <table md-table class="table_notice">
+        <thead md-head>
+        <tr md-row>
+          <th md-column md-numeric><span class="title_size">Component</span></th>
+          <th md-column md-numeric><span class="title_size">Uptodate</span></th>
+          <th md-column><span class="title_size">Duedate</span></th>
+          <th md-column><span class="title_size">Done</span></th>
+        </tr>
+        </thead>
+        <tbody md-bodylayout="row">
+          <tr md-row
+            ng-repeat="td in todo.todoes">
+            <td md-cell class="breakall"><a ui-sref="todoView({pid: td.pid, tdid : td.tdid})">{{td.component}}</a></td>
+            <td md-cell class="breakall">{{todo.strconvert(td.updatedAt).slice(0,19)}}</td>
+            <td md-cell class="breakall">{{todo.strconvert(td.duedate).slice(0,19)}}</td>
+            <td md-cell class="breakall" ng-if="td.done!=null">{{todo.strconvert(td.done).slice(0,19)}}</td>
+            <td md-cell class="breakall" ng-if="td.done==null""><md-button ng-click="todo.todoDone({body : td})">Done!</md-button></td>
+            <td md-cell><md-button class="md-primary" ui-sref="todoModify({ tdid: td.tdid })">Edit</md-button>
+            <md-button class="md-accent" ng-click="todo.delete(td.tdid)">Delete</md-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+</md-card>
+</div> 
