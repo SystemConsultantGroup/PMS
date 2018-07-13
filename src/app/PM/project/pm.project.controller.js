@@ -174,5 +174,9 @@
         $window.location.reload();
       }
     };
+
+    vm.cancleDone = () => {
+      vm.mproject.done = undefined;
+    };
   }
 }());
