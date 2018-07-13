@@ -85,7 +85,7 @@ const user = require('./routes/user');
 const project = require('./routes/project');
 
 app.use('/*', function (req, res, next) {
-  if (!(req.baseUrl.includes('login') || req.baseUrl.includes('user')) && (req.session.user === null || req.session.user.auth === 0)) {
+  if (!(req.baseUrl.includes('login') || req.baseUrl.includes('user')) && (req.session.user === undefined || req.session.user.auth === 0)) {
     res.redirect('/login');
   } else {
     next();
