@@ -9,7 +9,7 @@
         </div>
         <div>
           <h2>Duedate</h2>
-          <input type="date" class="" ng-model="todo.duedate" value="{{todo.mtodo.todo.duedate.slice(0,10)}}">
+          <input type="date" class="" ng-model="todo.duedate" value="{{todo.strconvert(todo.mtodo.todo.duedate).slice(0,10)}}">
           <hr class="title_line">
         </div>
         <div ng-if="todo.mtodo.todo.done==null">

@@ -23,13 +23,17 @@
       }).then((result) => {
         if (result.data.result) {
           if (result.data.auth === 1) {
+            $sessionStorage.putObject('session', result.data);
             $state.go('adminProject');
           } else if (result.data.auth === 2) {
+            $sessionStorage.putObject('session', result.data);
             $state.go('pmProject');
-          } else {
+          } else if (result.data.auth === 9) {
+            $sessionStorage.putObject('session', result.data);
             $state.go('main');
+          } else {
+            alert('Waiting for Permission');
           }
-          $sessionStorage.putObject('session', result.data);
         } else if (vm.uid === undefined || vm.uid === null || vm.uid === '') alert('Please enter your ID');
         else if (vm.pw === undefined || vm.pw === null || vm.pw === '') alert('Please enter your Password');
         else alert('Please check your ID and Password');

@@ -5,9 +5,9 @@
     <table md-table class="table_notice">
       <tbody md-bodylayout="row">
         <tr>
-          <td>&nbsp; &nbsp;&nbsp;Project Name</td>
+          <td style="width: 50%">Project Name</td>
           <td>|</td>
-          <td>Project Manager</td> 
+          <td style="width: 50%">Project Manager</td> 
         </tr>
         <tr md-row>
           <td md-cell class="breakall">{{adminproject.project.name}}</td>
@@ -29,9 +29,9 @@
 					<td>Duedate</td> 
 				</tr>
 				<tr md-row>
-					<td md-cell class="breakall">{{adminproject.project.startdate.slice(0,10)}}</td>
+					<td md-cell class="breakall">{{adminproject.strconvert(adminproject.project.startdate).slice(0,10)}}</td>
 					<td>|</td>
-					<td md-cell class="breakall">{{adminproject.project.duedate.slice(0,10)}}</td>
+					<td md-cell class="breakall">{{adminproject.strconvert(adminproject.project.duedate).slice(0,10)}}</td>
 				</tr>
         	</tbody>
     	</table>

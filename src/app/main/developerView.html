@@ -4,9 +4,9 @@
     <table md-table class="table_notice">
       <tbody md-bodylayout="row">
         <tr>
-          <td>Project Name</td>
+          <td style="width: 50%">Project Name</td>
           <td>|</td>
-          <td>PM</td> 
+          <td style="width: 50%">Project Manager</td> 
         </tr>
         <tr md-row>
           <td md-cell class="breakall">{{dv.project.name}}</td>
@@ -83,8 +83,7 @@
         <tbody md-bodylayout="row">
           <tr md-row
             ng-repeat="td in dv.todoes">
-            <td md-cell class="breakall" ng-if="td.component!==undefined"><a>{{td.component}}</a></td>
-            <td ng-if="td.component===undefined"></td>
+            <td md-cell class="breakall" ng-if="td.component!==undefined"><a>{{td.component}}</a></td><td ng-if="td.component===undefined"></td>
             <td md-cell class="breakall" ng-if="td.updatedAt!==undefined">{{dv.strconvert(td.updatedAt).slice(0,10)}}</td>
             <td ng-if="td.updatedAt===undefined"></td>
             <td md-cell class="breakall" ng-if="td.duedate!==undefined">{{dv.strconvert(td.duedate).slice(0,10)}}</td>

@@ -18,21 +18,23 @@
       </md-input-container>
     </md-card>
 
-    <form ng-submit="main.add()">
+    <form>
     <md-table-container>
       <table md-table class="table_notice">
         <thead md-head md-order="main.query.order">
         <tr md-row>
-          <th md-column md-numeric md-order-by="pid"><span class="title_size">Project</span></th>
-          <th md-column md-numeric md-order-by="startdate"><span class="title_size">Startdate</span></th>
-          <th md-column md-numeric md-order-by="duedate"><span class="title_size">Duedate</span></th>
-          <th md-column md-order-by="done"><span class="title_size">Done</span></th>
+          <th md-column md-numeric md-order-by="pid" style="width:20%"><span class="title_size">Project</span></th>
+          <th md-column md-numeric style="width:20%"><span class="title_size">Project Manager</span></th>
+          <th md-column md-numeric md-order-by="startdate" style="width:20%"><span class="title_size">Startdate</span></th>
+          <th md-column md-numeric md-order-by="duedate" style="width:20%"><span class="title_size">Duedate</span></th>
+          <th md-column md-order-by="done" style="width:20%"><span class="title_size">Done</span></th>
         </tr>
         </thead>
         <tbody md-bodylayout="row">
           <tr md-row
             ng-repeat="project in main.datas | filter: filter.search | orderBy: main.query.order | limitTo: main.query.limit : (main.query.page -1) * main.query.limit">
             <td md-cell class="breakall"><md-button a ui-sref="userProjectView({ pid: project.pid })">{{project.name}}</md-button></td>
+            <td md-cell class="breakall">{{main.pminf(project.uid)}}</td>
             <td md-cell class="breakall">{{main.strconvert(project.startdate).slice(0,10)}}</td>
             <td md-cell class="breakall">{{main.strconvert(project.duedate).slice(0,10)}}</td>
             <td md-cell class="breakall" ng-if="project.done!=null">{{main.strconvert(project.done).slice(0,10)}}</td>

@@ -72,7 +72,7 @@
         duedate: vm.duedate,
         done: null,
       });
-      $location.path(`/todo/${vm.stateParams.pid}`);
+      $window.location.assign(`/todo/${vm.stateParams.pid}`);
     };
     vm.useradd = (uid, tdid, name) => {
       $http.post(`/rest/project/todo/${uid}/${tdid}`, {
@@ -112,8 +112,7 @@
         duedate: vm.duedate,
         done: vm.mtodo.todo.done,
       });
-      $location.path(`/todo/${vm.mtodo.todo.pid}`);
-      console.log(vm.component, vm.duedate, vm.mtodo.todo.done, vm.mtodo.todo);
+      $window.location.assign(`/todo/${vm.mtodo.todo.pid}`);
     };
     vm.todoDone = (td) => {
       $http.put(`/rest/project/todo/done/${td.body.tdid}`, {
@@ -127,7 +126,7 @@
       // console.log(vm.convert(new Date()));
     };
     vm.cancleDone = () => {
-      vm.mtodo.todo.done = null;
+      vm.mtodo.todo.done = undefined;
     };
     vm.delete = (tdid) => {
       const cf = window.confirm('Delete?');

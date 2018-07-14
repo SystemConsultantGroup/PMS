@@ -9,17 +9,23 @@
         </div>
         <div>
           <h2>Startdate</h2>
-          <input type="date" class="" ng-model="pm.startdate" value="{{pm.mproject.startdate.slice(0,10)}}">
+          <input type="date" class="" ng-model="pm.startdate" value="{{pm.strconvert(pm.mproject.startdate).slice(0,10)}}">
           <hr class="title_line">
         </div>
         <div>
           <h2>Duedate</h2>
-          <input type="date" class="" ng-model="pm.duedate" value="{{pm.mproject.duedate.slice(0,10)}}">
+          <input type="date" class="" ng-model="pm.duedate" value="{{pm.strconvert(pm.mproject.duedate).slice(0,10)}}">
           <hr class="title_line">
         </div>
-        <div>
+        <div ng-if="pm.mproject.done==null">
           <h2>Done</h2>
-          <input type="date" class="" ng-model="pm.done" value="{{pm.mproject.done.slice(0,10)}}">
+          Doing
+          <hr class="title_line">
+        </div>
+        <div ng-if="pm.mproject.done!=null">
+          <h2>Done</h2>
+          {{pm.strconvert(pm.mproject.done).slice(0,19)}}
+          <md-button ng-click="pm.cancleDone()">Cancle</md-button>
           <hr class="title_line">
         </div>
         <md-button type="submit" class="md-raised"><i class="fa fa-edit">  Edit Project</i></md-button>
