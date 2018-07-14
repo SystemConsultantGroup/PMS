@@ -282,6 +282,7 @@ router.put('/users/approve/:uid', wrap(async (req, res) => {
     res.send({
       result: false
     });
+
   }
 }));
 
